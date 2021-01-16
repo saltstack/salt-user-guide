@@ -1,0 +1,76 @@
+---
+minimum_pre_commit_version: 2.9.3
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: check-merge-conflict
+        description: Check for files that contain merge conflict strings.
+        language_version: python3
+      - id: mixed-line-ending
+        description: Replaces or checks mixed line ending.
+        args: [--fix=lf]
+        exclude: make.bat
+      - id: fix-byte-order-marker
+        description: Removes UTF-8 BOM if present, generally a Windows problem.
+        language_version: python3
+      - id: end-of-file-fixer
+        description: Makes sure files end in a newline and only a newline.
+        language_version: python3
+      - id: check-ast
+        description: Simply check whether files parse as valid python.
+        language_version: python3
+      - id: check-yaml
+      - id: trailing-whitespace
+      - id: file-contents-sorter
+        name: File Contents Sorter
+        description: |
+          Sort the lines in specified files (defaults to alphabetical).
+          You must provide list of target files as input in your .pre-commit-config.yaml file.
+        files: ^(.*requirements.*\.txt|\.brokignore|sitevars.rst)$
+  - repo: https://github.com/timothycrosley/isort
+    rev: "5.6.4"
+    hooks:
+      - id: isort
+        description: isort is a Python utility / library to sort imports automatically.
+        files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        description: Forces best practice formatting of Python code files.
+        files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
+  - repo: https://github.com/myint/rstcheck
+    rev: 3f92957 # Latest as of 05/17/2020
+    hooks:
+      - id: rstcheck
+        description: Checks syntax of reStructuredText/rst and code blocks nested within it.
+        args: [--report=warning]
+        additional_dependencies: [sphinx]
+        files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
+  - repo: https://github.com/asottile/blacken-docs
+    rev: v1.9.1
+    hooks:
+      - id: blacken-docs
+        description: Run black on python code blocks in documentation files.
+        files: ^(index|docs/.*|docs/_includes/.*)\.rst$
+        additional_dependencies: [black==20.8b1]
+  - repo: https://github.com/saltstack/mirrors-nox
+    rev: v2020.8.22
+    hooks:
+      - id: nox
+        alias: Generate Sphinx docs
+        description: Generate Sphinx docs, ensure they build
+        files: ^((index|README)|docs/.*)\.rst$
+        args:
+          - -e
+          - docs-html
+          - --
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.1.4
+    hooks:
+      - id: shellcheck
+        description: Check shell scripts with shellcheck.
+        files: ^.*\.(sh|bash|ksh)$
+        types: []
+        args: []
