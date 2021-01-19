@@ -37,7 +37,7 @@ build-site:
 
 pages:
   stage: publish
-  image: alpine
+  image: alpine:3.12
   script:
     - mv html public
     - 'echo "Gitlab Pages available at: ${CI_PAGES_URL}"'
