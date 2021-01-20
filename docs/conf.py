@@ -107,6 +107,7 @@ version = release
 extensions = [
     "sphinx_material_saltstack",
     "sphinx-prompt",
+    "sphinx_copybutton",
     "sphinx_substitution_extensions",
 ]
 
@@ -134,6 +135,7 @@ exclude_patterns = [
 
 # Base Material Theme requirements
 html_show_sourcelink = True  # False on private repos; True on public repos
+#html_theme = "furo"
 html_theme = "sphinx_material_saltstack"
 html_theme_path = sphinx_material_saltstack.html_theme_path()
 html_context = sphinx_material_saltstack.get_html_context()
@@ -167,25 +169,13 @@ html_theme_options = {
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = os.path.join(
-    html_theme_path[0],
-    "sphinx_material_saltstack",
-    "static",
-    "images",
-    "saltstack-logo.png",
-)
+html_logo = "_static/img/SaltProject_altlogo_teal.png"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large. Favicons can be up to at least 228x228. PNG
 # format is supported as well, not just .ico'
-html_favicon = os.path.join(
-    html_theme_path[0],
-    "sphinx_material_saltstack",
-    "static",
-    "images",
-    "favicon.png",
-)
+html_favicon = "_static/img/SaltProject_Logomark_teal.png"
 
 ###
 # PDF Generation / LaTeX configuration

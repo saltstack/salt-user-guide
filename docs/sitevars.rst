@@ -1,1 +1,1 @@
-.. |release| replace:: 1.0
+.. |release| replace:: 3002.2
