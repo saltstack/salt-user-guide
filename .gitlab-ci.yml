@@ -28,6 +28,8 @@ build-site:
   script:
     - pip install -U pip setuptools wheel
     - pip install -r requirements-dev.txt
+    - wget -O docs/_static/img/SaltProject_altlogo_teal.png https://gitlab.com/saltstack/open/salt-branding-guide/-/raw/master/logos/SaltProject_altlogo_teal.png?inline=false
+    - wget -O docs/_static/img/SaltProject_Logomark_teal.png https://gitlab.com/saltstack/open/salt-branding-guide/-/raw/master/logos/SaltProject_Logomark_teal.png?inline=false
     - nox -e 'docs-html(clean=False)'
     - mv docs/_build/html html
   artifacts:

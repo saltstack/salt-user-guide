@@ -1,3 +1,7 @@
+===============
+Salt User Guide
+===============
+
 .. image:: https://img.shields.io/badge/slack-@saltstackcommunity-blue.svg?logo=slack
    :target: https://saltstackcommunity.herokuapp.com/
 
@@ -12,10 +16,6 @@
 
 .. image:: https://img.shields.io/badge/stackoverflow-saltstack-orange.svg
    :target: https://stackoverflow.com/questions/tagged/salt-stack+or+salt-cloud+or+salt-creation+or+salt-contrib?sort=Newest
-
-===============
-Salt User Guide
-===============
 
 If you're looking to learn about Salt, you've come to the right place!
 
