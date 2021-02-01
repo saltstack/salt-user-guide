@@ -240,6 +240,7 @@ available in all templates:
 
     {{ grains['os'] }}
 
+
 .. Note::
    The syntax here will cause an error if the grain does not exist.
 
@@ -247,10 +248,11 @@ available in all templates:
 The ``grains.get`` function can be used to traverse deeper grains and set
 defaults:
 
-.. code-block:: bash
+.. code-block:: text
 
     {{ salt['grains.get']('os') }}
     {{ salt['grains.get']('os', ‘Debian’) }}
+
 
 .. Note::
     The syntax used here will result in “None” being returned if the grain does
