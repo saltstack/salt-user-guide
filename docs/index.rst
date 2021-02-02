@@ -16,4 +16,6 @@ Table of Contents
    :caption: Contributing
 
    topics/contributing
+   topics/writing-salt-docs
    topics/style-guide
+   topics/list-of-images
