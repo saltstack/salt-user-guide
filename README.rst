@@ -39,7 +39,7 @@ more information.
 Related links
 =============
 
-* `Salt Style Guide <https://gitlab.com/saltstack/open/salt-branding-guide>`__
+* `Salt Style Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html>`__
 * `Salt Project <https://github.com/saltstack/salt>`__
 
 
