@@ -71,6 +71,7 @@ class PatchedHTMLTranslator(HTMLTranslator):
 # Run above custom function against links
 def setup(app):
     app.set_translator("html", PatchedHTMLTranslator)
+    app.add_css_file('css/codeblock-captions.css')
 
 
 this_year = datetime.datetime.today().year
@@ -109,6 +110,7 @@ extensions = [
     "sphinx-prompt",
     "sphinx_copybutton",
     "sphinx_substitution_extensions",
+    "sphinx_tabs.tabs"
 ]
 
 source_suffix = ".rst"
@@ -165,7 +167,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ["_static"]
+html_static_path = ["_static"]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
