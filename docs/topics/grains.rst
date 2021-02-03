@@ -105,7 +105,6 @@ accepted.
 
    .. code-block:: yaml
       :caption: /etc/salt/master.d/grains.conf
-      :name: /etc/salt/master.d/grains.conf
 
       autosign_grains_dir: /etc/salt/autosign_grains
 
@@ -118,7 +117,6 @@ accepted.
 
    .. code-block:: text
       :caption: /etc/salt/autosign_grains/uuid
-      :name: /etc/salt/autosign_grains/uuid
 
       8f7d68e2-30c5-40c6-b84a-df7e978a03ee
       1d3c5473-1fbc-479e-b0c7-877705a0730f
@@ -132,7 +130,6 @@ accepted.
 
    .. code-block:: yaml
       :caption: /etc/salt/minion
-      :name: /etc/salt/minion
 
       autosign_grains:
         - uuid
@@ -177,7 +174,6 @@ is recommended to create a custom minion configuration file in the
 
 .. code-block:: yaml
    :caption: /etc/salt/minion.d/grains.conf
-   :name: /etc/salt/minion.d/grains.conf
 
    grains:
      deployment: datacenter4

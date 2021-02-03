@@ -1,0 +1,12 @@
+.code-block-caption .caption-text {
+    margin: 1em 0 0;
+    display: inline-block;
+    background: #f8f8f8;
+    padding: 7px 15px;
+    font-style: italic;
+    font-family: "Roboto Mono";
+    font-size: 12px
+}
+.code-block-caption + .highlight-* .highlight {
+    margin-top: 0;
+}
