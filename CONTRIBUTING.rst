@@ -64,6 +64,36 @@ For local development, the following prerequisites are needed:
 * `Python 3.6+ <https://realpython.com/installing-python/>`__
 * `Ability to create python venv <https://realpython.com/python-virtual-environments-a-primer/>`__
 
+Windows 10 users
+----------------
+
+For the best experience, when contributing from a Windows OS to projects using
+Python-based tools like ``pre-commit``, we recommend setting up `Windows Subsystem
+for Linux (WSL) <https://docs.microsoft.com/en-us/windows/wsl/>`__, with the
+latest version being WSLv2.
+
+The following gists on GitHub have been consulted with success for several
+contributors:
+
+* `Official Microsoft docs on installing WSL <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`__
+
+* A list of PowerShell commands in a gist to `Enable WSL and Install Ubuntu 20.04
+  <https://gist.github.com/ScriptAutomate/f94cd44dacd0f420fae65414e717212d>`__
+
+  * Ensure you also read the comment thread below the main content for
+    additional guidance about using Python on the WSL instance.
+
+We recommend `Installing Chocolatey on Windows 10 via PowerShell w/ Some Starter Packages
+<https://gist.github.com/ScriptAutomate/02e0cf33786f869740ee963ed6a913c1>`__.
+This installs ``git``, ``microsoft-windows-terminal``, and other helpful tools via
+the awesome Windows package management tool, `Chocolatey <https://chocolatey.org/why-chocolatey>`__.
+
+``choco install git`` easily installs ``git`` for a good Windows-dev experience.
+From the ``git`` package page on Chocolatey:
+
+* Git BASH
+* Git GUI
+* Shell Integration
 
 Fork, clone, and branch the repo
 ================================
