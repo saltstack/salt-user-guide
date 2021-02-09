@@ -19,20 +19,32 @@ by:
 The rest of this guide will explain our toolchain and how to set up your
 environment to contribute to the Salt User Guide.
 
+For additional help, see:
 
-Related links
-=============
+* :ref:`style-guide` - For general guidance about using Salt Project terms
+  and other style or formatting conventions.
+* :ref:`writing-salt-docs` - For information about the conventions we want you
+  to use when formatting reStructured Text (rST).
 
-For information about how to refer to Salt-specific terms and other
-documentation-related conventions, check out the
-`Salt Style Guide <https://gitlab.com/saltstack/open/salt-branding-guide>`__.
 
-This project also makes use of the following in the toolchain:
+Overview of the toolchain
+=========================
+This repository uses the following tools:
 
-* `reStructuredText Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__
-* `Sphinx <https://www.sphinx-doc.org/en/master/>`__
-* `GitLab Pages <https://docs.gitlab.com/ee/user/project/pages/>`__ for hosting
-* `GitLab CI <https://docs.gitlab.com/ee/ci/>`__
+* The Salt User Guide documentation is composed in
+  `reStructured text (rST) <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__,
+  which is a version of Markdown that is generally used in Python-based projects.
+* The rST is then run through `Sphinx <https://www.sphinx-doc.org/en/master/>`__,
+  a static site generator that converts the rST into HTML for publication on the
+  web.
+* Sphinx applies the
+  `SaltStack Material Theme for Sphinx <https://gitlab.com/saltstack/open/docs/sphinx-material-saltstack>`__
+  to render the site.
+* The guide is hosted directly on GitLab using the
+  `GitLab pages <https://docs.gitlab.com/ee/user/project/pages/>`__ feature.
+* GitLab handles the
+  `CI/CD pipeline <https://gitlab.com/saltstack/open/docs/salt-user-guide/-/pipelines>`__
+  for the project.
 
 
 Overview of how to contribute to this repository

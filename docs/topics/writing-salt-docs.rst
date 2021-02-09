@@ -4,6 +4,7 @@
 Writing Salt documentation (rST guide)
 ======================================
 
+Version 1.0 - last updated February 2021
 
 Introduction
 ============
@@ -18,7 +19,15 @@ This guide:
 * Lists the specific rST formatting guidelines that we want to
   highlight for use in Salt documentation projects
 
-.. Note::
+For additional help, see:
+
+* :ref:`style-guide` - For general guidance about using Salt Project terms and
+  other style or formatting conventions.
+* :ref:`contributing` - For more information about contributing to this
+  repository specifically, including setting up your environment.
+
+
+.. Tip::
     Want to see how this page looks in raw rST? Click **Show Source** at the
     end of the table of contents on the right.
 

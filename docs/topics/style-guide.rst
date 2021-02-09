@@ -4,13 +4,33 @@
 Salt style guide
 ================
 
-Version 1.0 - last updated January 2021
+Version 1.0 - last updated February 2021
 
 Introduction
 ============
 Welcome to the Salt Project style guide! This style guide is intended for use by
 project contributors, not necessarily end-users. It provides general guidance to
-anyone who contributes to the Salt project's documentation.
+anyone who contributes to the Salt project's documentation about:
+
+* How to use and refer to Salt Project terms and other aspects of word choice.
+* Grammar and formatting conventions such as capitalization, person, voice,
+  formatting example code and IP addresses, and other stylistic conventions.
+
+For additional help, see:
+
+* :ref:`writing-salt-docs` - For information about the conventions we want you
+  to use when formatting reStructured Text (rST).
+* :ref:`contributing` - For more information about contributing to this
+  repository specifically, including setting up your environment.
+
+
+.. Note::
+    Not all the documentation you read at Salt will be perfect in following
+    these guidelines. Treat this document as the rules we aspire to follow and
+    that we will correct any documentation not following these rules as we are
+    made aware of it. If you notice a style guide inconsistency, you are always
+    welcome to open a new issues explaining the problem.
+
 
 Intended audience and scope
 ===========================
@@ -19,22 +39,73 @@ documentation for the Salt project, including software engineers. This guide
 can help project contributors to communicate clearly and consistently in the
 Salt documentation.
 
-Our preferred style guide
-=========================
+
+Our preferred style guide: Google
+=================================
 We have adopted the `Google developer documentation style guide
-<https://developers.google.com/style>`_ for Salt documentation. For a quick
-summary, see the `Google style guide highlights
+<https://developers.google.com/style>`_ for Salt documentation. When writing
+documentation for our project, align with the Google style guide's voice and
+tone.
+
+For a quick summary, see the `Google style guide highlights
+<https://developers.google.com/style/highlights>`_. The rest of this document
+describes our project-specific customizations to Google's guide.
+
+
+Highlights from Google developer docs style guide
+=================================================
+We don't expect you to read the entire style guide, but we strongly recommend
+checking out the `Style guide highlights
 <https://developers.google.com/style/highlights>`_.
 
-The rest of this document describes our project-specific customizations to
-Google's guide.
+In addition to those highlights, the key elements from Google's style guide
+that we want to ensure that you follow when writing Salt docs are highlighted
+in the following sections.
 
-Our project uses standard American spelling and our preferred dictionary is the
-`American Heritage Dictionary
-<https://ahdictionary.com/>`_.
 
-When writing documentation for our project, align with the Google style guide's
-voice and tone.
+Samples - Code, commands, and IP addresses
+------------------------------------------
+When documenting IP addresses and other URLs, apply the following guidelines:
+
+* Inline code samples should be wrapped in backticks. For example:
+
+  .. code-block:: bash
+
+      ``name=testjob.``
+
+* When referencing IP addresses, use the IP addresses that are specifically
+  designated for examples. These are:
+
+  * ``192.0.2.1``
+  * ``198.51.100.1``
+  * ``203.0.113.1``
+
+* To reference filename placeholders in Linux commands, nest in the ``{{ }}``
+  symbols, all lowercase, separated by hyphens. Example: ``{{file-name}}.zip.``
+
+
+See Google's `Example domains and names
+<https://developers.google.com/style/examples?hl=en>`_ for more information.
+
+
+Use sentence case capitalization in headings
+--------------------------------------------
+In document titles and headings, use sentence case. That is, capitalize only the
+first word in the title, the first word in a subheading after a colon, and any
+proper nouns or other terms that are always capitalized a certain way.
+
+See Google's `Capitalization in titles and headings
+<https://developers.google.com/style/capitalization?hl=en#capitalization-in-titles-and-headings>`_
+article for more information.
+
+
+Use the second person
+---------------------
+Feel free to refer to our readers as "you." Using the second person is the
+industry standard for technical writing. See Google's `Second person and first
+person <https://developers.google.com/style/person>`_ article for more
+information.
+
 
 Glossary of preferred terms
 ===========================
@@ -79,13 +150,6 @@ consistency, listed in alphabetical order:
       minion service. The minions receive commands from the master.
 
 
-.. Using linters
-.. =============
-.. This project uses the {our preferred linter.}
-
-.. {Provide instructions or policies related to the linter here.}
-
-
 General writing tips
 ====================
 The following as some general guidelines recommended at Salt:
@@ -93,8 +157,6 @@ The following as some general guidelines recommended at Salt:
 * **Point-of-view** - Use the second person, imperative tense where possible.
   For example: "Use ``test.ping`` to check if a minion is online."
 * **Active voice** - Use active voice and present-tense. Avoid filler words.
-* **Capitalization** - The Google Developer's Style Guide recommends using
-  sentence case capitalization for titles and headings.
 * **Serial Commas** - When writing a list that includes three or more items, use
   the serial comma (or "Oxford comma"). For example: "France, Italy, and Spain."
 
@@ -102,6 +164,7 @@ For some additional general tips about improving writing and communication see:
 
 * `Write the Docs - Style Guides <https://www.writethedocs.org/guide/writing/style-guides/#writing-style>`_
 * `18F Content Guide <https://content-guide.18f.gov/>`_
+
 
 Accessible writing
 ==================
@@ -114,6 +177,7 @@ For resources on making your writing more accessible, see:
 * `Writing accessible documentation - Google developer documentation style guide <https://developers.google.com/style/accessibility>`_
 * `Accessibility guidelines and requirements - Microsoft Writing Style Guide <https://docs.microsoft.com/en-us/style-guide/accessibility/accessibility-guidelines-requirements>`_
 * `Writing for Accessibility - Mailchimp Content Style Guide <https://styleguide.mailchimp.com/writing-for-accessibility/>`_
+
 
 Inclusive and bias-free writing
 ===============================

@@ -38,14 +38,27 @@ more information.
 
 Related links
 =============
+Check out the following links related to the Salt User Guide:
 
-* `Salt Style Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html>`__
-* `Salt Project <https://github.com/saltstack/salt>`__
+* `Salt Project <https://github.com/saltstack/salt>`__ - The repository for the
+  Salt Project.
+* `Salt Project Home Page <https://saltproject.io/>`_ - The web portal for
+  Salt community events and resources.
+* `Contributing Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/contributing.html>`_ -
+  For information about contributing to the Salt User Guide and other Salt
+  documentation projects, including how to set up your environment and other
+  policies around submitting merge requests or issues.
+* `Salt Style Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html>`__ -
+  For general guidance about using Salt Project terms and other style or
+  formatting conventions.
+* `Writing Salt documentation (rST guide) <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/writing-salt-docs.html>`_ -
+  For conventions and guidelines about formatting reStructured Text (rST) in
+  Salt documentation.
+
 
 
 Other Salt documentation
 ------------------------
-
 The following documentation is part of the Salt Project documentation:
 
 * `Salt Project documentation <https://docs.saltproject.io/en/latest/contents.html>`__:
@@ -57,6 +70,7 @@ The following documentation is part of the Salt Project documentation:
 
 Overview of the toolchain
 =========================
+This repository uses the following tools:
 
 * The Salt User Guide documentation is composed in
   `reStructured text (rST) <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__,
