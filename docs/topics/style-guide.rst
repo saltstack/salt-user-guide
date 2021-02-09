@@ -26,10 +26,13 @@ For additional help, see:
 
 .. Note::
     Not all the documentation you read at Salt will be perfect in following
-    these guidelines. Treat this document as the rules we aspire to follow and
-    that we will correct any documentation not following these rules as we are
-    made aware of it. If you notice a style guide inconsistency, you are always
-    welcome to open a new issues explaining the problem.
+    these guidelines. Treat this document as the guidelines we aspire to follow,
+    not as a direct promise to perfectly comply with this guide in all Salt
+    documentation.
+
+    If we discover Salt documentation that is not following these rules as we
+    are made aware of it. If you notice a style guide inconsistency, you are
+    always welcome and encouraged to open a new issue explaining the problem.
 
 
 Intended audience and scope
@@ -124,28 +127,28 @@ consistency, listed in alphabetical order:
     - Examples
 
   * - master, masters, Salt master, Salt masters, master service
-    - The term "master" should never be capitalized unless it is at the
-      beginning of a heading.
+    - * The term "master" should never be capitalized unless it is at the
+        beginning of a heading.
 
-      In general, the first instance of this term in a topic should use the
-      formal version of "Salt master." All other instances should use the
-      shortened version of "master."
+      * In general, the first instance of this term in a topic should use the
+        formal version of "Salt master." All other instances should use the
+        shortened version of "master."
 
-      When referring to the Salt master service (such as starting or stopping
-      the service), use "master service."
+      * When referring to the Salt master service (such as starting or stopping
+        the service), use "master service."
     - **Salty style:** The Salt master is a server that is running the master
       service. The master issues commands to one or more Salt  minions.
 
   * - minion, minions, Salt minion, Salt minions, minion service
-    - The term "minion" should never be capitalized unless it is at the
-      beginning of a heading.
+    - * The term "minion" should never be capitalized unless it is at the
+        beginning of a heading.
 
-      In general, the first instance of this term in a topic should use the
-      formal version of "Salt minion." All other instances should use the
-      shortened version of "minion."
+      * In general, the first instance of this term in a topic should use the
+        formal version of "Salt minion." All other instances should use the
+        shortened version of "minion."
 
-      When referring to the Salt minion service (such as starting or stopping
-      the service), use "minion service."
+      * When referring to the Salt minion service (such as starting or stopping
+        the service), use "minion service."
     - **Salty style:** The Salt minions are servers that are running the
       minion service. The minions receive commands from the master.
 
