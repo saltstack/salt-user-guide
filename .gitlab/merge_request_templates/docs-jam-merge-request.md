@@ -31,7 +31,9 @@ not yet received your store code, let one of the docs jam coordinators know.
 
 - [ ] Verify the pipeline is passing
 - [ ] Review new or modified topics to ensure they follow the [style
-      guide](https://gitlab.com/saltstack/open/docs/salt-user-guide/-/blob/master/docs/topics/style-guide.rst)
+      guide](https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html)
+- [ ] Review new or modified topics to ensure they follow the [Writing Salt
+      documentation (rST guide)](https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/writing-salt-docs.html)
 - [ ] Ensure all headings use sentence case
 - [ ] Ensure the line endings use line breaks for readability
 - [ ] Code blocks use the correct highlighting syntax

@@ -16,7 +16,9 @@ after merging.)
 
 ### Merge requirements satisfied?
 
-- [ ] Check rendered output for any special directives such as notes, tables,
-      and images
+- [ ] Check rendered output to ensure formatting is correct for any special
+      directives such as notes, tables, lists, and images
 - [ ] Review new or modified topics to ensure they follow the [style
-      guide](https://gitlab.com/saltstack/open/docs/salt-user-guide/-/blob/master/docs/topics/style-guide.rst)
+      guide](https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html)
+- [ ] Review new or modified topics to ensure they follow the [Writing Salt
+      documentation (rST guide)](https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/writing-salt-docs.html)
