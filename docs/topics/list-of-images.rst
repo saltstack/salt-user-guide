@@ -9,52 +9,69 @@ in this repository and how to reference them.
 
 All image files are stored in the **docs > _static > img** folder.
 
-Default Configuration
-=====================
 
-.. image:: ../_static/img/default-configuration.png
+Beacons
+=======
+
+.. image:: ../_static/img/beacons.png
    :align: right
-   :alt: Default configuration
+   :alt: Beacons
 
 To copy the code for this image:
 
 .. code-block:: text
 
-    .. image:: ../_static/img/default-configuration.png
+    .. image:: ../_static/img/beacons.png
        :align: right
-       :alt: Default configuration
+       :alt: Beacons
 
 
-Job overview
-============
+Execution architecture
+======================
 
-.. image:: ../_static/img/job-overview.png
+.. image:: ../_static/img/execution-architecture.png
    :align: right
-   :alt: Job overview
+   :alt: Execution architecture
 
 To copy the code for this image:
 
 .. code-block:: text
 
-    .. image:: ../_static/img/job-overview.png
+    .. image:: ../_static/img/execution-architecture.png
        :align: right
-       :alt: Job overview
+       :alt: Execution architecture
 
 
-Salt grains
-===========
+Features of Salt
+================
 
-.. image:: ../_static/img/master-minion-communication.jpg
+.. image:: ../_static/img/features-of-salt.png
    :align: right
-   :alt: Salt grains
+   :alt: Features of Salt
 
 To copy the code for this image:
 
 .. code-block:: text
 
-    .. image:: ../_static/img/master-minion-communication.jpg
+    .. image:: ../_static/img/features-of-salt.png
        :align: right
-       :alt: Salt grains
+       :alt: Features of Salt
+
+
+Key management
+==============
+
+.. image:: ../_static/img/key-management.png
+   :align: right
+   :alt: Key management
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/key-management.png
+       :align: right
+       :alt: Key management
 
 
 Master to minion flow
@@ -121,84 +138,20 @@ To copy the code for this image:
        :alt: Minion vs. master tasks
 
 
-Orchestration and automation
-============================
+Open event system
+=================
 
-.. image:: ../_static/img/orchestration-automation.png
+.. image:: ../_static/img/open-event-system.png
    :align: right
-   :alt: Orchestration and automation
+   :alt: Open event system
 
 To copy the code for this image:
 
 .. code-block:: text
 
-    .. image:: ../_static/img/orchestration-automation.png
+    .. image:: ../_static/img/open-event-system.png
        :align: right
-       :alt: Orchestration and automation
-
-
-Order of operations 1
-=====================
-
-.. image:: ../_static/img/order-of-operations-01.png
-   :align: right
-   :alt: Order of operations
-
-To copy the code for this image:
-
-.. code-block:: text
-
-    .. image:: ../_static/img/order-of-operations-01.png
-       :align: right
-       :alt: Order of operations
-
-
-Order of operations 2
-=====================
-
-.. image:: ../_static/img/order-of-operations-02.png
-   :align: right
-   :alt: Order of operations
-
-To copy the code for this image:
-
-.. code-block:: text
-
-    .. image:: ../_static/img/order-of-operations-02.png
-       :align: right
-       :alt: Order of operations
-
-
-Order of operations 3
-=====================
-
-.. image:: ../_static/img/order-of-operations-03.png
-   :align: right
-   :alt: Order of operations
-
-To copy the code for this image:
-
-.. code-block:: text
-
-    .. image:: ../_static/img/order-of-operations-03.png
-       :align: right
-       :alt: Order of operations
-
-
-Order of operations 4
-=====================
-
-.. image:: ../_static/img/order-of-operations-04.png
-   :align: right
-   :alt: Order of operations
-
-To copy the code for this image:
-
-.. code-block:: text
-
-    .. image:: ../_static/img/order-of-operations-04.png
-       :align: right
-       :alt: Order of operations
+       :alt: Open event system
 
 
 Proxy minion vs. standard minions
@@ -217,6 +170,38 @@ To copy the code for this image:
        :alt: Proxy minion vs. standard minions
 
 
+Reactors
+========
+
+.. image:: ../_static/img/reactors.jpg
+   :align: right
+   :alt: Reactors
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/reactors.jpg
+       :align: right
+       :alt: Reactors
+
+
+Reactor Process
+===============
+
+.. image:: ../_static/img/reactor-process.jpg
+   :align: right
+   :alt: Reactor process
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/reactor-process.jpg
+       :align: right
+       :alt: Reactor process
+
+
 Render compile runtime
 ======================
 
@@ -231,6 +216,22 @@ To copy the code for this image:
     .. image:: ../_static/img/render-compile-runtime.png
        :align: right
        :alt: Render compile runtime
+
+
+Runners
+=======
+
+.. image:: ../_static/img/runners.png
+   :align: right
+   :alt: Runners
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/runners.png
+       :align: right
+       :alt: Runners
 
 
 Salt architecture
@@ -281,6 +282,38 @@ To copy the code for this image:
        :alt: Salt command
 
 
+Salt execution types
+====================
+
+.. image:: ../_static/img/salt-execution-types.jpg
+   :align: right
+   :alt: Salt execution types
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/salt-execution-types.jpg
+       :align: right
+       :alt: Salt execution types
+
+
+Salt grains
+===========
+
+.. image:: ../_static/img/master-minion-communication.jpg
+   :align: right
+   :alt: Salt grains
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/master-minion-communication.jpg
+       :align: right
+       :alt: Salt grains
+
+
 Salt PKI model
 ==============
 
@@ -313,17 +346,113 @@ To copy the code for this image:
        :alt: Salt states
 
 
-SaltStack Enterprise architecture
-=================================
+SaltStack Config architecture
+=============================
 
-.. image:: ../_static/img/saltstack-enterprise-architecture.png
+.. image:: ../_static/img/saltstack-config-architecture.png
    :align: right
-   :alt: SaltStack Enterprise architecture
+   :alt: SaltStack Config architecture
 
 To copy the code for this image:
 
 .. code-block:: text
 
-    .. image:: ../_static/img/saltstack-enterprise-architecture.png
+    .. image:: ../_static/img/saltstack-config-architecture.png
        :align: right
-       :alt: SaltStack Enterprise architecture
+       :alt: SaltStack Config architecture
+
+
+SSH
+===
+
+.. image:: ../_static/img/ssh-master-minion.png
+   :align: right
+   :alt: SSH
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/ssh-master-minion.png
+       :align: right
+       :alt: SSH
+
+
+States
+======
+
+.. image:: ../_static/img/states.png
+   :align: right
+   :alt: Salt states
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/states.png
+       :align: right
+       :alt: Salt states
+
+
+State compiler routines
+=======================
+
+.. image:: ../_static/img/state-compiler-routines.png
+   :align: right
+   :alt: State compiler routines
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/state-compiler-routines.png
+       :align: right
+       :alt: State compiler routines
+
+
+State execution rendering process
+=================================
+
+.. image:: ../_static/img/state-execution-rendering.png
+   :align: right
+   :alt: State execution rendering process
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/state-execution-rendering.png
+       :align: right
+       :alt: State execution rendering process
+
+
+State runtime stage
+===================
+
+.. image:: ../_static/img/state-runtime-stage.png
+   :align: right
+   :alt: State runtime stage
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/state-runtime-stage.png
+       :align: right
+       :alt: State runtime stage
+
+
+State stages and data layers
+============================
+
+.. image:: ../_static/img/state-stages-data-layers.png
+   :align: right
+   :alt: Stages and data layers of the Salt state system
+
+To copy the code for this image:
+
+.. code-block:: text
+
+    .. image:: ../_static/img/state-stages-data-layers.png
+       :align: right
+       :alt: Stages and data layers of the Salt state system
