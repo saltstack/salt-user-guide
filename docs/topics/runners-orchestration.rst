@@ -59,7 +59,7 @@ Bootstrap minions with salt-bootstrap script
     # Use PsExec to bootstrap Windows minions
     $ salt-run manage.bootstrap_psexec hosts='host1,host2'
 
-    installer_url='http://exampledomain/salt-installer.exe'
+    installer_url='http://example.com/salt-installer.exe'
 
 
 Jobs runner
@@ -189,7 +189,7 @@ A more complex example. Consider the following individual cli commands:
     $ salt -E '^(web|app).*' state.highstate
     $ salt -G 'role:firewall' junos.ping
     $ salt -G 'role:firewall' state.apply firewall.web_rules pillar='{"rule_group":"web_app"}'
-    $ salt-run http.query 'https://devops/update/web_app' method=POST data='<xml>somedata</xml>'
+    $ salt-run http.query 'https://example.com/update/web_app' method=POST data='<xml>somedata</xml>'
 
 A Salt orchestration state file could be defined to run these commands:
 
