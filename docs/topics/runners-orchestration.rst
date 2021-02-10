@@ -5,7 +5,7 @@ Runners and orchestration
 =========================
 
 Salt runners
-############
+============
 
 Salt runners are convenience applications executed with the salt-run command.
 Salt runners work similarly to Salt execution modules however they execute on the Salt master instead of the Salt minions.
@@ -76,7 +76,7 @@ Print a specific job’s detail given by it’s jid, including the return data.
 
 
 Salt orchestration
-##################
+==================
 Salt provides the ability to orchestrate system administrative tasks throughout the enterprise.
 
 *  Orchestration can be configured across physical and cloud environments.
