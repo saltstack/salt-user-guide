@@ -124,7 +124,7 @@ All salt renderers, including the default Jinja + YAML renderer, contain a numbe
 Gaining access to this data is one of the main motivators when using Jinja.
 
 Injecting data into Salt state files
-https://jinja.palletsprojects.com/
+====================================
 The state system injects dictionaries for easy accessibility to Salt data.
 These dictionaries are available through Jinja.
 
