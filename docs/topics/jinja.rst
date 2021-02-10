@@ -76,7 +76,7 @@ This allows for great flexibility in how an SLS file is rendered.
 
 
 Using the Jinja renderer
-########################
+========================
 Up until this point, all examples have been written in YAML, but in the real world many conditions exist where more control over flow is needed.
 
 Salt uses the Jinja templating language by default to manage programmatic control over the yaml files. Jinja can be used to template SLS files.
@@ -87,21 +87,32 @@ Jinja basics
 There are few kinds of delimiters in Jinja.
 The default Jinja delimiters are defined as follows:
 
-+-------------------------------------------------------------------------------------------------------------------+
-| Jinja Delimiters | Definition                                                                                     |
-+==================+================================================================================================+
-| {% ... %}        | Define a Jinja Statement                                                                       |
-+------------------+------------------------------------------------------------------------------------------------+
-| {%- ... -%}      | Define a Jinja Statement, but remove whitespace from beginning and end of line                 |
-+------------------+------------------------------------------------------------------------------------------------+
-| {{ ... }}        | Print a Jinja expression or call a Salt execution directly at the desired location of the file |
-+------------------+------------------------------------------------------------------------------------------------+
-| {{- ... -}}      | Jinja expression removing whitespace from beginning and end of line                            |
-+------------------+------------------------------------------------------------------------------------------------+
-| {# ... #}        | Jinja comments - not included in output after being rendered                                   |
-+------------------+------------------------------------------------------------------------------------------------+
-| {#- ... -#}      | Jinja comments removing whitespace from beginning and end of line                              |
-+------------------+------------------------------------------------------------------------------------------------+
+.. list-table::
+  :widths: 40 60
+  :header-rows: 1
+
+  * - Jinja delimiters
+    - Definition
+
+  * - {% ... %}
+    - Define a Jinja statement
+
+  * - {%- ... -%}
+    - Define a Jinja statement, but remove whitespace from beginning and end of line
+
+  * - {{ ... }}
+    - Print a Jinja expression or call a Salt execution directly at the desired location of
+      the file
+
+  * - {{- ... -}}
+    - Jinja expression removing whitespace from beginning and end of line
+
+  * - {# ... #}
+    - Jinja comments - not included in output after being rendered
+
+  * - {#- ... -#}
+    - Jinja comments removing whitespace from beginning and end of line
+
 
 Jinja comment tags can span multiple lines. This is a good way to comment blocks of states within a SLS file for testing.
 
@@ -113,7 +124,7 @@ All salt renderers, including the default Jinja + YAML renderer, contain a numbe
 Gaining access to this data is one of the main motivators when using Jinja.
 
 Injecting data into Salt state files
-====================================
+https://jinja.palletsprojects.com/
 The state system injects dictionaries for easy accessibility to Salt data.
 These dictionaries are available through Jinja.
 
@@ -186,7 +197,7 @@ Using a Salt execution module.function to data injection:
 
 
 Jinja statements
-################
+================
 Jinja statements can be used throughout Salt (various types of state files as well as configuration files) and include:
 
 *  Variable assignment
@@ -371,7 +382,7 @@ This is quite a complex example. The data being consumed will benefit from our n
 
 
 Importing data
-##############
+==============
 Jinja allows for importing external files and Salt executions.
 This is useful any time the same data must be made available to more than one SLS file.
 
@@ -520,7 +531,7 @@ Let's make a http.query to a web service to retrieve some structured data and in
 
 
 Templating application configuration files
-##########################################
+==========================================
 Files can have Jinja declared to plugin values as they are pushed to minions.
 Adding :code:`template: jinja` to a :code:`file.managed` state instructs Salt to use Jinja to render the file before it is written to the filesystem.
 
@@ -605,7 +616,7 @@ This example shows us how we can manage the deployment and configuration of an a
 
 
 Outputters and parsing return data
-##################################
+==================================
 
 The output in Salt commands can be configured to present the data in other formats using Salt outputters.
 
