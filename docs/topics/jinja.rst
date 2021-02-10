@@ -106,7 +106,7 @@ The default Jinja delimiters are defined as follows:
 Jinja comment tags can span multiple lines. This is a good way to comment blocks of states within a SLS file for testing.
 
 Whitespace removal can be defined for beginning of the line, end of the line or both.
-See http://jinja.poco.org/docs for Jinja documentation.
+See https://jinja.palletsprojects.com/ for Jinja documentation.
 
 All salt renderers, including the default Jinja + YAML renderer, contain a number of variables holding data which can be used.
 
