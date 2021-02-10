@@ -710,9 +710,9 @@ The following examples show how to parse JSON formatted output using the **jq**:
           "up": true,
           "inet": [
             {
-              "broadcast": "192.168.123.255",
+              "broadcast": "192.0.2.255",
               "netmask": "255.255.255.0",
-              "address": "192.168.123.23",
+              "address": "192.0.2.23",
               "label": "eth0"
             }
           ],
@@ -720,7 +720,7 @@ The following examples show how to parse JSON formatted output using the **jq**:
             {
               "prefixlen": "64",
               "scope": "global",
-              "address": "fd67:2f08:1ebe:4370:216:3eff:fe35:b085"
+              "address": "2001:db8:1ebe:4370:216:3eff:fe35:b085"
             },
             {
               "prefixlen": "64",
@@ -740,10 +740,10 @@ Suppose you only want the IP address of each minion. You can use **jq** to filte
 
 .. code-block:: shell
 
-    "192.168.123.23"
-    "192.168.123.56"
-    "192.168.123.71"
-    "192.168.123.125"
-    "192.168.123.200"
+    "192.0.2.23"
+    "192.0.2.56"
+    "192.0.2.71"
+    "192.0.2.125"
+    "192.0.2.200"
 
 This example shows how we can use alternate methods to extract data from a minion for use during a work-flow.
