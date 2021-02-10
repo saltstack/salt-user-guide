@@ -233,7 +233,7 @@ A Salt orchestration state file could be defined to run these commands:
       salt.runner:
         - name: http.query
         - arg:
-            - 'https://devops/update/web_app'
+            - 'https://example.comf/update/web_app'
         - kwarg:
             method: POST
             data: '<xml>somedata</xml>'
