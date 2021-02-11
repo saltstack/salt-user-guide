@@ -50,22 +50,22 @@ The ``names`` argument allows for one ID to become many names.
 .. code-block:: yaml
    :caption: /srv/salt/py3.sls
 
-   python-pkgs: 
-     pkg.installed: 
-       - names: 
-         - python 
-	 - pypy 
-	 - python-mako
+   python-pkgs:
+     pkg.installed:
+       - names:
+         - python
+         - pypy
+         - python-mako
 
 Another example using directories:
 
 .. code-block:: yaml
    :caption: /srv/salt/deploy_code.sls
 
-   deploy_dirs: 
-     file.directory: 
-       - makedirs: True 
-       - names: 
+   deploy_dirs:
+     file.directory:
+       - makedirs: True
+       - names:
          - /opt/code/docs
          - /opt/code/config
          - /opt/code/images
@@ -73,7 +73,7 @@ Another example using directories:
 State execution order
 =====================
 The following sections of this chapter outline declarations that will set the
-order of execution as high data is processed and compiled into low data. 
+order of execution as high data is processed and compiled into low data.
 
 Tools exist in Salt to modify state ordering. These tools consist of requisite
 declarations and order options. When Salt States are executed, they are first
@@ -105,7 +105,7 @@ files.
       file.managed:
         - name: /etc/named.conf
         - source: salt://dns/files/named.conf
-	
+
 What would be the outcome of executing this state based on implicit ordering?
 
 The order declaration
@@ -114,21 +114,22 @@ The ``order`` option is used by adding an order number to a state:
 
 .. code-block:: yaml
 
-   install_app: 
-     pkg.installed: 
-       - name: app 
+   install_app:
+     pkg.installed:
+       - name: app
 
-   prestage_application_data: 
-     file.recurse: 
-       - name: /app/production 
-       - source: salt://app/source 
+   prestage_application_data:
+     file.recurse:
+       - name: /app/production
+       - source: salt://app/source
        - order: 1
 
 By setting the ``order`` option to 1 this ensures that the ``/app/production``
 directory will be populated before any other states that are executed.
 
 Any state declared without an ``order`` option will be executed after all
-states with the ``order`` option are executed in the order they are present in the State File. This construct can only handle ordering states from the
+states with the ``order`` option are executed in the order they are present
+in the State File. This construct can only handle ordering states from the
 beginning. Sometimes you may want to send a state to the end of the execution -
 to do this, set ``order: last``
 
@@ -138,7 +139,7 @@ to do this, set ``order: last``
       module.function:
        - name: http.query
        - args:
-         - 'http://somelink_to_update_status'
+         - 'http://example.org/update-status'
        - kwargs:
          - method: POST
        - params: 'keyA=valA&keyB=valB'
@@ -158,7 +159,7 @@ Before using the ``order`` option, remember that the majority of state ordering
 should be done using other Requisite Declarations. A requisite declaration
 will override an ``order`` option so a state with an ``order`` option defined
 should not require or be required by other states.
- 
+
 Requisite declarations
 ======================
 Often when setting up states any single action will require or depend on
@@ -277,7 +278,7 @@ The foundation of the requisite system is the require requisite declaration.
        - name: /etc/named.conf
        - source: salt://dns/files/named.conf
        - require:
-	 - pkg: dns_install
+         - pkg: dns_install
 
 In the previous example, we use a require to make sure the bind package is
 successfully installed before attempting to copy the configuration file to the
@@ -325,14 +326,14 @@ that reacts to the changes in the watched states:
        - name: named
        - enable: True
        - watch:
-	 - file: dns_conf
+         - file: dns_conf
 
    dns_conf:
      file.managed:
        - name: /etc/named.conf
        - source: salt://dns/files/named.conf
        - require:
-	 - pkg: dns_install
+         - pkg: dns_install
 
 Running the previous State File execution will produce the following output if
 the ``/etc/named.conf`` is updated:
@@ -343,36 +344,36 @@ the ``/etc/named.conf`` is updated:
    ----------
              ID: /etc/named.conf
        Function: file.managed
-	 Result: True
-	Comment: File /etc/named.conf updated
-	Started: 22:40:34.126006
+         Result: True
+        Comment: File /etc/named.conf updated
+        Started: 22:40:34.126006
        Duration: 34.006 ms
-	Changes:
-		  ----------
-		 diff:
-		      ---
-		     +++
-		     @@ -10,38 +10,37 @@
-		      -     listen-on port 53 { 127.0.0.1; };
-		     +     listen-on port 53 { 0.0.0.0; };
-		     +zone "my.domain" IN {
-		     +       type master;
-		     +       file "master/master.my.domain";
-		     +       // enable slaves only
-		     +       allow-transfer {192.168.23.1;192.168.23.2;);
-		     +};
+        Changes:
+                  ----------
+                 diff:
+                      ---
+                     +++
+                     @@ -10,38 +10,37 @@
+                      -     listen-on port 53 { 127.0.0.1; };
+                     +     listen-on port 53 { 0.0.0.0; };
+                     +zone "my.domain" IN {
+                     +       type master;
+                     +       file "master/master.my.domain";
+                     +       // enable slaves only
+                     +       allow-transfer {192.168.23.1;192.168.23.2;);
+                     +};
    ----------
- 	     ID: start_dns
+             ID: start_dns
        Function: service.running
-	   Name: named
-	 Result: True
-	Comment: Started Service named
-	Started: 23:10:36.318223
+           Name: named
+         Result: True
+        Comment: Started Service named
+        Started: 23:10:36.318223
        Duration: 400.123 ms
-	Changes:
-		  ----------
-		 named:
-		     True
+        Changes:
+                  ----------
+                 named:
+                     True
    Summary for rebel_01
    ------------
    Succeeded: 1 (changed=1)
@@ -424,18 +425,18 @@ declared:
        - name: named
        - enable: True
        - require:
-	 - pkg: dns_install     # Technically not needed since "watch" is on dns_conf
-	 - user: create_user    # dns_conf has a "require" defined for dns_install
-	 - group: create_group  # Cascading require as "watch" is also a require
+         - pkg: dns_install     # Technically not needed since "watch" is on dns_conf
+         - user: create_user    # dns_conf has a "require" defined for dns_install
+         - group: create_group  # Cascading require as "watch" is also a require
        - watch:
-	 - file: dns_conf
+         - file: dns_conf
 
    dns_conf:
      file.managed:
        - name: /etc/named.conf
        - source: salt://dns/files/named.conf
        - require:
-	 - pkg: dns_install
+         - pkg: dns_install
 
 It is important to understand the flow of the State File execution.
 
@@ -458,9 +459,9 @@ failure. The ``onfail`` requisite is applied in the same way as require as watch
      module.run:
        - name: slack_notify.call_hook
        - kwargs:
-	   message: Apache failed to start
+           message: Apache failed to start
        - onfail:
-	 - service: httpd_service
+         - service: httpd_service
 
 The onchanges declaration
 -------------------------
@@ -477,7 +478,7 @@ detected changes, where a ``watch`` does. For example, in a ``watch``:
        - name: named
        - enable: True
        - watch:
-	 - file: dns_conf
+         - file: dns_conf
 
    dns_conf:
      file.managed:
@@ -497,7 +498,7 @@ When using the ``onchanges`` the behavior changes:
        - name: named
        - enable: True
        - onchanges:
-	 - file: dns_conf
+         - file: dns_conf
 
    dns_conf:
      file.managed:
@@ -524,7 +525,7 @@ updated if there is a new bootstrap script available:
      pkg.latest:
        - name: salt-cloud
        - onchanges:
-	 - file: deploy_bootstrap
+         - file: deploy_bootstrap
 
 The use requisite
 -----------------
@@ -548,13 +549,13 @@ defaults. A simple example of the ``use`` declaration:
        - enable_ipv6: true
        - ipv6proto: static
        - ipv6ipaddrs:
-	 - 2001:db8:dead:beef::3/64
-	 - 2001:db8:dead:beef::7/64
+         - 2001:db8:dead:beef::3/64
+         - 2001:db8:dead:beef::7/64
        - ipv6gateway: 2001:db8:dead:beef::1
        - ipv6netmask: 64
        - dns:
-	 - 8.8.8.8
-	 - 8.8.4.4
+         - 8.8.8.8
+         - 8.8.4.4
 
    manage_eth1:
      network.managed:
@@ -564,7 +565,7 @@ defaults. A simple example of the ``use`` declaration:
        - ipv6ipaddr: 2001:db8:dead:c0::3
        - ipv6gateway: 2001:db8:dead:c0::1
        - use:
-	 - network: manage_eth0
+         - network: manage_eth0
 
 The ``use`` statement was developed primarily for the networking states but
 can be used on any states in Salt. This makes sense for the network state
@@ -590,9 +591,9 @@ practical example:
      module.run:
        - name: service.restart
        - m_names:
-	 - httpd
+         - httpd
        - prereq:
-	 - file: site-code
+         - file: site-code
 
    siteCode:
      file.recurse:
@@ -665,8 +666,8 @@ Here is the libvirt state file including the kvm state requiring it:
      - service.running:
        - name: libvirt
        - require:
-	 - kmod: load_kvm
-	 - pkg: install_qemu
+         - kmod: load_kvm
+         - pkg: install_qemu
 
 Extending external SLS data
 ===========================
@@ -696,14 +697,14 @@ Using the following Salt State file as a starting point:
        - name: sshd
        - enable: True
        - watch:
-	 - pkg: install_ssh
+         - pkg: install_ssh
        - file: sshd_conf
 
    sshd_conf:
      file.managed:
        - name: /etc/ssh/sshd_config
        - source: salt://ssh/files/sshd_config
-	
+
 We can use the ssh state file as a base, and then build upon it to suit
 specific needs:
 
@@ -716,19 +717,19 @@ specific needs:
    extend:
      sshd_conf:
        file:
-	 - name: /etc/ssh/sshd_config
-	 - source: salt://ssh/files/dmz_sshd_config
+         - name: /etc/ssh/sshd_config
+         - source: salt://ssh/files/dmz_sshd_config
 
      ssh_server:
        service:
-	 - watch:
-	   - file: add_banner
+         - watch:
+           - file: add_banner
 
    add_banner:
      file.managed:
        - name: /etc/ssh/banner
        - source: salt:/ssh/files/banner
-	
+
 A few critical things happened here. First off, the SLS files that are going
 to be extended are included, then the ``extend`` declaration is defined. Under
 the ``extend`` declaration, two ids are extended: the ``ssh_conf`` file state
@@ -750,17 +751,17 @@ The following example is **wrong**:
      - ssh
 
    extend:
-     apache: 
+     apache:
        file:
-	 - name: /etc/httpd/conf/httpd.conf 
-	 - source: salt://http/httpd2.conf 
+         - name: /etc/httpd/conf/httpd.conf
+         - source: salt://http/httpd2.conf
 
-   # Second overwrites first 
-   extend: 
-     ssh-server: 
-       service: 
-	 - watch: 
-	   - file: /etc/ssh/banner
+   # Second overwrites first
+   extend:
+     ssh-server:
+       service:
+         - watch:
+           - file: /etc/ssh/banner
 
 .. note::
 
@@ -799,9 +800,9 @@ An example using ``require_in`` and ``watch_in`` could look like this:
      pkg.latest:
        - name: openssh
        - watch_in:
-	 - service: ssh_server
+         - service: ssh_server
        - require_in:
-	 - file: sshd_conf
+         - file: sshd_conf
 
    ssh_server:
      service.running:
@@ -813,7 +814,7 @@ An example using ``require_in`` and ``watch_in`` could look like this:
        - name: /etc/ssh/sshd_config
        - source: salt://ssh/files/sshd_config
        - watch_in:
-	 - service: ssh_server
+         - service: ssh_server
 
 An alternate way to extend a state declaration:
 
@@ -827,7 +828,7 @@ An alternate way to extend a state declaration:
        - name: /etc/ssh/banner
        - source: salt:/ssh/files/banner
        - watch_in:
-	 - service: ssh_server
+         - service: ssh_server
 
 Here's our networking example with the ``use_in`` declaration taken a bit
 further:
@@ -846,16 +847,16 @@ further:
        - enable_ipv6: true
        - ipv6proto: static
        - ipv6ipaddrs:
-	 - 2001:db8:dead:beef::3/64
-	 - 2001:db8:dead:beef::7/64
+         - 2001:db8:dead:beef::3/64
+         - 2001:db8:dead:beef::7/64
        - ipv6gateway: 2001:db8:dead:beef::1
        - ipv6netmask: 64
        - dns:
-	 - 8.8.8.8
-	 - 8.8.4.4
+         - 8.8.8.8
+         - 8.8.4.4
        - use_in:
-	 - network: manage_eth1
-	 - network: manage_eth2
+         - network: manage_eth1
+         - network: manage_eth2
 
    manage_eth1:
      network.managed:
@@ -907,7 +908,7 @@ exists.
        - host: localhost
        - password: p@ssw0rd
        - onlyif:
-	 - mysql -u ro_user -e 'use projectDB'
+         - mysql -u ro_user -e 'use projectDB'
 
 The unless requisite
 --------------------
@@ -929,8 +930,8 @@ However, the state will not run if both commands return True.
      pkg.installed:
        - name: vim
        - unless:
-	 - rpm -q vim-enhanced
-	 - ls /usr/bin/vim
+         - rpm -q vim-enhanced
+         - ls /usr/bin/vim
 
 The ``unless`` requisite checks are resolved for each name to which they are
 associated.
@@ -951,10 +952,9 @@ expected.
        - pattern: ^enabled=0
        - repl: enabled=1
        - check_cmd:
-
-       - grep '^enabled=1' /etc/yum.repos.d/fedora.repo
-	   - or -
-	 - grep '^enabled=0' /etc/yum.repos.d/fedora.repo && return 1 || return 0
+         - grep '^enabled=1' /etc/yum.repos.d/fedora.repo
+         # or
+         - grep '^enabled=0' /etc/yum.repos.d/fedora.repo && return 1 || return 0
 
 The ``check_cmd`` is just a bash command.
 
@@ -982,7 +982,7 @@ all states have completed.
      service.running:
        - name: apache2
        - listen:
-	 - file: /etc/apache2/apache2.conf
+         - file: /etc/apache2/apache2.conf
 
    configure_apache2:
      file.managed:
