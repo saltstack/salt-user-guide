@@ -1,4 +1,4 @@
-﻿.. _requisites:
+.. _requisites:
 
 =================================
 State requisites and declarations
@@ -8,7 +8,7 @@ ID vs. name
 ===========
 Technically speaking, the component of the High Data that determines the name
 argument that is passed to the state function is not called name in the High
-Data, it is called “ID”.
+Data, it is called "ID".
 
 The ID is copied into the name argument unless the name argument is explicitly
 declared by specifying name (or names) value(s).
