@@ -29,40 +29,39 @@ A strong convention in Salt formulas is to place platform-specific data, such as
 
 The syntax for referencing a value is a normal dictionary lookup in Jinja, such as {{ mysql['service'] }} or the shorthand {{ mysql.service }}.
 
-.. code-block:: text
+.. code-block:: yaml
+	:caption: /srv/salt/mysql/map.jinja
 
-		# File:/srv/salt/mysql/map.jinja
-
-		{% set mysql = salt['grains.filter_by']({
-			'Debian': {
-				'server': 'mysql-server',
-				'client': 'mysql-client',
-				'service': 'mysql',
-				'config': '/etc/mysql/my.cnf',
-				'python': 'python-mysqldb',
-			},
-			'RedHat': {
-				'server': 'mysql-server',
-				'client': 'mysql',
-				'service': 'mysqld',
-				'config': '/etc/my.cnf',
-				'python': 'MySQL-python',
-			},
-			'Gentoo': {
-				'server': 'dev-db/mysql',
-				'client': 'dev-db/mysql',
-				'service': 'mysql',
-				'config': '/etc/mysql/my.cnf',
-				'python': 'dev-python/mysql-python',
-			},
-		}, merge=salt['pillar.get']('mysql:lookup')) %}
+	{% set mysql = salt['grains.filter_by']({
+		'Debian': {
+			'server': 'mysql-server',
+			'client': 'mysql-client',
+			'service': 'mysql',
+			'config': '/etc/mysql/my.cnf',
+			'python': 'python-mysqldb',
+		},
+		'RedHat': {
+			'server': 'mysql-server',
+			'client': 'mysql',
+			'service': 'mysqld',
+			'config': '/etc/my.cnf',
+			'python': 'MySQL-python',
+		},
+		'Gentoo': {
+			'server': 'dev-db/mysql',
+			'client': 'dev-db/mysql',
+			'service': 'mysql',
+			'config': '/etc/mysql/my.cnf',
+			'python': 'dev-python/mysql-python',
+		},
+	}, merge=salt['pillar.get']('mysql:lookup')) %}
 
 
 Values defined in the map file can be fetched for the current platform in any state file using the following syntax:
 
-.. code-block:: text
+.. code-block:: yaml
+    :caption: /srv/salt/mysql/init.sls
 
-    # File:/srv/salt/mysql/init.sls
     {% from "mysql/map.jinja" import mysql with context %}
 
     mysql-server:
@@ -76,7 +75,7 @@ Organizing pillar data
 
 It is considered a best practice to make formulas expect all formula-related parameters to be placed under second-level lookup key, within a main namespace designated for holding data for particular service/software/etc, managed by the formula:
 
-.. code-block:: text
+.. code-block:: yaml
 
     mysql:
       lookup:
@@ -89,7 +88,7 @@ One possible use is to allow writing map files, as are commonly seen in Salt for
 
 For example, the two following map files produce identical results but one is written using the normal 'jinja|yaml' and the other is using 'py':
 
-.. code-block:: text
+.. code-block:: yaml
 
     #!jinja|yaml
     {% set apache = salt.grains.filter_by({
@@ -97,7 +96,7 @@ For example, the two following map files produce identical results but one is wr
     }, merge=salt.pillar.get('apache:lookup')) %}
     {{ apache | yaml() }}
 
-.. code-block:: text
+.. code-block:: yaml
 
     #!py
     def run():
@@ -106,9 +105,10 @@ For example, the two following map files produce identical results but one is wr
         }, merge=__salt__.pillar.get('apache:lookup'))
         return apache
 
+
 Regardless of which of the above map files is used, it can be accessed from any other sls file by calling this function. The following is a usage example in Jinja:
 
-.. code-block:: text
+.. code-block:: yaml
 
     {% set apache = salt.slsutil.renderer('map.sls') %}
 
@@ -122,7 +122,7 @@ Render json file
 
 Loads JSON data from the absolute path
 
-.. code-block:: text
+.. code-block:: bash
 
     $ salt \* jinja.import_JSON /srv/salt/foo.json
 
@@ -131,7 +131,7 @@ Render yaml file
 
 Loads yaml data from the absolute path
 
-.. code-block:: text
+.. code-block:: bash
 
     $ salt \* jinja.import_yaml /srv/salt/foo.yaml
 
@@ -140,12 +140,12 @@ Render a map file
 
 Assuming the map is loaded in your salt state file as follows:
 
-.. code-block:: text
+.. code-block:: bash
 
     {% from "foo/map.jinja" import bar with context %}
 
 Then the following syntax can be used to render the map variable ``bar``:
 
-.. code-block:: text
+.. code-block:: bash
 
     $ salt \* jinja.load_map /srv/salt/foo/map.jinja bar
