@@ -1,4 +1,5 @@
 http://example.com
+http://repo.saltstack.com
 http://www.example.com
 https://example.com
 https://github.com/saltstack/salt/issues/56642
