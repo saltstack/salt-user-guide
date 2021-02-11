@@ -11,8 +11,8 @@ Salt User Guide
 .. image:: https://img.shields.io/reddit/subreddit-subscribers/saltstack?style=social
    :target: https://www.reddit.com/r/saltstack/
 
-.. image:: https://img.shields.io/twitter/follow/saltstack?style=social&logo=twitter
-   :target: https://twitter.com/intent/follow?screen_name=saltstack
+.. image:: https://img.shields.io/twitter/follow/Salt_Project_OS?style=social&logo=twitter
+   :target: https://twitter.com/intent/follow?screen_name=Salt_Project_OS
 
 .. image:: https://img.shields.io/badge/stackoverflow-saltstack-orange.svg
    :target: https://stackoverflow.com/questions/tagged/salt-stack+or+salt-cloud+or+salt-creation+or+salt-contrib?sort=Newest
