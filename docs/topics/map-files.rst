@@ -30,6 +30,7 @@ A strong convention in Salt formulas is to place platform-specific data, such as
 The syntax for referencing a value is a normal dictionary lookup in Jinja, such as {{ mysql['service'] }} or the shorthand {{ mysql.service }}.
 
 .. code-block:: yaml
+
 	:caption: /srv/salt/mysql/map.jinja
 
 	{% set mysql = salt['grains.filter_by']({
@@ -60,6 +61,7 @@ The syntax for referencing a value is a normal dictionary lookup in Jinja, such 
 Values defined in the map file can be fetched for the current platform in any state file using the following syntax:
 
 .. code-block:: yaml
+
     :caption: /srv/salt/mysql/init.sls
 
     {% from "mysql/map.jinja" import mysql with context %}
