@@ -52,17 +52,17 @@ which is known as orchestration.
 
 A basic Salt implementation consists of a Salt Master managing one or more Salt Minions.
 
-* A Salt Master is a server running the ```salt-master ``` service that provides
+* A Salt Master is a server running the ``salt-master`` service that provides
   management to many systems.
 * A Salt Minion is any system/device managed by Salt. A Salt Minion can
-  run the ```salt-minion``` service or can be agentless using ```salt-ssh```
-  or ```salt-proxy```.
+  run the ``salt-minion`` service or can be agentless using ``salt-ssh``
+  or ``salt-proxy``.
 * A Salt Proxy process can behave as a salt-minion, which in turn connects
   to an underlying device to execute commands or states.  Salt Proxy
   connections are typically achieved via SSH or RESTful API calls.
-* Systems managed via SSH with the ```salt-ssh``` model are also considered
+* Systems managed via SSH with the ``salt-ssh`` model are also considered
   agentless minions under the managed systems model.
-* A newer system in development is ```salt-bin```, which will.
+* A newer system in development is ``salt-bin``, which will.
 
 .. image:: ../_static/img/salt-architecture.png
    :align: right
@@ -71,7 +71,7 @@ A basic Salt implementation consists of a Salt Master managing one or more Salt 
 
 **Salt master**
 
-A server running the ```salt-master``` service is a Salt Master. The Salt Master
+A server running the ``salt-master`` service is a Salt Master. The Salt Master
 provides a cohesive platform for orchestration and automation between managed systems.
 
 **Salt minion**
@@ -80,8 +80,8 @@ A system under control of the master is considered a Salt Minion.
 However, minions do not require a master to be managed but can run in a stand-alone
 mode.
 
-* The ```salt-minion``` service runs as a management agent on a system.
-* The ```salt-minion``` service can run pretty much anywhere you can have a
+* The ``salt-minion`` service runs as a management agent on a system.
+* The ``salt-minion`` service can run pretty much anywhere you can have a
       Python interpreter.
 
 **Salt proxy**
@@ -120,3 +120,122 @@ SaltStack Config features include:
   DISA STIGS
 * Reporting
 * An enterprise API (eAPI)
+
+.. image:: ../_static/img/saltstack-config-architecture.png
+   :align: right
+   :alt: SaltStack Config architecture
+
+**Salt topology**
+-----------------------------
+
+Salt has two ports used by default for the minions to communicate with their
+master(s). These ports work in concert to receive and deliver data to the *Message
+Bus*. Salt’s message bus is ZeroMQ, which creates an asynchronous network topology
+to provide the fastest communication possible.
+
+**Open event system**
+
+The event system is used for inter-process communication between the Salt Master
+and Salt Minions:
+
+* Events are seen by both the master and minions.
+* Events can be monitored and evaluated by both.
+* The event bus lays the groundwork for orchestration and real-time monitoring.
+
+.. image:: ../_static/img/open-event-system.png
+   :align: right
+   :alt: Open event system
+
+**Salt event system execution architecture**
+
+All minions see jobs and results by subscribing to events published on the event
+system.
+Salt uses a pluggable event system:
+
+* **ZeroMQ (0MQ)** - the current default socket-level library providing a flexible transport layer.
+* **Tornado** - full TCP-based transport layer event system.
+
+**High-speed communication bus**
+
+One of the greatest strengths of Salt is the speed of execution. The event system’s
+communication bus is more efficient than running a higher-level web service (http).
+The remote execution system is the component that all components are built
+upon, allowing for decentralized remote execution to spread load across resources.
+
+**YAML Salt Configuration file format**
+-----------------------------------------
+
+*YAML Ain't Markup Language* is a human friendly data serialization standard for
+all programming languages. It is not a markup language like XML which uses tags
+to "mark" text. YAML commonly focuses on data structures, such as lists and
+dictionaries, not document markup.
+
+**Rules of YAML**
+
+The default renderer for many of the files used in Salt is the YAML renderer.
+YAML is a markup language with many powerful features. It is the job of the YAML
+renderer to take the YAML data structure and compile it into a Python data
+structure for Salt.
+
+There are basic rules for creating YAML:
+
+* Data is structured in `key: value`` pairs.
+* Mappings use a colon and one space (“: ”) to mark key: value pairs.
+* The value of keys can be in many different structures.
+* All keys/properties are case-sensitive. Comments begin with a hash “#”.
+
+**YAML simple structure**
+
+YAML consists of three basic element types:
+
+#. **Scalars** -``key: value`` mappings where the value can be a number, string, or boolean value.
+#. **Lists** - a ``key:`` followed by a list of values where each value is on a separate line and proceeded with two spaces and a hyphen.
+#. **Dictionaries** - a collection of ``key: value`` mappings and lists.
+
+.. Note::
+    All keys are case sensitive.
+
+  .. code-block:: YAML
+   :caption: Scalar
+
+   # key: value
+
+   vegetables: peas
+   fruit: apples
+   grains: bread
+
+  .. code-block:: YAML
+   :caption: Lists
+
+   # sequence_key:
+   #  - value1
+   #  - value2
+
+   vegetables:
+      - peas
+      - carrots
+   fruits:
+      - apples
+      - oranges
+
+  .. code-block:: YAML
+   :caption: Dictionary
+
+    dinner:
+       appetizer: shrimp cocktail
+       drink: sparkling water
+       entree:
+         - steak
+         - mashed potatoes
+         - dinner roll
+       dessert:
+         - chocolate cake
+
+**Lists and dictionaries - YAML block structures**
+
+* Indentation sets the context. You MUST indent your properties and list with one
+  or more spaces, but two spaces is standard.
+* Tabs are NOT allowed, use spaces ONLY.
+* YAML is organized into block structures.
+* A collection, which is a list, or dictionary block sequence, indicates each
+  entry with a hyphen and a space ( “- ”).
