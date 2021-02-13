@@ -56,7 +56,7 @@ The syntax for referencing a value is a normal dictionary lookup in Jinja, such 
 			'python': 'dev-python/mysql-python',
 		},
 	}, merge=salt['pillar.get']('mysql:lookup')) %}
-.. code-block:: yaml
+.. code-block:: yaml+jinja
    :caption: /srv/salt/mysql/map.jinja
 
    {% set mysql = salt['grains.filter_by']({
@@ -88,6 +88,7 @@ Values defined in the map file can be fetched for the current platform in any st
 
 .. code-block:: yaml
 
+.. code-block:: yaml+jinja
     :caption: /srv/salt/mysql/init.sls
 
     {% from "mysql/map.jinja" import mysql with context %}
@@ -116,7 +117,7 @@ One possible use is to allow writing map files, as are commonly seen in Salt for
 
 For example, the two following map files produce identical results but one is written using the normal 'jinja|yaml' and the other is using 'py':
 
-.. code-block:: yaml
+.. code-block:: yaml+jinja
 
     #!jinja|yaml
     {% set apache = salt.grains.filter_by({
@@ -124,7 +125,7 @@ For example, the two following map files produce identical results but one is wr
     }, merge=salt.pillar.get('apache:lookup')) %}
     {{ apache | yaml() }}
 
-.. code-block:: yaml
+.. code-block:: yaml+jinja
 
     #!py
     def run():
