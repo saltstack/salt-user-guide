@@ -29,8 +29,7 @@ A strong convention in Salt formulas is to place platform-specific data, such as
 
 The syntax for referencing a value is a normal dictionary lookup in Jinja, such as {{ mysql['service'] }} or the shorthand {{ mysql.service }}.
 
-.. code-block:: yaml
-
+.. code-block:: yaml+jinja
 	:caption: /srv/salt/mysql/map.jinja
 
 	{% set mysql = salt['grains.filter_by']({
@@ -56,37 +55,9 @@ The syntax for referencing a value is a normal dictionary lookup in Jinja, such 
 			'python': 'dev-python/mysql-python',
 		},
 	}, merge=salt['pillar.get']('mysql:lookup')) %}
-.. code-block:: yaml+jinja
-   :caption: /srv/salt/mysql/map.jinja
-
-   {% set mysql = salt['grains.filter_by']({
-       'Debian': {
-	   'server': 'mysql-server',
-	   'client': 'mysql-client',
-	   'service': 'mysql',
-	   'config': '/etc/mysql/my.cnf',
-	   'python': 'python-mysqldb',
-	},
-	'RedHat': {
-	   'server': 'mysql-server',
-	   'client': 'mysql',
-	   'service': 'mysqld',
-	   'config': '/etc/my.cnf',
-	   'python': 'MySQL-python',
-	},
-	'Gentoo': {
-	   'server': 'dev-db/mysql',
-	   'client': 'dev-db/mysql',
-	   'service': 'mysql',
-	   'config': '/etc/mysql/my.cnf',
-	   'python': 'dev-python/mysql-python',
-	},
-}, merge=salt['pillar.get']('mysql:lookup')) %}
 
 
 Values defined in the map file can be fetched for the current platform in any state file using the following syntax:
-
-.. code-block:: yaml
 
 .. code-block:: yaml+jinja
     :caption: /srv/salt/mysql/init.sls
@@ -137,7 +108,7 @@ For example, the two following map files produce identical results but one is wr
 
 Regardless of which of the above map files is used, it can be accessed from any other sls file by calling this function. The following is a usage example in Jinja:
 
-.. code-block:: yaml
+.. code-block:: yaml+jinja
 
     {% set apache = salt.slsutil.renderer('map.sls') %}
 
