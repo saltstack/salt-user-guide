@@ -48,6 +48,7 @@ repos:
         args: [--report=warning]
         additional_dependencies: [sphinx]
         files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
+        exclude: docs/topics/pillar.rst
   - repo: https://github.com/asottile/blacken-docs
     rev: v1.9.1
     hooks:
@@ -66,11 +67,3 @@ repos:
           - -e
           - docs-html
           - --
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.4
-    hooks:
-      - id: shellcheck
-        description: Check shell scripts with shellcheck.
-        files: ^.*\.(sh|bash|ksh)$
-        types: []
-        args: []
