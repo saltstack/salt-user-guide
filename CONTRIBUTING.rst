@@ -50,8 +50,7 @@ This repository uses the following tools:
 Overview of how to contribute to this repository
 ================================================
 
-To contribute to this repository, you first need to set up your repository for
-the first time, you need to:
+To contribute to this repository, you first need to set up your own local repository:
 
 * `Fork, clone, and branch the repo`_
 * `Set up your local preview environment`_
@@ -62,13 +61,16 @@ After this initial setup, you then need to:
 * Edit the documentation in reStructured Text
 * `Preview HTML changes locally`_
 * Open a merge request in Gitlab
-* After a merge request gets approved, it can be merged!
 
+Once a merge request gets approved, it can be merged!
 At any time, you can ask a member of the documentation team for assistance.
 
 
 Prerequisites
 =============
+
+Contributing to Salt requires an account on `GitLab.com <https://about.gitlab.com/>`__.
+If you do not already have one, create a free account on the `GitLab sign-up page <https://gitlab.com/users/sign_up/>`__.
 
 For local development, the following prerequisites are needed:
 
@@ -128,6 +130,12 @@ Then, clone the forked repo to your local machine:
     # or HTTPS
     git clone https://gitlab.com/<forked-repo-path>/salt-user-guide.git
 
+.. note::
+
+    Before cloning your forked repo, you need to create an SSH
+    key so that your local Git repository can authenticate to the GitLab remote server.
+    See `GitLab and SSH keys <https://docs.gitlab.com/ee/ssh/README.html>`__ for instructions.
+
 Configure the remotes for your main upstream repository:
 
 .. code-block:: bash
@@ -165,6 +173,8 @@ From within your local copy of the forked repo:
 
     # Activate venv
     source .venv/bin/activate
+    # On Windows, use instead:
+    # .venv/Scripts/activate
 
     # Install required python packages to venv
     pip install -U pip setuptools wheel
@@ -244,6 +254,8 @@ should preview a local build of your changes first. To preview the changes:
 
     # Activate venv
     source .venv/bin/activate
+    # On Windows, use instead:
+    # .venv/Scripts/activate
 
     # Generate HTML documentation with nox
     nox -e 'docs-html(clean=False)'
