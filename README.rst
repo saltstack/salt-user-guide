@@ -5,8 +5,8 @@ Salt User Guide
 .. image:: https://img.shields.io/badge/slack-@saltstackcommunity-blue.svg?logo=slack
    :target: https://saltstackcommunity.herokuapp.com/
 
-.. image:: https://img.shields.io/twitch/status/saltstackinc
-   :target: https://www.twitch.tv/saltstackinc
+.. image:: https://img.shields.io/twitch/status/saltprojectoss
+   :target: https://www.twitch.tv/saltprojectoss
 
 .. image:: https://img.shields.io/reddit/subreddit-subscribers/saltstack?style=social
    :target: https://www.reddit.com/r/saltstack/
