@@ -55,7 +55,7 @@ However, there are scenarios for using other languages and templating languages.
 
 .. Admonition:: Reference
 
-    https://docs.saltstack.com/en/latest/ref/renderers/all/index.html#all-salt-renderers
+    https://docs.saltproject.io/en/latest/ref/renderers/all/index.html#all-salt-renderers
 
 Salt State files are rendered on the ``salt-minion`` in a decentralized computational model. This removes bottleneck possibilities from rendering and module execution on the ``salt-master``.
 

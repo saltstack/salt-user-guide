@@ -4,11 +4,17 @@
 Salt install, config, and start
 ===============================
 
-Saltstack repository configuration
-==================================
-SaltStack provides a public repository for packages at: `http://repo.saltstack.com/ <http://repo.saltstack.com/>`_
+Salt Project repository configuration
+=====================================
+Salt Project provides a public repository for packages at: `https://repo.saltproject.io/ <https://repo.saltproject.io/>`_
 
 Salt is often distributed in split packages by distributions, and only salt-master & salt-minion are required for salt to function. The preferred method for installing Salt is via distribution packages. This will ensure that all dependencies are met and that Salt is installed in a tested and distribution aligned way.
+
+.. note::
+
+   The following examples only cover a few operating systems. For directions
+   on installing on a wider variety of operating systems, reference the
+   directions found on `https://repo.saltproject.io/ <https://repo.saltproject.io/>`__.
 
 Salt package yum installation
 -----------------------------
@@ -18,20 +24,21 @@ Operating systems in the RedHat family install via yum:
 
     .. code-block:: bash
 
-        $ sudo yum install https://repo.saltstack.com/py3/redhat/salt-py3-repo-latest.el8.noarch.rpm
+        sudo rpm --import https://repo.saltproject.io/py3/redhat/8/x86_64/latest/SALTSTACK-GPG-KEY.pub
+        curl -fsSL https://repo.saltproject.io/py3/redhat/8/x86_64/latest.repo | sudo tee /etc/yum.repos.d/salt.repo
 
 #.  Refresh/expire your local package cache (not always necessary).
 
     .. code-block:: bash
 
-        $ sudo yum clean expire-cache
+        sudo yum clean expire-cache
 
 #.  Install packages.
 
     .. code-block:: bash
 
-        $ sudo yum install salt-master
-        $ sudo yum install salt-minion
+        sudo yum install salt-master
+        sudo yum install salt-minion
 
 Salt package apt installation
 -----------------------------
@@ -41,21 +48,17 @@ Operating systems in the Debian family install via apt
 
     .. code-block:: bash
 
-        $ wget -O - https://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
-
-#.  Add the following file to your apt source lists.
-
-    .. code-block:: yaml
-        :caption: /etc/apt/sources.list.d/saltstack.list
-
-        deb http://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest focal main
+       # Download key
+       sudo curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest/salt-archive-keyring.gpg
+       # Create apt sources list file
+       echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg] https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
 
 #.  Install packages.
 
     .. code-block:: bash
 
-        $ sudo apt install salt-master
-        $ sudo apt install salt-minion
+       sudo apt install salt-master
+       sudo apt install salt-minion
 
 
 Salt package pip installation
@@ -66,13 +69,13 @@ An operating system agnostic installation of Salt is via pip from pypi.org. Pip 
 
     .. code-block:: bash
 
-        $ pip install salt
+       pip install salt
 
 A benefit of using pip is being able to install salt in python virtual environments and conda environments.
 
 Bootstrap install Salt
 ======================
-The Salt Bootstrap `project <http://bootstrap.saltstack.com>`_ maintains a shell script to install Salt on any Linux/Unix platform in the best way possible for the platform.
+The Salt Bootstrap `project <https://bootstrap.saltproject.io>`_ maintains a shell script to install Salt on any Linux/Unix platform in the best way possible for the platform.
 
 * Install from system packages
 * Enables salt services automatically
@@ -82,25 +85,25 @@ The bootstrap script can be used to install specific services:
 .. code-block:: bash
 
     # Download the install script
-    $ curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com
+    curl -o bootstrap-salt.sh -L https://bootstrap.saltproject.io
 
     # Install minion service (default)
-    $ ./bootstrap-salt.sh
+    ./bootstrap-salt.sh
 
     # Install both the Salt master and minion
-    $ ./bootstrap-salt.sh -M
+    ./bootstrap-salt.sh -M
 
     # Install just the Salt master service
-    $ ./bootstrap-salt.sh -M -N
+    ./bootstrap-salt.sh -M -N
 
     # Perform a pip-based installation (i.e., for a minion)
-    $ ./bootstrap-salt.sh -P
+    ./bootstrap-salt.sh -P
 
     # To download and run
-    $ curl -L http://bootstrap.saltstack.com | sudo sh -s --
+    curl -L https://bootstrap.saltproject.io | sudo sh -s --
 
     # To download and install a specific git branch/version
-    $ curl -L http://bootstrap.saltstack.com | sudo sh -s -- git develop
+    curl -L https://bootstrap.saltproject.io | sudo sh -s -- git develop
 
 Salt network ports
 ==================
@@ -241,13 +244,13 @@ In this example, to accept keys, run:
 
 .. code-block:: bash
 
-    $ salt-key -a db1
+    salt-key -a db1
 
 If there are multiple keys to accept and are trusted, you can accept all at once:
 
 .. code-block:: bash
 
-    $ salt-key -A
+    salt-key -A
 
 .. Warning::
     If the master is open to the internet this is considered a security vulnerability.
@@ -295,14 +298,14 @@ When starting the ``salt-master`` and ``salt-minion``, ``systemctl`` is recommen
 
 .. code-block:: bash
 
-    $ systemctl start salt-master
-    $ systemctl start salt-minion
+    systemctl start salt-master
+    systemctl start salt-minion
 
 In fact, ``systemctl`` commands are useful for preliminary debugging as well, and you will most likely rely on this tool for process start/stop confirmation and preliminary debugging.
 
 .. code-block:: bash
 
-    $ systemctl [start|status|stop] [salt-master|salt-minion]
+    systemctl [start|status|stop] [salt-master|salt-minion]
 
 Starting in the foreground
 ---------------------------
@@ -310,8 +313,8 @@ The ``salt-master`` and ``salt-minion`` daemons can be run to show their logs in
 
 .. code-block:: bash
 
-    $ salt-master
-    $ salt-minion
+    salt-master
+    salt-minion
 
 Verifying a Salt installation
 =============================
@@ -327,7 +330,7 @@ After a successful installation of Salt:
             Active: active (running) since Tue 2020-02-04 16:34:55 CST; 17h ago
               Docs: man:salt-master(1)
                     file:///usr/share/doc/salt/html/contents.html
-                    https://docs.saltstack.com/en/latest/contents.html
+                    https://docs.saltproject.io/en/latest/contents.html
           Main PID: 8727 (salt-master)
              Tasks: 32 (limit: 4915)
             CGroup: /system.slice/salt-master.service

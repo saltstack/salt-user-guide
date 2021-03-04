@@ -139,7 +139,7 @@ to do this, set ``order: last``
       module.function:
        - name: http.query
        - args:
-         - 'http://example.org/update-status'
+         - 'https://example.org/update-status'
        - kwargs:
          - method: POST
        - params: 'keyA=valA&keyB=valB'
