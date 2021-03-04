@@ -111,7 +111,7 @@ capability of Salt but will not be using it in this class.
 SaltStack Config
 ----------------
 
-SaltStack Congif provides an intuitive user interface to perform complex functions
+SaltStack Config provides an intuitive user interface to perform complex functions
 like configuration management and orchestration. Jobs in SaltStack Config can be
 built, stored, and scheduled so you spend less time and fewer resources executing
 routine functions. It also allows distributing the work to other skill-level
