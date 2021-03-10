@@ -236,7 +236,7 @@ Maximum parallel jobs running
 _____________________________
 
 For jobs that are long-running and could possibly step on each other, or for jobs that could pile up
-in case of infrastructure outage, the scheduler supports the option ``maxrunning', the maximum
+in case of infrastructure outage, the scheduler supports the option ``maxrunning``, the maximum
 number of copies of the routine that can run. The default for ``maxrunning`` is 1.
 
 .. code-block:: sls
