@@ -187,7 +187,7 @@ Standards for busy environments:
 Basic minion configuration
 ===========================
 * The ``salt-minion`` comes default with a DNS/hostname configuration setup.
-* The default minion YAML config at ``/etc/salt/minion`` contains all the commented settings.
+* The default minion YAML configuration at ``/etc/salt/minion`` contains all the commented settings.
 * Custom settings are added in YAML to ``/etc/salt/minion.d/`` as ``.conf`` files on the minion.
 * The default minion file should be used for referencing settings as needed.
 
@@ -215,8 +215,12 @@ unless explicitly set:
 
 Salt key exchange
 =================
-Salt uses key-based authentication for security. Salt employs two types of keys,
-RSA and AES.
+Salt uses key-based authentication for security.
+
+There are 2 types of keys used in Salt:
+
+* RSA
+* AES
 
 Salt keys
 ---------
