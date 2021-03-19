@@ -6,19 +6,14 @@ Salt install, config, and start
 
 Salt Project repository configuration
 =====================================
-Salt Project provides a public repository for packages at the `Salt Project Package Repo
-<https://repo.saltproject.io/>`__.
+Salt Project provides a public repository for packages at the `Salt Project Package Repo <https://repo.saltproject.io/>`__.
 
-The preferred method for installing
-Salt is via distribution packages, which ensures that all dependencies are met and
-that Salt is installed in a tested and distribution-aligned way.
-Salt is often distributed in split packages, but only ``salt-master`` and
-``salt-minion`` are required for Salt to function.
+The preferred method for installing Salt is via distribution packages, which ensures that all dependencies are met and that Salt is installed in a tested and distribution-aligned way.
+Salt is often distributed in split packages, but only ``salt-master`` and ``salt-minion`` are required for Salt to function.
 
 .. Note::
 
-   The following examples only cover Debian and Redhat platforms. Instructions for
-   other platforms can be found at the `Salt Project Package Repo <https://repo.saltproject.io/>`__.
+   The following examples only cover Debian and Redhat platforms. Instructions for other platforms can be found at the `Salt Project Package Repo <https://repo.saltproject.io/>`__.
 
 RedHat installation
 -------------------
@@ -54,6 +49,7 @@ Operating systems in the Debian family install via ``apt``.
 
        # Download key
        sudo curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest/salt-archive-keyring.gpg
+
        # Create apt sources list file
        echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg] https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
 
@@ -67,11 +63,8 @@ Operating systems in the Debian family install via ``apt``.
 
 Platform-agnostic installation
 ------------------------------
-Salt can be installed in an platform-agnostic way via the Python
-package installer ``pip`` from
-`pypi.org <https://pypi.org>`_.
-``Pip`` can also install other packages that will complement
-your Salt code.
+Salt can be installed in an platform-agnostic way via the Python package installer ``pip`` from `pypi.org <https://pypi.org>`_.
+``Pip`` can also install other packages that will complement your Salt code.
 
 #.  Install package:
 
@@ -79,14 +72,12 @@ your Salt code.
 
        pip install salt
 
-A benefit of using ``pip`` is the ability to install Salt in Python virtual environments
-and Conda environments.
+A benefit of using ``pip`` is the ability to install Salt in Python virtual environments and Conda environments.
 
 Salt Bootstrap installation
 ===========================
-The `Salt Bootstrap project <https://bootstrap.saltproject.io>`_ maintains a shell
-script that installs Salt on any Linux/Unix platform.  The script installs
-system packages and enables Salt services automatically.
+The `Salt Bootstrap project <https://bootstrap.saltproject.io>`_ maintains a shell script that installs Salt on any Linux/Unix platform.
+The script installs system packages and enables Salt services automatically.
 
 The bootstrap script can be used to install specific services:
 
@@ -131,8 +122,7 @@ Connections are established from the minion and never from the master.
    :alt: Minion subscription publication
 
 .. Note::
-    Minions do not have to have a master to be managed. A ``salt-minion`` can
-    execute commands locally with ``salt-call --local [module.function]``.
+    Minions do not have to have a master to be managed. A ``salt-minion`` can execute commands locally with ``salt-call --local [module.function]``.
 
 Basic master configuration
 ==========================
@@ -144,8 +134,7 @@ Basic master configuration
 
 Salt master network settings
 ----------------------------
-By default, the master binds to all available network interfaces, then listens
-on ports ``4505`` and ``4506``.
+By default, the master binds to all available network interfaces, then listens on ports ``4505`` and ``4506``.
 
 This example overrides the default settings:
 
@@ -163,13 +152,11 @@ This example overrides the default settings:
 
 Salt master process management
 ------------------------------
-If your cluster has thousands of minions, and your minion reports are
-stalling, the master might be timing out the job's minion responses. This may mean
-that the minions failed their job, but it could instead mean
-that the master doesn’t have enough worker threads to process all the reports.
+If your cluster has thousands of minions, and your minion reports are stalling, the master might be timing out the job's minion responses.
+This may mean that the minions failed their job, but it could instead mean that the master doesn’t have enough worker threads to process all the reports.
 
-To manage the ``salt-minion`` return calls, the master threads out worker processes
-with the ``worker_threads`` setting. The default limit for the processes is five workers.
+To manage the ``salt-minion`` return calls, the master threads out worker processes with the ``worker_threads`` setting.
+The default limit for the processes is five workers.
 The minimum limit is three workers.
 
 Example setting in a master configuration file:
@@ -193,8 +180,7 @@ Basic minion configuration
 
 Connecting to the Salt master
 -----------------------------
-By default, the minions assume that the Salt master can be resolved in DNS
-via the hostname ``salt``.
+By default, the minions assume that the Salt master can be resolved in DNS via the hostname ``salt``.
 
 An example that overrides the hostname default setting:
 
@@ -205,8 +191,7 @@ An example that overrides the hostname default setting:
 
 Declaring the minion ID
 -----------------------
-The ``salt-minion`` will identify itself to the master by the system’s hostname
-unless explicitly set:
+The ``salt-minion`` will identify itself to the master by the system’s hostname unless explicitly set:
 
 .. code-block:: yaml
     :caption: /etc/salt/minion.d/id.conf
@@ -215,28 +200,25 @@ unless explicitly set:
 
 Salt key exchange
 =================
-Salt uses key-based authentication for security.
+For security, Salt uses key-based authentication.
 
-There are 2 types of keys used in Salt:
+Two types of keys are used in Salt:
 
 * RSA
 * AES
 
 Salt keys
 ---------
-The RSA keys are the backbone to the authentication and encryption model used by
-Salt. All Salt daemons run with unique RSA keys. The minions and master generate
-RSA keys when they start for the first time, and then use them for PKI-based authentication.
-These keys are used to authenticate and to pass the AES key for secure communication
-by encrypting data.
+The RSA keys are the backbone to the authentication and encryption model used by Salt.
+All Salt daemons run with unique RSA keys.
+The minions and master generate RSA keys when they start for the first time, and then use them for PKI-based authentication.
 
-Each minion presents a public key
-to the Salt master. The key is then examined, compared, and explicitly accepted
-by an administrator.
+These keys are used to authenticate the AES key to the Salt master, providing secure communication by encrypting data.
+Each minion presents a public key to the Salt master.
+The key is then examined, compared, and explicitly accepted by an administrator.
 
-The master also sends a rotating AES key that is used to encrypt and decrypt messages
-sent by the Salt master. The returned AES key is encrypted using the public key
-initially sent by the Salt minion, and can therefore be decrypted only by the same Salt minion.
+The master also sends a rotating AES key that is used to encrypt and decrypt messages sent by the Salt master.
+The returned AES key is encrypted using the public key initially sent by the Salt minion, and can therefore be decrypted only by the same Salt minion.
 
 .. image:: ../_static/img/salt-pki-model.png
    :align: right
@@ -247,8 +229,7 @@ initially sent by the Salt minion, and can therefore be decrypted only by the sa
 
 Managing keys
 -------------
-The ``salt-key`` command is used to interface with the authentication system to
-accept, reject, and otherwise manage keys.
+The ``salt-key`` command is used to interface with the authentication system to accept, reject, and otherwise manage keys.
 
 Accepting keys
 --------------
@@ -289,8 +270,7 @@ If there are multiple keys to accept and are trusted, you can accept all at once
 
 Deleting keys
 -------------
-Keys can also be deleted singularly or in bulk. Because this is a permanent action,
-running the command will give a [n/Y] prompt for confirmation.
+Keys can also be deleted singularly or in bulk. Because this is a permanent action, running the command will give a [n/Y] prompt for confirmation.
 
 Deleting a single key:
 
@@ -338,8 +318,8 @@ Example response:
 
 Starting Salt services
 ======================
-Using ``systemctl`` is the main way to start Salt processes. Calling the
-process directly will show the active logs in the foreground.
+Using ``systemctl`` is the main way to start Salt processes.
+Calling the process directly will show the active logs in the foreground.
 
 Start with ``systemctl``
 ------------------------
@@ -350,8 +330,7 @@ When starting ``salt-master`` and ``salt-minion``, using ``systemctl`` is recomm
     systemctl start salt-master
     systemctl start salt-minion
 
-``systemctl`` is also useful for preliminary debugging and process start/stop
-confirmation:
+``systemctl`` is also useful for preliminary debugging and process start/stop confirmation:
 
 .. code-block:: bash
 
@@ -359,8 +338,7 @@ confirmation:
 
 Starting in the foreground
 ---------------------------
-The ``salt-master`` and ``salt-minion`` daemons can show their logs in
-the terminal by calling their processes directly:
+The ``salt-master`` and ``salt-minion`` daemons can show their logs in the terminal by calling their processes directly:
 
 .. code-block:: bash
 
@@ -403,4 +381,5 @@ After a successful installation of Salt:
 
     .. code-block:: bash
 
-ersion
+        minion1:
+          2019.2.3
