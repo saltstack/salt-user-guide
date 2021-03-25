@@ -111,4 +111,4 @@ def docs_html(session, clean):
     os.chdir("docs/")
     if clean:
         session.run("make", "clean", external=True)
-    session.run("make", "html", "SPHINXOPTS=-W", external=True)
+    session.run("make", "html", "SPHINXOPTS=-Wn", external=True)

@@ -16,7 +16,6 @@
 import datetime
 import os
 
-import sphinx_material_saltstack
 from docutils import nodes
 from docutils.nodes import Element
 from sphinx.writers.html import HTMLTranslator
@@ -75,10 +74,10 @@ def setup(app):
 
 
 this_year = datetime.datetime.today().year
-if this_year == 2020:
-    copyright_year = 2020
+if this_year == 2021:
+    copyright_year = 2021
 else:
-    copyright_year = f"2020 - {this_year}"
+    copyright_year = f"2021 - {this_year}"
 
 # -- Project information -----------------------------------------------------
 
@@ -106,7 +105,6 @@ version = release
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx_material_saltstack",
     "sphinx-prompt",
     "sphinx_copybutton",
     "sphinx_substitution_extensions",
@@ -137,32 +135,8 @@ exclude_patterns = [
 
 # Base Material Theme requirements
 html_show_sourcelink = True  # False on private repos; True on public repos
-#html_theme = "furo"
-html_theme = "sphinx_material_saltstack"
-html_theme_path = sphinx_material_saltstack.html_theme_path()
-html_context = sphinx_material_saltstack.get_html_context()
-html_sidebars = {
-    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
-}
-html_theme_options = {
-    # Set the name of the project to appear in the navigation.
-    "nav_title": "Salt User Guide",
-    # Set the repo location to get a badge with stats (only if public repo)
-    "repo_url": "https://gitlab.com/saltstack/open/docs/salt-user-guide/",
-    "repo_name": "Source on GitLab",
-    "repo_type": "gitlab",
-    # Visible levels of the global TOC; -1 means unlimited
-    "globaltoc_depth": 1,
-    # If False, expand all TOC entries
-    "globaltoc_collapse": False,
-    # If True, show hidden TOC entries
-    "globaltoc_includehidden": True,
-    # hide tabs?
-    "master_doc": False,
-    # Minify for smaller HTML/CSS assets
-    "html_minify": True,
-    "css_minify": True,
-}
+html_theme = 'furo'
+html_title = project
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
