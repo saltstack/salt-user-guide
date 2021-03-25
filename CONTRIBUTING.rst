@@ -248,7 +248,23 @@ Preview HTML changes locally
 ============================
 
 To ensure that the changes you are implementing are formatted correctly, you
-should preview a local build of your changes first. To preview the changes:
+should preview a local build of your changes first.
+
+For simplified workflow, a live-reload version of the documentation can run in the background while writing docs.
+To build and serve the Sphinx HTML documentation, with live-reloading on all file changes (for every save):
+
+.. code-block:: bash
+
+    # Activate venv
+    source .venv/bin/activate
+    # On Windows, use instead:
+    # .venv/Scripts/activate
+
+    # Generate live-reload of documentation in web browser
+    # Use CTRL+C in the terminal when done, to close the session
+    nox -e docs
+
+To preview how the CI tooling generates the HTML for usage, without live-reloading:
 
 .. code-block:: bash
 
@@ -264,6 +280,8 @@ should preview a local build of your changes first. To preview the changes:
     # You can view this locally
     # firefox example
     firefox docs/_build/html/index.html
+
+The above two approaches view the same docs output, just one is live-reloading.
 
 .. note::
 
