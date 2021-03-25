@@ -70,7 +70,6 @@ class PatchedHTMLTranslator(HTMLTranslator):
 # Run above custom function against links
 def setup(app):
     app.set_translator("html", PatchedHTMLTranslator)
-    app.add_css_file('css/codeblock-captions.css')
 
 
 this_year = datetime.datetime.today().year

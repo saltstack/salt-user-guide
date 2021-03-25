@@ -10,7 +10,9 @@ Modified from original source found in the Salt project:
 
 import datetime
 import os
+import shutil
 import sys
+from pathlib import Path
 
 # fmt: off
 if __name__ == "__main__":
@@ -46,6 +48,8 @@ RUNTESTS_LOGFILE = os.path.join(
 
 # Prevent Python from writing bytecode
 os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+
+nox.options.sessions = ("docs-html",)
 
 
 def _get_session_python_version_info(session):
@@ -108,7 +112,42 @@ def docs_html(session, clean):
     requirements_file = os.path.join("docs/requirements.txt")
     install_command = ["--progress-bar=off", "-r", requirements_file]
     session.install(*install_command, silent=True)
-    os.chdir("docs/")
+
+    build_dir = Path("docs", "_build", "html")
+    args = ["-Wn", "docs", str(build_dir)]
     if clean:
-        session.run("make", "clean", external=True)
-    session.run("make", "html", "SPHINXOPTS=-Wn", external=True)
+        if build_dir.exists():
+            shutil.rmtree(build_dir)
+    session.run("sphinx-build", *args, external=True)
+
+
+@nox.session(python="3")
+def docs(session) -> None:
+    """
+    Build and serve the Sphinx HTML documentation, with live reloading on file changes, via sphinx-autobuild.
+
+    Note: Only use this in INTERACTIVE DEVELOPMENT MODE. This SHOULD NOT be called
+        in CI/CD pipelines, as it will hang.
+    """
+    pydir = _get_pydir(session)
+
+    # Latest pip, setuptools, and wheel
+    install_command = ["--progress-bar=off", "-U", "pip", "setuptools", "wheel"]
+    session.install(*install_command, silent=True)
+
+    # Install requirements
+    requirements_file = os.path.join("docs/requirements.txt")
+    install_command = ["--progress-bar=off", "-r", requirements_file]
+    session.install(*install_command, silent=True)
+
+    # Install autobuild req
+    install_command = ["--progress-bar=off", "-U", "sphinx-autobuild"]
+    session.install(*install_command, silent=True)
+
+    # Launching LIVE reloading Sphinx session
+    build_dir = Path("docs", "_build", "html")
+    args = ["--watch", ".", "--open-browser", "docs", str(build_dir)]
+    if build_dir.exists():
+        shutil.rmtree(build_dir)
+
+    session.run("sphinx-autobuild", *args)
