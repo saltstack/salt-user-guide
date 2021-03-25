@@ -41,3 +41,4 @@ Table of Contents
    topics/writing-salt-docs
    topics/style-guide
    topics/list-of-images
+   GitLab Repository <https://gitlab.com/saltstack/open/docs/salt-user-guide>
