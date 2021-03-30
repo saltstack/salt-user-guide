@@ -178,20 +178,24 @@ Once the master’s key fingerprint has been determined with the ``salt-key -F``
 
 * Salt uses RSA key based authentication, the public keys of minions attaching to a master are sent to the master and cached.
 * By default the keys await manual acceptance from the admin.
+* The minion authenticates the master server to prevent man-in-the-middle attacks from rogue Salt masters.
+* This means that if the master key changes, the minion will not accept any connections.
+* Encrypted communication between the master and minion cannot be disabled.
 
 Decreasing security
 ===================
 
-* The minion authenticates the master server to prevent man-in-the-middle attacks from rogue Salt masters.
-* This means that if the master key changes, the minion will not accept any connections.
-* Encrypted communication between the master and minion cannot be disabled.
+Certain factors in a deployment may require options that result in decreased security posture.
 
 The auto_accept option
 ______________________
 
 * The ``auto_accept`` option can be set to True to make all incoming keys get accepted.
 * If an incoming key conflicts with an existing key, then it will be denied.
-* It is generally not advised to use the ``auto_accept`` option unless operating in a safe test environment or on a closed network.
+
+.. warning::
+
+    It is generally not advised to use the ``auto_accept`` option unless operating in a safe test environment or on a closed network.
 
 .. code-block::
     :caption: /etc/salt/master.d/keys.conf
@@ -204,7 +208,10 @@ ____________________
 * Conflicting minions with key denial behavior can be overwritten with the ``auto_accept`` and ``open_mode`` options.
 * The ``open_mode`` option will set the Master to accept all keys it is presented with, regardless of conflicts or if the keys have been previously set as rejected.
 * ``open_mode`` is designed to make running Salt in a test environment easy, or for when authentication is not a concern.
-* This means that running in ``open_mode`` should only be considered if the master is in an isolated or temporary test environment (the Salt integration tests run in open mode), or the Salt master is in the isolated bunker of a military installation.
+
+.. warning::
+
+    This means that running in ``open_mode`` should only be considered if the master is in an isolated or temporary test environment (the Salt integration tests run in open mode), or the Salt master is in the isolated bunker of a military installation.
 
 .. code-block::
     :caption: /etc/salt/master.d/keys.conf
