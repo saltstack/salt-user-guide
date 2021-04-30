@@ -35,7 +35,7 @@ repos:
         description: isort is a Python utility / library to sort imports automatically.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 21.4b2
     hooks:
       - id: black
         description: Forces best practice formatting of Python code files.
@@ -55,15 +55,14 @@ repos:
       - id: blacken-docs
         description: Run black on python code blocks in documentation files.
         files: ^(index|docs/.*|docs/_includes/.*)\.rst$
-        additional_dependencies: [black==20.8b1]
+        additional_dependencies: [black==21.4b2]
   - repo: https://github.com/saltstack/mirrors-nox
     rev: v2020.8.22
     hooks:
       - id: nox
         alias: Generate Sphinx docs
         description: Generate Sphinx docs, ensure they build
-        files: ^((index|README)|docs/.*)\.rst$
         args:
           - -e
-          - docs-html
+          - 'docs-html(clean=True)'
           - --

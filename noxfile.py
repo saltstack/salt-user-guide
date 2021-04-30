@@ -109,15 +109,15 @@ def docs_html(session, clean):
     session.install(*install_command, silent=True)
 
     # Install requirements
-    requirements_file = os.path.join("docs/requirements.txt")
-    install_command = ["--progress-bar=off", "-r", requirements_file]
+    requirements_file = Path("docs", "requirements.txt")
+    install_command = ["--progress-bar=off", "-r", str(requirements_file)]
     session.install(*install_command, silent=True)
 
     build_dir = Path("docs", "_build", "html")
-    args = ["-Wn", "docs", str(build_dir)]
+    sphinxopts = "-Wn"
     if clean:
-        if build_dir.exists():
-            shutil.rmtree(build_dir)
+        sphinxopts += "E"
+    args = [sphinxopts, "--keep-going", "docs", str(build_dir)]
     session.run("sphinx-build", *args, external=True)
 
 
@@ -136,8 +136,8 @@ def docs(session) -> None:
     session.install(*install_command, silent=True)
 
     # Install requirements
-    requirements_file = os.path.join("docs/requirements.txt")
-    install_command = ["--progress-bar=off", "-r", requirements_file]
+    requirements_file = Path("docs", "requirements.txt")
+    install_command = ["--progress-bar=off", "-r", str(requirements_file)]
     session.install(*install_command, silent=True)
 
     # Install autobuild req
