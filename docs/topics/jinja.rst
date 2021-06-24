@@ -6,35 +6,33 @@ Using Jinja with Salt
 
 Salt renderers
 ==============
-The Salt State system operates by gathering information from simple data structures.
+The Salt State system operates by gathering information from simple data structures. This has the following advantages:
 
-*  The State system was designed in this way to make interacting with it generic and simple.
-*  This also means that SLS files can be written in many formats.
-*  State files can then be enhanced with Jinja templates that translate down to YAML.
+*  Interaction is both generic and simple
+*  SLS files can be written in many formats
+*  State files with Jinja templates can be translated to YAML
 
 Salt state rendering
 --------------------
 By default, SLS files are rendered as Jinja templates and then parsed as YAML documents.
 
-Since the only thing the State system cares about is raw data, the SLS files can be any structured format that is supported by a Python renderer library.
+Since the state system only processes raw data, the SLS files can be any structured format that is supported by a Python renderer library.
 
-*  Renderers can be written to support anything.
-*  This means that Salt States could be managed by XML files, HTML files, Puppet files, or any format that can be translated into the data structure used by the state system.
+Renderers can be written to support XML files, HTML files, Puppet files, or any format that can be translated into the data structure used by the state system.
 
 Multiple renderers
 ------------------
-When deploying a State Tree a default Renderer is selected in the master configuration file with the renderer option.
+When deploying a State Tree, the ``renderer`` option selects a default renderer in the master configuration file. Multiple renderers can be used inside the same State Tree.
 
-Multiple renderers can be used inside the same State Tree.
 Currently there is support for:
 
-*  Jinja + YAML
+*  Jinja + YAML (default)
 *  Mako + YAML
 *  Jinja + JSON
 *  Mako + JSON
 *  Wempy + JSON
 *  Wempy + YAML
-*  raw Python
+*  Python
 
 Here is a sample SLS file in YAML:
 
@@ -46,7 +44,7 @@ Here is a sample SLS file in YAML:
     python-mako:
       pkg.installed
 
-One reason to use another renderer is to take advantage of Python and thus the :code:`py` renderer.
+One reason to use another renderer is to take advantage of the Python ``py`` renderer.
 
 Here is the same SLS file defined in Python:
 
@@ -61,31 +59,29 @@ Here is the same SLS file defined in Python:
 
 Using renderer pipes
 --------------------
-Render Pipes allow the output of the various render engines to be piped into each other. Similar to Unix pipes.
+Render pipes allow the output of render engines to be piped into each other, similar to Unix pipes.
 
-To pipe the output of the Jinja renderer into the YAML renderer place the following she bang on the first line of the SLS file:
+To pipe the output of the Jinja renderer into the YAML renderer, place the following shebang on the first line of the SLS file:
 
 .. code-block:: sls
 
-    #!jinja|yam
+    #!jinja|yaml
 
-When rendering SLS files Salt checks for the presence of a Salt-specific shebang line.
+When rendering SLS files, Salt checks for the presence of a Salt-specific shebang line.
 The shebang line syntax was chosen because it is familiar to the target audience.
-The shebang line directly calls the name of the Renderer as it is specified within Salt.
-This allows for great flexibility in how an SLS file is rendered.
+The shebang line directly calls the name of the renderer as it is specified within Salt, which allows for great flexibility in rendering.
 
 
 Using the Jinja renderer
 ========================
-Up until this point, all examples have been written in YAML, but in the real world many conditions exist where more control over flow is needed.
+Although SLS files can be written with YAML, Jinja can be used to template SLS files when more flow control is needed.
 
-Salt uses the Jinja templating language by default to manage programmatic control over the yaml files. Jinja can be used to template SLS files.
-Application configuration files can also contain Jinja and are processed when deployed with a state function such as **file.managed**.
+By default, Salt uses the Jinja templating language to manage programmatic control over the YAML files.
+Application configuration files can also contain Jinja and are processed when deployed with a state function such as ``file.managed``.
 
 Jinja basics
 ------------
-There are few kinds of delimiters in Jinja.
-The default Jinja delimiters are defined as follows:
+The default Jinja delimiters are defined as:
 
 .. list-table::
   :widths: 40 60
@@ -114,14 +110,14 @@ The default Jinja delimiters are defined as follows:
     - Jinja comments removing whitespace from beginning and end of line
 
 
-Jinja comment tags can span multiple lines. This is a good way to comment blocks of states within a SLS file for testing.
+Jinja comment tags can span multiple lines.
+This is a good way to comment blocks of states within a SLS file for testing.
 
-Whitespace removal can be defined for beginning of the line, end of the line or both.
-See https://jinja.palletsprojects.com/ for Jinja documentation.
+Whitespace removal can be defined for beginning of the line, the end of the line, or both.
+See `Jinja documentation <https://jinja.palletsprojects.com/>`__ for more details.
 
-All salt renderers, including the default Jinja + YAML renderer, contain a number of variables holding data which can be used.
-
-Gaining access to this data is one of the main motivators when using Jinja.
+All Salt renderers, including the default Jinja + YAML renderer, contain variables that can be used to hold data.
+Gaining access to this data is one of the main advantages to using Jinja.
 
 Injecting data into Salt state files
 ====================================
@@ -130,33 +126,33 @@ These dictionaries are available through Jinja.
 
 The most commonly used dictionaries are:
 
-*  **grains**: – all grains for the minion
-*  **pillar**: – all pillar data available to the minion
-*  **salt**: – all available execution modules and functions
+*  ``grains``: – all grains for the minion
+*  ``pillar``: – all pillar data available to the minion
+*  ``salt``: – all available execution modules and functions
 
 Accessing grains with Jinja
 ---------------------------
-Grains of Salt can be accessed using Jinja.
+Salt grains can be accessed using Jinja.
+Salt grains are exposed to the state system through a ``grains`` dictionary.
 
-*  Salt grains are exposed to the state system through a grains dictionary
-*  A grain in the grains dictionary can be referenced in the following format:
+A grain in the ``grains`` dictionary can be referenced in the following format:
 
 .. code-block:: sls
 
     {{ grains['name-of-grain'] }}
 
-*  For example, the os_family grain can be referenced using a Python syntax:
+*  For example, the ``os_family`` grain can be referenced using Python syntax:
 
 .. code-block:: sls
 
     {{ grains['os_family'] }}
 
-*  Jinja provides if conditional statements that enhance states with additional logic.
+*  Jinja provides conditional ``if`` statements that enhance states with additional logic.
 *  Grains are commonly used in conditional statements.
 
 Dictionary access
 -----------------
-A dictionary can be presented in multiple syntaxes.
+A dictionary can be presented in multiple types of syntax.
 The traditional Python syntax would look like:
 
 .. code-block:: sls
@@ -168,7 +164,7 @@ The traditional Python syntax would look like:
         # Push either RedHat-named.conf or Debian-named.conf file
         - source: salt://dns/files/{{ grains['os_family'] }}-named.conf
 
-This example uses the os_family grain to determine the proper file name.
+This example uses the ``os_family`` grain to determine the proper file name.
 Jinja allows for a dotted notation for accessing dictionaries:
 
 .. code-block:: sls
@@ -181,11 +177,11 @@ Jinja allows for a dotted notation for accessing dictionaries:
         - source: salt://dns/files/{{ grains.os_family }}-named.conf
 
 .. Note::
-    The type of syntax used is a styling preference, however, there may be times when a Python dictionary syntax is needed - example coming up.
+    The type of syntax used is a styling preference, but there may be times when a Python dictionary syntax is needed.
 
 Return data access
 ------------------
-Using a Salt execution module.function to data injection:
+Using a Salt execution ``module.function`` for data injection:
 
 .. code-block:: sls
 
@@ -198,7 +194,7 @@ Using a Salt execution module.function to data injection:
 
 Jinja statements
 ================
-Jinja statements can be used throughout Salt (various types of state files as well as configuration files) and include:
+Jinja statements can be used throughout Salt, in state files as well as configuration files, and include:
 
 *  Variable assignment
 *  Conditional statements
@@ -207,7 +203,7 @@ Jinja statements can be used throughout Salt (various types of state files as we
 Jinja variable assignment
 -------------------------
 Variables can be set and referenced in Jinja.
-Jinja variables are declared using the set keyword in the following syntax:
+Jinja variables are declared using the ``set`` keyword in the following syntax:
 
 .. code-block:: sls
 
@@ -238,17 +234,17 @@ Jinja variable types
 --------------------
 Variable assignments can be of many types:
 
-*  **"Hello World"**: Everything between two double or single quotes is a string.
-*  **42 / 42.23**: Integers and floating point numbers are created by just writing the number down. If a dot is present, the number is a float.
-*  **[‘list’, ‘of ’, ‘objects’]**: Everything between two brackets is a list.
-*  **(‘tuple’, ‘of ’, ‘values’)**: Tuples are like lists that cannot be modified (“immutable”). If a tuple only has one item, it must be followed by a comma ((‘1-tuple’,)).
-*  **{‘dict’: ‘of ’, ‘key’: ‘and’, ‘value’: ‘pairs’}**: A dictionary in Python is a structure that combines keys and values. Keys must be unique and always have exactly one value.
-*  **True / False**: true is always true and false is always false.
+*  ``"Hello World"``: Everything between two double or single quotes is a string.
+*  ``42`` / ``42.23``: Integers and floating point numbers. If a decimal point is present, the number is a float.
+*  ``[‘list’, ‘of ’, ‘objects’]``: Everything between two brackets is a list.
+*  ``(‘tuple’, ‘of ’, ‘values’)``: Tuples are like lists that cannot be modified (“immutable”). If a tuple only has one item, it must be followed by a comma ((‘1-tuple’,)).
+*  ``{‘dict’: ‘of ’, ‘key’: ‘and’, ‘value’: ‘pairs’}``: A dictionary in Python is a structure that combines keys and values. Keys must be unique and always have exactly one value.
+*  ``True`` / ``False``: True is always true and False is always false.
 
 Jinja conditional if statements
 -------------------------------
-An **if** conditional statement structure in Jinja is followed by a test expression.
-The following example declares a configuration directory in a variable named **dns_cfg** to be used based on distribution:
+An ``if`` conditional statement structure in Jinja is followed by a test expression.
+The following example declares a configuration directory in a variable named ``dns_cfg`` to be used based on distribution:
 
 .. code-block:: sls
    :caption: /srv/salt/dns/dns_conf.sls
@@ -266,9 +262,9 @@ The following example declares a configuration directory in a variable named **d
         - source: salt://dns/files/named.conf
 
 .. Note::
-    Spacing of Jinja statements if merely for visual effect. As Jinja is rendered before YAML, all Jinja formatting is removed when evaluated at the Minion
+    Spacing of Jinja statements is only for readability. Since Jinja is rendered before YAML, all Jinja formatting is removed when evaluated by the minion.
 
-When rendered, you can see that the value is plugged into the proper location:
+When rendered, the value is inserted into the proper location:
 
 .. code-block:: text
 
@@ -292,7 +288,7 @@ When rendered, you can see that the value is plugged into the proper location:
 
 Using iteration to leverage lists
 ---------------------------------
-Suppose you want 3 users to be present on a system as defined in a state. The YAML file would look like:
+If three users are present on a system as defined in a state, the YAML file looks like:
 
 .. code-block:: sls
    :caption: /srv/salt/users.sls
@@ -309,18 +305,20 @@ Suppose you want 3 users to be present on a system as defined in a state. The YA
       user.present:
         - name: frank
 
-A list of users can be assigned to a Jinja variable using a **set** statement and then reference each one in the list using a Jinja **for** loop.
+A list of users can be assigned to a Jinja variable using a ``set`` statement, which then references each user by using a  Jinja ``for`` loop.
 The Jinja list is in Python list syntax:
 
 .. code-block:: sls
 
-    {% set users = ['fred', 'bob', 'frank']%}            # Declare Jinja list
+    # Declare Jinja list
+    {% set users = ['fred', 'bob', 'frank']%}
 
-    {% for user in users%}                               # <- Jinja for loop
+    # Jinja `for` loop
+    {% for user in users%}
     create_{{ user }}:
       user.present:
         - name: {{ user }}
-    {% endfor %}                                         # <- Close loop
+    {% endfor %}
 
 Using iteration to leverage dictionaries
 ----------------------------------------
@@ -343,9 +341,9 @@ A Jinja dictionary is defined in the same syntax as Python:
         - fullname: {{ users[user]['fullname']}}
     {% endfor %}
 
-More complexed iteration
-------------------------
-Iterations can be used with more complexed dictionaries to directly extract **key/value** pairs:
+More complex iteration
+----------------------
+Iterations can be used with more complex dictionaries to directly extract ``key/value`` pairs:
 
 .. code-block:: sls
 
@@ -378,7 +376,7 @@ Iterations can be used with more complexed dictionaries to directly extract **ke
         - idrac_password: {{ v['idrac_password'] }}
     {% endfor %}
 
-This is quite a complex example. The data being consumed will benefit from our next section as we'll learn we can get data from other sources.
+This is a complex example, but it can be simplified by using data from other sources.
 
 
 Importing data
@@ -397,14 +395,12 @@ Map files have several benefits:
 *  Can be used for platform-specific details
 *  Can be defined with environment-specific values (dev/prod)
 
-Salt execution module.functions allow data to be retrieved from a remote source and injected into the work-flow.
+Salt execution ``module.functions`` allow data to be retrieved from a remote source and injected into the workflow.
 
 YAML map files
 --------------
-A YAML map file can be created and managed separate from state file that consumes it.
-This key advantage to using YAML to define map data is readability by humans.
-
-YAML is the easiest of the map file options to read and is consistent with all other files used by Salt. This allows the data to be managed independently from the function:
+A YAML map file can be created and managed separately from the state file that consumes it.
+This allows the data to be managed independently from the function:
 
 .. code-block:: sls
    :caption: /srv/salt/dns/map.yaml
@@ -416,7 +412,7 @@ YAML is the easiest of the map file options to read and is consistent with all o
       pkg: bind
       srv: named
 
-We can now adjust the **dns** State File to consume the data inside the YAML map file and express the values which are appropriate for the minion's needs:
+We can now adjust the ``dns`` state file to consume the data inside the YAML map file and express the values which are appropriate for the minion's needs:
 
 .. code-block:: sls
    :caption: /srv/salt/dns/init.sls
@@ -438,7 +434,7 @@ We can now adjust the **dns** State File to consume the data inside the YAML map
 
 JSON map files
 --------------
-If we take our previous example, and convert YAML to JSON, we can then gain the possible benefit of having an external resource manage the consumed data inside the map file:
+If we convert the previous example from YAML to JSON, an external resource can manage the consumed data inside the map file:
 
 .. code-block:: sls
 
@@ -449,7 +445,7 @@ If we take our previous example, and convert YAML to JSON, we can then gain the 
         {'pkg': 'bind', 'srv': 'named'}
     }
 
-We can alter the **dns** State File to consume JSON by merely changing the **import** line:
+The ``dns`` state file can be altered to consume JSON by the ``import`` line:
 
 .. code-block:: sls
    :caption: /srv/salt/dns/init.sls
@@ -469,7 +465,7 @@ We can alter the **dns** State File to consume JSON by merely changing the **imp
         - name: {{ dns.srv }}
         - enable: True
 
-Notice that none of the other logic or syntax needs to be altered to consume JSON vs. YAML
+Notice that none of the other logic or syntax needs to be altered.
 
 Jinja map files
 ---------------
@@ -485,7 +481,7 @@ The main advantage over the other methods is speed of consumption by the minion:
         {'pkg': 'bind', 'srv': 'named'}
     } %}
 
-The **dns** State File is alter similarly as before, except the syntax is slightly different:
+The ``dns`` state file is altered as before, except with slightly different syntax:
 
 .. code-block:: sls
    :caption: /srv/salt/dns/init.sls
@@ -507,12 +503,13 @@ The **dns** State File is alter similarly as before, except the syntax is slight
 
 Remote execution data
 ---------------------
-Data needed for any work-flow may exist external to the Salt infrastructure.
-Consider the example where data needed for configuration exists via a REST call or a DB query. If the minion can access the remote resource which contains the needed data, it can be used to inject data to any work-flow.
+Data needed for any workflow may exist external to the Salt infrastructure.
+Consider the example where data needed for configuration exists via a REST call or a DB query.
+If the minion can access the remote resource which contains the needed data, it can be used to inject data to any workflow.
 
-Pillar data is another example of an external data store. Pillar data will be discussed in a later chapter.
+Pillar data is another example of an external data store. See the :ref:`Pillar documentation <pillar>` for more information.
 
-Let's make a http.query to a web service to retrieve some structured data and inject that into our work-flow:
+This example makes an ``http.query`` to a web service to retrieve some structured data and inject it into the workflow:
 
 .. code-block:: sls
 
@@ -533,9 +530,9 @@ Let's make a http.query to a web service to retrieve some structured data and in
 Templating application configuration files
 ==========================================
 Files can have Jinja declared to plugin values as they are pushed to minions.
-Adding :code:`template: jinja` to a :code:`file.managed` state instructs Salt to use Jinja to render the file before it is written to the filesystem.
+Adding ``template: jinja`` to a ``file.managed`` state instructs Salt to use Jinja to render the file before it is written to the filesystem.
 
-Consider the following example of map file :code:`/srv/salt/redis/map.json` containing Redis configuration data:
+Consider the following example of map file ``/srv/salt/redis/map.json`` containing Redis configuration data:
 
 .. code-block:: sls
 
@@ -575,7 +572,7 @@ Now let's look at a snippet of the Redis configuration file:
     tcp-backlog 511
     ...
 
-Now, let's put it all together with a Salt State File:
+Now, let's put it all together with a Salt state file:
 
 .. code-block:: sls
    :caption: /srv/salt/redis/init.sls
@@ -622,8 +619,8 @@ The output in Salt commands can be configured to present the data in other forma
 
 Outputter options
 -----------------
-The **return data** from Salt minion executions can be formatted by using **--output** as a command line argument. The default format uses the **nested** format.
-Common formats used are **json**, **pprint** (Python’s pretty print), and **txt** formats.
+The ``return data`` from Salt minion executions can be formatted by using ``--output`` as a command line argument. The default format uses the ``nested`` format.
+Common formats used are ``json``, ``pprint`` (Python’s pretty print), and ``txt`` formats.
 Output Options:
 
 .. code-block:: text
@@ -666,7 +663,7 @@ The default nested format:
       5-min:
             0.05
 
-The json format:
+The JSON format:
 
 .. code-block:: shell
 
@@ -684,9 +681,9 @@ The json format:
 
 Parsing return data external to Salt
 ------------------------------------
-Parsing return data can be utilized by external commands to Salt to allow access to subsets of the return data.
+External commands to Salt can parse return data to allow access to subsets of the return data.
 
-The following examples show how to parse JSON formatted output using the **jq**:
+The following examples show how to parse JSON formatted output using ``jq``:
 
 .. code-block:: shell
 
@@ -743,7 +740,7 @@ The following examples show how to parse JSON formatted output using the **jq**:
       }
     }
 
-Suppose you only want the IP address of each minion. You can use **jq** to filter the JSON results:
+If you only want the IP address of each minion, you can use ``jq`` to filter the JSON results:
 
 .. code-block:: shell
 
@@ -757,4 +754,4 @@ Suppose you only want the IP address of each minion. You can use **jq** to filte
     "192.0.2.125"
     "192.0.2.200"
 
-This example shows how we can use alternate methods to extract data from a minion for use during a work-flow.
+This example shows how we can use alternate methods to extract data from a minion for use during a workflow.
