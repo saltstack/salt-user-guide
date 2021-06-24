@@ -7,20 +7,23 @@ Salt states
 Overview of Salt states
 =======================
 
-Salt states are used to deploy and manage infrastructure with easy to read and write yaml files. Using states allows automation of recursive and predictable tasks that can be queued into a job for salt to implement without user input.
+Salt states are used to deploy and manage infrastructure and to allow automation of recursive and predictable tasks.
 
-These states can be as simplified or complex as needed with:
+Salt states can contain:
 
 * Multi-language renderers
-* Requisite derivative state options
+* Derivative state options
 * Multiple data types for variable manipulation
 
-State structure compared to terminal
-====================================
+State structure vs. terminal commands
+=====================================
 
-Every state created should be translatable into terminal commands with salt execution modules. These states are then grouped together in salt state files. These state files should be viewed as a series of terminal configuration commands batched together to achieve an infrastructure’s intended state.
+Every Salt state can be created with terminal commands from Salt execution modules.
+However, this method has several limitations, such as the lack of conditional statements.
+Salt state files are essentially batch files of terminal commands that can work around these limitations.
 
-Technically you can have the execution modules terminal commands bash scripted to achieve the same task. However there are several drawbacks. For example, to install a system as a working DNS server, you may run the following in a shell script:
+
+For example, this script installs a system as a working DNS server:
 
 .. code-block:: bash
 
@@ -35,61 +38,60 @@ Technically you can have the execution modules terminal commands bash scripted t
     # Start dns service
     salt \* service.start named
 
-What is missing here is conditional statements.
+Salt state modules provide conditional statements that can answer such questions as:
 
 * What if the package is already installed or needs to be upgraded?
 * What if the service is already started? Does it need to be restarted?
-* How about setting permissions and ownership on the file in addition to copying it from the Salt Master to the target location? Would that require additional calls - restart a service?
-
-Most logic to match this kind of forethought is already in state modules.
+* When setting permissions and ownership on the file, or copying the file from the Salt master to the target location, is it required to make additional calls to restart a service?
 
 State language variations
 =========================
 
-YAML is a fast to type, human readable language used by default for creating salt states, with jinja2 as a templating language to remove redundancy in states and state files.
+YAML is the default language for creating Salt states. In additon, ``jinja2`` is used as a templating language to remove redundancy in states and state files.
 
-However, there are scenarios for using other languages and templating languages. For example:
+In addition, other languages can be helpful for some scenarios:
 
-* **Python** states sometimes allow complicated logic to be stateful that otherwise cant be created in YAML.
-* **JSON** states are faster for computers to translate in comparison to YAML, but are less human readable.
+* Python states allow complicated logic that otherwise cannot be created in YAML.
+* JSON states are faster than YAML for computers to translate, but are less human-readable.
 
-.. Admonition:: Reference
-
-    https://docs.saltproject.io/en/latest/ref/renderers/all/index.html#all-salt-renderers
-
-Salt State files are rendered on the ``salt-minion`` in a decentralized computational model. This removes bottleneck possibilities from rendering and module execution on the ``salt-master``.
+Salt State files are rendered on the ``salt-minion`` in a decentralized computational model.
+This removes possible bottlenecks when rendering and executing modules on the ``salt-master``.
 
 .. image:: ../_static/img/states.png
    :align: right
    :alt: Illustration of a state file on a master which stores them. Minions communicate with the master such that the master sends state to the minions which the minions - or state system - process and return the results to the master.
 
+For more information, see the list of `Renderer Modules <https://docs.saltproject.io/en/latest/ref/renderers/all/index.html#all-salt-renderers>`__.
+
 State modules
 =============
 
-When creating individual states a ``module.function`` is specified from the state modules. These state modules call their execution module counterparts and add or restrict options from the execution module for stateful operations.
+When creating individual states, a ``module.function`` is specified from the state modules.
+These state modules call their execution module counterparts, and either add or restrict options from the execution module for stateful operations.
 
-If this separation between state module and execution module is not well understood, frustration is inevitable. For example, state modules don’t have “status check” options for us to see logs and such. Instead, you call for action that Salt uses to determine the status and act accordingly.
+Be aware that conficts may arise between state modules and execution modules.
+For example, state modules do not have “status check” options for logs, so you must call the Salt action that determines the status.
 
-So if I wanted to check and install the ``tree`` package in the terminal...
+For example, using the terminal to check and install the ``tree`` package:
 
 .. code-block:: bash
 
-    $ tree
+    tree
 
 .. code-block::
 
-    # tree command output
+    # command output
 
     Command 'tree' not found, but can be installed with:
     sudo apt install tree
 
 .. code-block:: bash
 
-    $ sudo apt install tree
+    sudo apt install tree
 
 .. code-block::
 
-    # sudo apt install tree command output
+    # command output
 
     Reading package lists... Done
     Building dependency tree
@@ -98,7 +100,7 @@ So if I wanted to check and install the ``tree`` package in the terminal...
       tree
     [installed successfully]...
 
-However, doing the same with a salt state requires no check state, since the install state is implicitly checking for the package from the system's package manager.
+However, doing the same with a Salt state requires no check state, since the install state implicitly checks for the package in the system's package manager.
 
 .. code-block:: sls
     :caption: /srv/salt/tree.sls
@@ -110,11 +112,11 @@ However, doing the same with a salt state requires no check state, since the ins
 
 .. code-block:: bash
 
-    $ salt rebel_01 state.sls tree
+    salt rebel_01 state.sls tree
 
 .. code-block:: yaml
 
-    # salt rebel_01 state.sls tree command output
+    # command output
 
     rebel_01:
     ----------
@@ -140,21 +142,20 @@ However, doing the same with a salt state requires no check state, since the ins
     Total states run:     1
     Total run time:   7.499 s
 
-The State SLS data structure
+The state SLS data structure
 ____________________________
 
 A state definition in a state file will have the following components:
 
-* **Identifier** The identifier declaration for the state section.
-* **State** Module The name of the State module to find the function in, such as pkg
+* **Identifier** is the identifier declaration for the state section.
+* **State** is the name of the ``state`` module containing the function, such as ``pkg``.
+* **Function** is the function to call in the named module, such as ``installed``.
+* **Name** is the name of the state call, which is usually the name of the file to be managed or the name of the package to be installed.
+* **Arguments** are the arguments that the state function will accept.
 
-  * **Function** The function to call in the named module, such as installed
+**Requisites** and **Declarations** are discussed in :ref:`requisites`.
 
-* **Name** The name of the state call, this is usually the name of the file to be managed or the name of the package to be installed
-* **Arguments** The state function will accept a number of arguments.
-* **Requisites/Declarations** These will be discussed in a later chapter
-
-Here is a generic single state layout in yaml using the names of the high data components:
+An example of a single state layout in YAML, using the names of the high data components:
 
 .. code-block:: sls
     :caption: /srv/salt/example.sls
@@ -169,16 +170,16 @@ Here is a generic single state layout in yaml using the names of the high data c
 Layers of data abstraction
 __________________________
 
-Another important quality of life salt feature is a lot of the package differences between operating systems (OS) have been abstracted away and normalized.
-
-An easy example is whether an OS uses yum or apt, salt will use the correct package manager automatically when evaluating the states. Therefore, this removes code developers would have to write, and making it easier to write code compatible with a diverse infrastructure.
+Another important feature of Salt is for that many packages, differences between platforms have been abstracted away and normalized. This reduces the amount of code that developers must write, and makes it easier to write code that is compatible over different platforms.
+Salt will automatically evaluate the states using the correct package manager for the current platform.
 
 Organizing states
 =================
 
-An engineer that writes salt states for a state tree should write them in such a way that another engineer can quickly ascertain the salt state’s purpose and see the workflow of the entire state tree.
+Salt states for a state tree should be written so that another developer can quickly ascertain the purpose of the Salt state and to see the workflow of the entire state tree.
 
-The states (and overall the state tree) should generally be shallow in complexity if possible. Reflecting the infrastructure deployment in the simplest states of incremental change towards the desired infrastructure. Often, overly “clever” code in salt states, and in code development in general, will lead to problems and confusion down the line as a project/code matures.
+A good practice is to reduce the complexity of the state tree by only using a few levels of nesting.
+This will make the tree easier to navigate and lead to fewer problems down the line as a project matures:
 
 .. code-block::
 
@@ -213,27 +214,28 @@ The states (and overall the state tree) should generally be shallow in complexit
     │ └── map.jinja
     └── top.sls
 
-This example state tree may look confusing because of multiple features being utilised. However, the important takeaway from this tree is noticing it is moderately developed and feature extensive, but the directory children only go three deep for this state tree. So you can still have a sophisticated state tree for infrastructure management without nesting files to a point of navigational difficulty.
+The Salt state tree ``file roots``
+__________________________________
 
-The Salt state tree "file roots"
-________________________________
+On the ``salt-master``, the ``file_roots`` option for determines where the state tree starts. By default this is ``/srv/salt`` directory.
+The state tree directory is where all state files are found, along with any files related to the Salt states, such as application configuration files.
 
-On the ``salt-master`` you can configure the ``file_roots`` option for where the state tree starts. By default this is ``/srv/salt`` directory. The state tree directory is where all state files are found, along with any files related to the salt states such as application configuration files.
+The ``top.sls`` file
+____________________
 
-The top file
-____________
+Since some environments have hundreds of state files targeting thousands of minions, it is not practical to run each state individually and then target the applicable minions each time.
 
-It is not practical to run each state individually targeting the applicable minion(s) each time. Some environments have hundreds of state files targeting thousands of minions. Salt offers two features to help with this scaling problem.
+Salt offers two features to help with this scaling problem:
 
-* ``top.sls`` file, to map salt states to the authorized minion(s)
-* ``highstate`` execution, to run all salt states outlined in ``top.sls`` in a single salt job.
+* The ``top.sls`` file, to map Salt states to the authorized minion
+* ``highstate`` execution, to run all Salt states outlined in ``top.sls`` in a single Salt job
 
-The top file creates a few general abstractions.
+The ``top.sls`` file creates some general abstractions:
 
-* Maps what nodes should pull from which environments.
-* Defines which states should be run from those environments.
+* Maps what nodes should pull from which environments
+* Defines which states should be run from those environments
 
-The contents of the files and the way they are laid out is intended to be as simple as possible while allowing for maximum flexibility:
+The contents and layout of the files are intended to be as simple as possible, while still allowing for maximum flexibility:
 
 .. code-block:: sls
     :caption: /srv/salt/top.sls
@@ -255,19 +257,17 @@ The contents of the files and the way they are laid out is intended to be as sim
       - match: compound
       - nagios.server
 
-* ``base`` is the default environment to use as the ``file_roots``
-* Targeting parameter is defined next
-
-  * If a match type is anything other than minion ID globbing, then a **match** type must be defined
-
-* One or more state files are added as list items under the target
+* ``base`` is the default environment to use as the ``file_roots``.
+* Targeting parameter is defined next.
+* If a match type is anything other than minion ID globbing, then a **match** type must be defined.
+* One or more state files are added as list items under the target.
 
 Top file targeting types
 ________________________
 
 Targeting in the top file can use the same matching types as the salt command-line by declaring the match option.
 
-The default match type is a compound matcher. A single glob, when passed through the compound matcher, acts the same way as matching by glob, so in most cases the two are indistinguishable.
+The default match type is a compound matcher. A single glob, when passed through the compound matcher, acts the same way as matching by ``glob``, so in most cases the two are indistinguishable.
 
 .. list-table::
     :widths: 40 25 150
@@ -320,59 +320,60 @@ The default match type is a compound matcher. A single glob, when passed through
 Running highstate using top files
 _________________________________
 
-When managing from the master it is wise to manually run the command when the state tree is updated, or to execute from the master with a  cron job.
+When managing from the master, it is good practice to either manually run the command when the state tree is updated, or to execute from the master with a ``cron`` job.
 
-Simply use the salt command to execute the state.highstate function:
+Use the ``salt`` command to execute the ``state.highstate`` function:
 
 .. code-block:: bash
 
-    $ salt \* state.highstate
+    salt \* state.highstate
 
 The entire highstate high data can be viewed by running:
 
 .. code-block:: bash
 
-    $ salt \* state.show_highstate
+    salt \* state.show_highstate
 
 The output is similar to using ``state.show_sls`` for individual states.
 
 Batching large jobs
 ___________________
 
-While salt can easily handle thousands of simultaneous state runs it may be desirable to have the master throttle the output in batches. With a large salt cluster it can be beneficial to run salt states in batches.
+While Salt can easily handle thousands of simultaneous state runs, for large clusters it may be desirable to have the master throttle the output in batches.
 
-This will run salt in such a way that only 10% of all the minions will be running ``state.highstate`` at once and work through all of the minions.
-
-.. code-block:: bash
-
-    $ salt \* state.highstate --batch 10%
-
-This will run salt in such a way that only 10 minions will be running ``state.highstate`` at once and work through all of the minions.
+In this example, 10% of all the minions will be running ``state.highstate``:
 
 .. code-block:: bash
 
-    $ salt \* state.highstate --batch 10
+    salt \* state.highstate --batch 10%
+
+In this example, 10 minions will be running ``state.highstate``:
+
+
+.. code-block:: bash
+
+    salt \* state.highstate --batch 10
 
 .. Note::
 
-    If the minion population being targeted is larger than the percentage or count being batched, the currently targeted minions will constitute a sliding window the batched amount.
+    If the minion population being targeted is larger than the percentage or count being batched, the currently targeted minions will constitute a sliding window with the batched amount.
 
 
 Managing multiple environments
 ==============================
 
-Multiple state trees can be created by defining multiple environments.
-
-Multiple environments are declared by:
+Multiple state trees can be created by defining multiple environments, which are declared by:
 
 * Defining multiple environments in the master configuration
-* Creating a top file configuration for each environment or a common top file accessible to all environments which contains sections defining each environment
-* Minions must be configured to make requests from the Salt master to a single environment or be overridden on the command line.
+* Creating a top file configuration for each environment, or a common top file accessible to all environments which contain sections defining each environment
+* Configuring minions to make requests from the Salt master to a single environment, or to override requests on the command line
 
 Multiple environments structure on the Salt master
 __________________________________________________
 
-Multiple State Trees are defined by declaring more environments within the Salt Master configuration. Each State Tree may have multiple paths defined. This allows for a different State Tree for Production, Development, and QA.
+Multiple State Trees are defined by declaring more environments within the Salt Master configuration.
+Each State Tree may have multiple paths defined.
+This allows for a different State Tree for Production, Development, and QA.
 
 If multiple environments are needed, separate ``file_roots`` can be created to serve more than just one State Tree:
 
@@ -397,13 +398,13 @@ ________________________________________
 The top file maps states from multiple environments to applicable minions in the salt cluster.
 Each state tree environment may have a top.sls file.
 
-* Each state tree environment may have a top.sls file.
+* Each state tree environment may have a ``top.sls`` file:
 
-  * The ``top.sls`` file must contain a reference to the environment being served
+  * The file must contain a reference to the environment being served.
 
-* A ``top.sls`` file may span multiple environments, however, this is not common
+  * The file may span multiple environments, however, this is not common
 
-A ``top.sls`` file that spans multiple environments and is accessible to each environment might look like:
+A file that spans multiple environments and is accessible to each environment might look like:
 
 .. code-block:: sls
 
@@ -426,7 +427,8 @@ A ``top.sls`` file that spans multiple environments and is accessible to each en
       'db*prod*':
         - db
 
-This ``top.sls`` file example would either need to be made available to each environment's ``file_roots`` as defined in the Salt master configuration. This example could also be broken into four separate ``top.sls`` files - one in each environment's ``file_roots``.
+The ``top.sls`` file in this example would either need to be made available to each environment's ``file_roots`` as defined in the Salt master configuration.
+This example could also be broken into four separate ``top.sls`` files, one in each environment's ``file_roots``.
 
 Minion environment configuration
 ________________________________
@@ -443,7 +445,7 @@ With this setting, the Salt minion would be limited to only viewing the ``file_r
 Multiple environment example
 ____________________________
 
-This example shows how all state tree components collectively generate a highstate.
+This example shows how all state tree components collectively generate a highstate:
 
 
 The steps include:
@@ -453,9 +455,9 @@ The steps include:
     #. Create a ``prod`` environment for production states
     #. Create a ``dev`` environment for further state development
 #. Creating the Salt states
-    #. Disable USB storage on all systems from prod
-    #. Provide an SSH configuration files for both prod and dev
-    #. Provide an Apache configuration for dev and prod with a different name
+    #. Disable USB storage on all systems from ``prod``
+    #. Provide an SSH configuration files for both ``prod`` and ``dev``
+    #. Provide an Apache configuration for ``dev`` and `prod` with a different name
 #. Add resources for state runs
 #. Create top file
 
@@ -538,8 +540,8 @@ The Apache State file will look like:
         - name: httpd
         - enable: True
 
-Create a firewalld state
-________________________
+Create a ``firewalld`` state
+____________________________
 
 .. code-block:: sls
     :caption: /srv/salt/dev/firewalld/init.sls
@@ -559,16 +561,15 @@ ________________________
 Production build-out
 ____________________
 
-We will make a copy of all states in the Development State Tree ``/srv/salt/dev`` to the Production State Tree in :file:`/srv/salt/prod`.
+All states in the Development State Tree ``/srv/salt/dev`` can be copied to the Production State Tree in :file:`/srv/salt/prod`.
 
-Also, just to show that we have two environments the ``apache/init.sls`` state is renamed to ``apache-prod/init.sls`` in the Production environment for this example.
+In this example, to show that we have two environments, the ``apache/init.sls`` state is renamed to ``apache-prod/init.sls``.
 
 Create the default top file
 ___________________________
 
-The state ``top.sls`` will target all systems for ``ssh`` and only web servers will get the apache state.
-
-It will be copied by to both ``dev`` and ``prod`` State Tree paths.
+The state ``top.sls`` will target all systems for ``ssh`` and only web servers will get the ``apache`` state.
+The state will be copied by to both ``dev`` and ``prod`` State Tree paths.
 
 .. code-block:: sls
     :caption: /etc/salt/master.d/file_roots.conf
@@ -595,15 +596,19 @@ __________
 
 We can see the different state trees using the ``saltenv`` kwarg to override the minion's configured environment.
 
-The following is the ``dev`` environment (all ``web`` minions have a ``role`` grain):
+.. Note::
+
+    All ``web`` minions have a ``role`` grain.
+
+This example is in the ``dev`` environment:
 
 .. code-block:: bash
 
-    $ salt \* cp.list_states saltenv=dev
+    salt \* cp.list_states saltenv=dev
 
 .. code-block:: sls
 
-    # salt \* cp.list_states saltenv=dev command output
+    # command output
 
     ns01:
       - ssh
@@ -614,15 +619,15 @@ The following is the ``dev`` environment (all ``web`` minions have a ``role`` gr
       - ssh
       - top
 
-Here is the ``prod`` environment (all ``web`` minions have a ``role`` grain):
+The example is in the ``prod`` environment.
 
 .. code-block:: bash
 
-    $ salt \* cp.list_states saltenv=dev
+    salt \* cp.list_states saltenv=prod
 
 .. code-block:: sls
 
-    # salt \* cp.list_states saltenv=prod
+    # command output
 
     ns01:
       - security.disable-usb
