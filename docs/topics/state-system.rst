@@ -15,27 +15,27 @@ Looking into the processing of Salt state files we see that:
 * The State system inside Salt is fundamentally data-driven.
 * Each stage has a corresponding process for refining the initial data structure.
 
-The stages and data layers of the Salt state system are shown in the image below.
+The stages and data layers of the Salt state system are shown in the following image:
 
 .. image:: ../_static/img/state-stages-data-layers.png
    :align: right
-   :alt: The stages and data layers of the Salt state system. The top file and sls files are passed through rendering which is output as high data. This is then passed to a compile state which outputs low data. This is then passed to a runtime stage which outputs low chunk which is then evaulted and executed. Ultimately, the results are returned.
+   :alt: The stages and data layers of the Salt state system. The top file and SLS files are passed through rendering which is output as high data. This is then passed to a compile state which outputs low data. This is then passed to a runtime stage which outputs low chunk which is then evaulted and executed. Ultimately, the results are returned.
 
 Stages of Salt state execution
 ______________________________
 
-There are multiple stages of the execution in the Salt state system. When referring to the salt state system there are three distinct stages:
+In the Salt state system, there are three distinct stages of execution:
 
 * the render
 * the compile
 * the runtime
 
-Each stage manipulates the data in a way that allows for the states to be expressed in a dynamic way. The entire process comprises the converting of all of the data down into a single pass static data structure.
+Each stage manipulates the data in a way that allows for the states to be expressed dynamically . The entire process converts of all of the data down into a single pass static data structure.
 
 State rendering
 ===============
 
-The render time is when the renderer engines are used. The top file, and SLS files are converted into the most raw, unrefined, high data. The process of state execution begins with the execution of a high state.
+The render time is when the renderer engines are used. The top file and SLS files are converted into raw, unrefined high data. The process of state execution begins with the execution of a high state.
 
 High state
 __________
@@ -54,7 +54,7 @@ Top files are downloaded from the master.
 * The top files from each environment are downloaded and passed through the render interface.
 * The top files are rendered. Top files can be processed by multiple renderers such as Jinja and YAML renderers.
 
-The master_tops function is called.
+The ``master_tops`` function is called.
 
 * This function requests the master tops plugin interface from the master.
 * The master evaluates all configured master tops plugin interfaces.
@@ -64,7 +64,7 @@ This pluggable interface allows for storing top file information in a database o
 Match evaluation
 ________________
 
-The matches dictionary contains all of the needed data to start gathering sls references. A raw matches dictionary will be a variation of this format:
+The matches dictionary contains all of the needed data to start gathering SLS references. A raw matches dictionary will be a variation of this format:
 
 .. code-block:: Python
 
@@ -73,24 +73,24 @@ The matches dictionary contains all of the needed data to start gathering sls re
 
 .. Note::
 
-    When calling state.sls the matches dictionary is generated from the sls refs and the environment name sent as arguments to the function.
+    When calling ``state.sls`` the matches dictionary is generated from the SLS references s and the environment name sent as arguments to the function.
 
 SLS rendering and templating
 ____________________________
 
-#. Each SLS file is rendered and the “raw” high data of that individual file is returned.The default renderers are the Jinja + YAML (yaml_jinja) renderers.
-#. The templates in the file rendering sequence are all executed at this point. This means that all references to salt functions are resolved now, before any execution of states begin.
-#. As each of the SLS references are downloaded and rendered their respective data is combined into a single Python dictionary which will be further processed.
+#. Each SLS file is rendered and the “raw” high data of that individual file is returned. The default renderers are the Jinja + YAML (yaml_jinja) renderers.
+#. The templates in the file rendering sequence are all executed at this point. This means that all references to Salt functions are resolved now, before any execution of states begin.
+#. As the SLS references are downloaded and rendered, their respective data is combined into a single Python dictionary which will be further processed.
 
-The following image shows where rendering happens in the state execution process.
+The following image shows where rendering happens in the state execution process:
 
 .. image:: ../_static/img/state-execution-rendering.png
    :align: right
    :alt: The state execution rendering pipeline in the state execution process. The file and sls files are passed the Jinja renderer which converts this into YAML which then is passed to the YAML renderer
 
-Rendering pipeline in the Stages of State Execution This example shows the data conversion of a state when rendered and templated.
+Rendering pipeline in the stages of state execution. This example shows the data conversion of a state when rendered and templated.
 
-The following state fragment is written in YAML with a Jinja template expression to get the os_family grain.
+The following state fragment is written in YAML with a Jinja template expression to get the ``os_family`` grain:
 
 .. code-block:: sls
 
@@ -111,25 +111,25 @@ If the following state is rendered on a RedHat minion then it will be converted 
 High data
 _________
 
-High data is the data structure represented in YAML via SLS files. The High data structure is created by merging the data components rendered inside sls files (or other render systems).
+High data is the data structure represented in YAML via SLS files. The High data structure is created by merging the data components rendered inside SLS files (or other render systems).
 
-The High data can be easily viewed by executing the state.show_highstate or state. show_sls functions. Since this data is a somewhat complex data structure, it may be easier to read using the json, yaml, or pprint outputters:
+The High data can be easily viewed by executing the ``state.show_highstate`` or ``state.show_sls`` functions. Since this is a somewhat complex data structure, it may be easier to read using the ``json``, ``yaml``, or ``pprint`` outputters:
 
 .. code-block:: bash
 
-    $ salt '*' state.show_highstate --out yaml
+    salt '*' state.show_highstate --out yaml
 
-    $ salt '*' state.show_sls edit.vim --out pprint
+    salt '*' state.show_sls edit.vim --out pprint
 
-Evaluation of include statements
-________________________________
+Evaluation of ``include`` statements
+____________________________________
 
-If a single sls file contains an include declaration, then the included sls references need to be rendered. For each rendered sls file with includes, the list of includes is read and the sls references defined are resolved.
+If a single SLS file contains an ``include`` declaration, then the included SLS references need to be rendered. For each rendered SLS file with includes, the list of includes is read and the SLS references defined are resolved.
 
 This is the point where include statement globs are reconciled.
 
 * This means that the referenced includes are downloaded and rendered as they are found.
-* The render sequence maintains which sls references have already been downloaded ensuring that the same sls file is not rendered twice.
+* The render sequence maintains which SLS references have already been downloaded ensuring that the same SLS file is not rendered twice.
 
 Injected data
 _____________
@@ -139,14 +139,14 @@ At a number of points in the compiler, data is injected into the structures for 
 Injected state auto order
 _________________________
 
-While the order flag is inserted here, it has not been evaluated yet,that happens when the high data is compiled to low data.
+While the order flag is inserted here, it has not been evaluated yet, which happens when the high data is compiled to low data.
 The YAML renderer has been modified to use ordered dictionaries instead of standard unordered dictionaries.
 
 * This means that as the files are rendered that the order is preserved and order flags can be inserted into the state declarations.
-* The order of the automatic state ordering is started at the tail-end of the include statement.
-* Therefore, the first sls file to get pushed into the high data dictionary is the first to get ordered.
+* The order of the automatic state ordering is started at the tail-end of the ``include`` statement.
+* Therefore, the first SLS file to get pushed into the high data dictionary is the first to get ordered.
 * More simply put, the order is first declared at the end of the include chain.
-* So if sls a includes b which includes c, then the states in c will be the first to be evaluated, then b then a.
+* So, if SLS file 'a' includes file 'b', which includes file 'c', then the states in 'c' will be the first to be evaluated, then 'b' then 'a'.
 
 If the order is declared then it is honored, otherwise, a value is injected:
 
@@ -163,15 +163,15 @@ If the order is declared then it is honored, otherwise, a value is injected:
         - order: last  # <- explicitly declared, not evaluated till later
 
 
-Injected __sls__ and __env__ values
-___________________________________
+Injected ``__sls__`` and ``__env__`` values
+___________________________________________
 
-The sls reference to the loaded file and the environment that file came from are both loaded into the state declarations at this point. These keys are called:
+The SLS reference to the loaded file and the environment that file came from are both loaded into the state declarations at this point. These keys are called:
 
-* ``__sls__`` for the sls reference
+* ``__sls__`` for the SLS reference
 * ``__env__`` for the environment
 
-These values are read in by a number of states to ensure that the same environments are used to download source files as the sls file was retrieved from.
+These values are read in by a number of states to ensure that the same environments are used to download source files as the SLS file was retrieved from:
 
 .. code-block:: sls
 
@@ -190,22 +190,22 @@ These values are read in by a number of states to ensure that the same environme
         - name: named
         - order: last
 
-Stashing extend and exclude statements
-______________________________________
+Stashing ``extend`` and ``exclude`` statements
+______________________________________________
 
-All exclude and extend statements are, at the time of each file being rendered stashed into high-level data structures:
+All ``extend`` and ``exclude`` statements are, at the time of each file being rendered, stashed into high-level data structures:
 
 * ``__extend__`` for extended states
 * ``__exclude__`` for excluded states
 
-These structures maintain this data to be reconciled once all sls references have been rendered. This means that all “top level” declarations are pulled out and combined during the initial rendering of the file.
+These structures maintain this data to be reconciled once all SLS references have been rendered. This means that all “top level” declarations are pulled out and combined during the initial rendering of the file.
 
 Unrefined data
 ______________
 
-Once all of the sls references have been rendered the resulting data structure is the unrefined high data. The unrefined high data needs to be refined, reconciled and then compiled.
+Once all of the SLS references have been rendered, the resulting data structure is the unrefined high data. The unrefined high data needs to be refined, reconciled, and then compiled.
 
-The first data to clean is to ensure that any data structure shortcuts are cleaned up and the standard high data is made ready. This includes taking care of “short decs”, or dot delimited references. This cleanup changes all references that look like these:
+The data structure shortcuts are cleaned up and the standard high data is made ready. This includes taking care of “short decs”, or dot delimited references. This cleanup changes all references that look like these:
 
 .. code-block:: sls
 
@@ -251,22 +251,22 @@ State compile
 =============
 
 * The data is read for exclude matches and the respective excludes are pulled out.
-* The main caveat to executing the excludes at this point is that this evaluation is post includes.
-* The result is that in the case where states included from one file and excluded from another, the exclude will override the include.
+* The main caveat to executing the excludes at this point is that this evaluation is after the includes.
+* The result is that when states included from one file and excluded from another, the exclude will override the include.
 
 State compile
 _____________
 
 Now that the state has been rendered it is ready to compile. The Salt state compiler consists of the reconciliation of complex raw high data structures:
 
-* conversion of _in declarations to counterparts
-* evaluate use declarations
-* handle prereq declarations
-* reconcile extend statements
-* handle name references
+* conversion of ``_in`` declarations to counterparts
+* evaluate ``use`` declarations
+* handle ``prereq`` declarations
+* reconcile ``extend`` statements
+* handle ``name`` references
 * compile to low data (low chunks)
 
-The following image shows State compiler routines
+The following image shows state compiler routines
 
 .. image:: ../_static/img/state-compiler-routines.png
    :align: right
@@ -275,46 +275,46 @@ The following image shows State compiler routines
 Reconciliation
 ______________
 
-State reconciliation include:
+State reconciliation includes:
 
-* Reconcile Complex Raw high data
-* Convert Requisite Ins to Requisites
-* Use Reconciliation
-* Prereq Fork Reconciliation
-* Handling Extend
+* Reconcile complex raw high data
+* Convert ``requisite_in`` declarations to requisites
+* Use reconciliation
+* Prereq fork reconciliation
+* Handling ``extend``
 
-Reconcile Requisite_in statements
-_________________________________
+Reconcile ``requisite_in`` statements
+_____________________________________
 
-The raw high data is scanned for requisite in statements. The requisite_in statements that are found become transformed into data in the ``__extend__`` structure to be evaluated next.
+The raw high data is scanned for ``requisite_in`` statements. The ``requisite_in`` statements that are found become transformed into data in the ``__extend__`` structure to be evaluated next.
 
 * An example of a ``requisite_in`` is ``require_in`` or ``watch_in``
-  * The require_in and watch_in requisites are the most simple.
-  * These simply convert into extended data that applies the respective require and watch statements.
+* The ``require_in`` and ``watch_in`` requisites are the simplest.
+* These convert into extended data that applies the respective ``require`` and ``watch`` statements.
 * The use and ``use_in`` requisites search through the high data for the redirected data and set the extended dictionary to apply the variables that will be used.
 
-Reconcile prereq statements
-___________________________
+Reconcile ``prereq`` statements
+_______________________________
 
-The prereq system creates a fork.
+The ``prereq`` system creates a fork.
 
-* The problem is that prereq needs to apply a requisite to the thing which it requires while also soft requiring it.
-  * The prereq system therefore creates what is a recursive loop of requisites with an exit condition.
-* The prereq sets all states which are pre-required with the pre-required requisite, while maintaining the prereq requisite.
-  * Other requisite ins dispose of the requisite in statement because they are no longer needed, but the prereq statement is used by the runtime.
+* The problem is that ``prereq`` needs to apply a requisite to the thing which it requires while also soft requiring it.
+* The ``prereq`` system therefore creates what is a recursive loop of requisites with an exit condition.
+* The ``prereq`` sets all states which are pre-required with the pre-required requisite, while maintaining the prereq requisite.
+* Other ``requisite_in``s dispose of the ``requisite_in`` statement because they are no longer needed, but the ``prereq`` statement is used in the runtime.
 
-Reconcile extend statements
-___________________________
+Reconcile ``extend`` statements
+_______________________________
 
-The extend statements are now reconciled.
+The ``extend`` statements are now reconciled.
 
 State Compile
 _____________
 
-* The extend statements and the requisite ins have now populated the ``__extend__`` dictionary in the raw high data.
+* The ``extend`` and ``requisite_in`` statements have now populated the ``__extend__`` dictionary in the raw high data.
 * Each key in the ``__extend__`` dictionary is now evaluated and lined up with the respective dictionary key in the raw high data.
-* The extend statements are then used to modify the raw high data.
-* With the extend system executed, the refined high data is ready to be compiled into low data.
+* The ``extend`` statements are then used to modify the raw high data.
+* With the ``extend`` system executed, the refined high data is ready to be compiled into low data.
 
 Compile to Low Data
 ___________________
@@ -328,39 +328,39 @@ The Low State layer is the list of low chunks "evaluated" in order. To see what 
 
 .. code-block:: bash
 
-    $ salt '*' state.show_lowstate
+    salt '*' state.show_lowstate
 
-This will display the raw low state in the order in which each low chunk will be evaluated. The order of evaluation is not necessarily the order of execution, since requisites are evaluated at runtime. Requisite execution and evaluation is finite; this means that the order of execution can be ascertained with 100% certainty based on the order of the low state.
+This will display the raw low state in the order in which each low chunk will be evaluated. The order of evaluation is not necessarily the order of execution, since requisites are evaluated at runtime. Requisite execution and evaluation is finite; this means that the order of execution can be ascertained with certainty based on the order of the low state.
 
 Handle names
 ____________
 
-The name(s) statement is handled within the data compilation sequence. Every item listed in the names statement is converted into a standalone low chunk and appended to the low state list. When initially run, the auto order system ensures that there is a numeric buffer of 1,000,000 between each order statement. This is to ensure that there is enough room to load up names statements later between auto ordered statements.
+The ``names`` statement is handled within the data compilation sequence. Every item listed in the ``names`` statement is converted into a standalone low chunk and appended to the low state list. When initially run, the auto order system ensures that there is a numeric buffer of 1,000,000 between each order statement. This is to ensure that there is enough room to load up names statements later between auto ordered statements.
 
 When handling names, the order used is incremented for each loaded name.
-Ensuring that the names are then ordered respective to how they are defined in the sls file.
+Ensuring that the names are then ordered respective to how they are defined in the SLS file.
 
 Low chunk
 _________
 
-The low chunk is the bottom of the Salt state compiler. This is a data representation of a single function call. The low chunk is sent to the state caller and used to execute a single state function. A single low chunk can be executed manually via the state.low command.
+The low chunk is the bottom of the Salt state compiler. This is a data representation of a single function call. The low chunk is sent to the state caller and used to execute a single state function. A single low chunk can be executed manually via the ``state.low`` command:
 
 .. code-block:: bash
 
-    $ salt-call state.low '{"__id__": "my_test", "name": "nano", "state": "pkg", "fun": "installed"}'
+    salt-call state.low '{"__id__": "my_test", "name": "nano", "state": "pkg", "fun": "installed"}'
 
-The passed data reflects what the state execution system gets after compiling the data down from sls formulas.
+The passed data reflects what the state execution system gets after compiling the data down from SLS formulas.
 
 State runtime
 =============
 
 The state runtime consists of:
 
-* state evaluation
-* state execution
+* a state evaluation
+* a state execution
 * a running dictionary
 
-The following image shows the state runtime stage.
+The following image shows the state runtime stage:
 
 .. image:: ../_static/img/state-runtime-stage.png
    :align: right
@@ -374,7 +374,7 @@ The runtime is a staged recursive algorithm that uses linear graph traversal to 
 The running dictionary
 ______________________
 
-The state runtime is managed through a running dictionary. The running dictionary is used to track the execution of state runs. This structure is also the structure returned when the state run has finished. The running dictionary contains the information from the individual state function returns containing:
+The state runtime is managed through a running dictionary. The running dictionary is used to track the execution of state runs. This structure is also the structure returned when the state run has finished. The running dictionary contains the returned information from the individual state function:
 
 * *a tag string*
 * ``__id__``
@@ -391,7 +391,7 @@ The state of the running dictionary during the runtime is a cornerstone to the o
 The tag string
 ______________
 
-If the state system is executed without applying the highstate outputter a string is seen which displays a strange syntax. This syntax is a 4 field string delimited by a unique sequence, the ``_|-``. This string contains the state, id, name, and function of the state that was executed.
+If the state system is executed without applying the highstate outputter a string is seen which displays a strange syntax. This syntax is a four field string delimited by a unique sequence, the ``_|-``. This string contains the state, id, name, and function of the state that was executed:
 
 .. code-block:: Python
 
@@ -422,7 +422,7 @@ This outputter orders the output by the ``__run_num__`` key in the running dicti
       +BASE dc=acme,dc=com
       +URI ldap://ldap.acme.com
 
-The tag string can be viewed by switching to another outputter such as the YAML outputter.
+The tag string can be viewed by switching to another outputter such as the YAML outputter:
 
 .. code-block:: sls
 
@@ -465,7 +465,7 @@ The state runtime evaluation is broken into two main routines, evaluation and ex
 #. Verify that this chunk has not already been executed
 #. Checks for requisites, if no requisites then execute
 #. Checks that all requisites have executed, if requisites have not executed, evaluate them
-#. Checks that all requisites have succeeded, if any failures are found do not evaluateIn the evaluation phase the requisite chain under the given low chunk is fully evaluated.
+#. Checks that all requisites have succeeded, if any failures are found do not evaluate. In the evaluation phase the requisite chain under the given low chunk is fully evaluated.
 
 When a state is found with a requisite the required state is evaluated.
 If that state has a requisite then its requisites are evaluated until a state is found without requisites or all requisites have been executed.
@@ -477,9 +477,9 @@ _________________
 
 #. When a low chunk is executed a number of checks are run:
 
-   #. Add the __run_num__ value, this keeps track of the order in which the individual states were executed.
-   #. The check_refresh method is called, this checks to see if the module loader system needs to be re-run before calling the state. Since installed packages and files may have made more state and execution modules available before this low chunk should be executed.
-   #. Inject the __low__, __running__, and __lowstate__ values. These are the live data structures being used by the state runtime. They are made available to state modules to facilitate cross-module
+   #. Add the ``__run_num__`` value, this keeps track of the order in which the individual states were executed.
+   #. The ``check_refresh`` method is called, this checks to see if the module loader system needs to be re-run before calling the state. Since installed packages and files may have made more state and execution modules available before this low chunk should be executed.
+   #. Inject the ``__low__``, ``__running__``, and ``__lowstate__`` values. These are the live data structures being used by the state runtime. They are made available to state modules to facilitate cross-module states.
 
 #. The state function is then called, the code defined in the python state module is executed and the return value is tagged and added to the running dictionary.
 
@@ -488,16 +488,16 @@ _____________
 
 The lowest layer of functionality in the state system is the direct state function call. State executions are executions of single state functions at the core.
 
-These individual functions are defined in state modules and can be called directly via the state.single command.
+These individual functions are defined in state modules and can be called directly via the ``state.single`` command:
 
 .. code-block:: bash
 
-    $ salt '*' state.single pkg.installed name='vim'
+    salt '*' state.single pkg.installed name='vim'
 
 Summarizing the state processing routines
 =========================================
 
-The Salt state system provides a reliable process of evaluating state files so that they evaluate accurately and consistently.
+The Salt state system provides a reliable process of evaluating state files so that they evaluate accurately and consistently:
 
 .. image:: ../_static/img/render-compile-runtime.png
    :align: right
