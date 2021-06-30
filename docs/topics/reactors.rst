@@ -7,7 +7,8 @@ Reactors
 Use case
 ========
 
-The reactor system leverages the ``salt-master`` event bus to trigger salt state responses to targeted event tags. Reactors expand salt’s utility with automated responses using pre-written remediation states.
+The reactor system leverages the ``salt-master`` event bus to trigger Salt state responses to targeted event tags.
+Reactors expand Salt’s utility with automated responses using pre-written remediation states.
 
 .. image:: ../_static/img/reactors.jpg
    :align: right
@@ -23,7 +24,7 @@ Reactors can be applied in a variety of scenarios:
 Event system
 ============
 
-The Salt Event System is used to fire off events on a local UNIX socket.
+The Salt event system is used to fire off events on a local UNIX socket.
 Salt's event system is written to integrate with existing tooling and scripts.
 
 Events are fired on the master for a number of situations:
@@ -62,22 +63,26 @@ Events are fired on the master for a number of situations:
 
     * - **run**
       - run event
-      - Fired as a runner begins (**new**) execution or returns (**ret**).
+      - Fired as a runner begins (``new``) execution or returns (``ret``).
 
 .. image:: ../_static/img/reactor-process.jpg
    :align: right
-   :alt: Illustration of the event bus from an event firing which ends with an sls file and reactor state back to the event bus.
+   :alt: Illustration of the event bus from an event firing which ends with an SLS file and reactor state back to the event bus.
 
-In addition to these events, custom event tags can be created from beacons. These event tags can then be filtered to trigger reactor states.
+In addition to these events, custom event tags can be created from beacons.
+These event tags can then be filtered to trigger reactor states.
 
-Beacons + reactors
-==================
+Beacons and reactors
+====================
 
 When both beacons and reactors are used together, you can create unique states customized to your specific needs.
 
-However, it is possible to create an infinite loop between a reactor and a beacon. For example, you might set up a beacon which monitors whether a file is read, which in turn fires a reactor to run a state, which in turn reads the file and re-fires the beacon.
+However, it is possible to create an infinite loop between a reactor and a beacon.
+For example, you might set up a beacon that monitors whether a file is read.
+The beacon then fires a reactor to run a state, which in turn reads the file and re-fires the beacon.
 
-To avoid infinite loops, you can set the ``disable_during_state_run`` argument. If a state run is in progress, the beacon will not run on its regular interval until the minion has completed the state run, at which point the normal beacon interval will resume.
+To avoid infinite loops, you can set the ``disable_during_state_run`` argument.
+If a state run is in progress, the beacon will not run on its regular interval until the minion has completed the state run, at which point the normal beacon interval will resume.
 
 .. code-block:: sls
     :caption: /etc/salt/minion.d/beacons.conf
@@ -91,9 +96,9 @@ To avoid infinite loops, you can set the ``disable_during_state_run`` argument. 
 Master configuration
 ====================
 
-Reactor sls files and event tags should be associated in ``/etc/salt/master.d/reactor.conf`` file as a default best practice.
+Reactor SLS files and event tags should be associated in ``/etc/salt/master.d/reactor.conf`` file as a best practice.
 
-The ``reactor``: configuration option is used to define a list of event tags that correspond to reactor sls files:
+The ``reactor`` configuration option is used to define a list of event tags that correspond to reactor SLS files:
 
 .. code-block:: sls
     :caption: /etc/salt/master.d/reactor.conf
@@ -109,7 +114,8 @@ The ``reactor``: configuration option is used to define a list of event tags tha
 Reactor states
 ==============
 
-The goal of a reactor file is to process a Salt event as quickly as possible, and then to optionally start a new process in response. Reactor sls files are syntactically Salt states, but under the hood evaluation and execution are different from regular Salt states.
+The goal of a reactor file is to process a Salt event as quickly as possible, and then to optionally start a new process in response.
+Reactor SLS files are syntactically Salt states, but evaluation and execution are different from regular Salt states.
 
 .. code-block:: sls
 
@@ -125,16 +131,17 @@ The goal of a reactor file is to process a Salt event as quickly as possible, an
         - <argument>: <value>
     ...
 
-Matching and rendering reactor sls files is done sequentially in a single process. For that reason, reactors should be as small and simple as possible, avoiding complex Jinja calls to slow Execution or Runner modules.
+Matching and rendering reactor SLS files is done sequentially in a single process. For that reason, reactors should be as small and simple as possible, avoiding complex Jinja calls that slow execution or runner modules.
 
-The worker pool is designed to handle complex and long-running processes. So, rendering reactor sls files MUST be simple and quick, and the new process started by the worker threads can be long-running.
+The worker pool is designed to handle complex and long-running processes.
+So, rendering reactor SLS files must be simple and quick, and the new process started by the worker threads can be long-running.
 
-Reactor sls files data structures are generated on the master. YAML + Jinja templates are used by default and are passed context variables **tag** and **data**.
+Reactor SLS files data structures are generated on the master. YAML + Jinja templates are used by default and are passed context variables ``tag`` and ``data``.
 
 Client interfaces
 =================
 
-The structure that is used to call methods on one of Salt’s client interfaces described in the Python API documentation.
+The structure that is used to call methods on one of Salt’s client interfaces is described in the `Salt Python Client API <https://docs.saltproject.io/en/latest/ref/clients/index.html>`__ documentation.
 
 The state declaration field takes a reference to the function to call in each interface.
 
@@ -142,26 +149,32 @@ LocalClient
 ___________
 
 * ``local`` is used to call Execution modules remotely on minions.
-* Executing remote commands maps to the LocalClient interface, which is used by the salt command. So to trigger a salt command from a reactor then prefix the call with local and then the name of the function to call.
+
+Executing remote commands maps to the LocalClient interface, which is used by the Salt command. So, to trigger a Salt command from a reactor, prefix the call with ``local`` and then the name of the function to call.
 
 RunnerClient
 ____________
 
 * ``runner`` calls the runner modules locally on the master.
-* To trigger a ``salt-run`` call the state declaration field will start with runner, followed by the runner function to call. The reactor state function comparable to in-terminal ``salt-run manage.up`` will be ``runner.manage.up``.
+
+To trigger a ``salt-run``, call the state declaration field, which will start with "``runner``", followed by the runner function to call.
+The reactor state function comparable to terminal command ``salt-run manage.up`` will be ``runner.manage.up``.
 
 WheelClient
 ___________
 
-``wheel`` calls Wheel modules locally on the master.
-These modules are used for managing master side files such as pillar_roots, keys, and the ``salt-master`` configurations.
+* ``wheel`` calls ``wheel`` modules locally on the master.
+
+These modules are used for managing master side files such as ``pillar_roots``, keys, and the ``salt-master`` configurations.
 
 LocalClient module
 __________________
 
-A field starts with local to use the LocalClient subsystem.This interface more specifically maps to the cmd_async method inside of the LocalClient class.This means that the arguments passed are being passed to the cmd_async method to run on the targeted minion(s).
+A field starts with "``local``" to use the LocalClient subsystem.
+This interface more specifically maps to the ``cmd_async`` method inside of the LocalClient class.
+This means that the arguments passed are being passed to the ``cmd_async`` method to run on the targeted minions.
 
-Reacting with an execution module is useful for actions like restarting web servers
+Reacting with an execution module is useful for actions such as restarting web servers:
 
 .. code-block:: sls
     :caption: /srv/reactor/restart-web-farm.sls
@@ -176,7 +189,7 @@ The ``arg`` option takes a list as they would be presented in the terminal, so t
 
 .. code-block:: bash
 
-    $ salt 'web*' service.restart httpd
+    salt 'web*' service.restart httpd
 
 Reacting with a data dictionary and Jinja logic results in high resolution targeting.
 
@@ -190,14 +203,14 @@ Reacting with a data dictionary and Jinja logic results in high resolution targe
 
 .. Note::
 
-    The same data structure and compiler used for the state system is used for the reactor system. Hence the data targeting for the id evaluates successfully.
+    The same data structure and compiler used for the state system is used for the reactor system. Hence the data targeting for the ``id`` evaluates successfully.
 
 RunnerClient module
 ___________________
 
-Salt runners work similarly to Salt execution modules. However, they execute on the Salt master itself instead of remote Salt minions.
+Salt runners work similarly to Salt execution modules, but execute on the Salt master itself instead of remote Salt minions.
 
-A Salt runner can be a simple client call or a complex application. This reactor calls the drac runner to pxe boot a Dell server:
+A Salt runner can be a simple client call or a complex application. This reactor calls the ``drac`` runner to ``pxe`` boot a Dell server:
 
 .. code-block:: sls
     :caption: /srv/reactor/pxe_boot.sls
@@ -222,9 +235,11 @@ In this example, the reactor state is calling an orchestration state from a runn
 WheelClient module
 __________________
 
-The wheel modules repertoire is small and highly focused on self management of the ``salt-master``. Generally, it is best practice to manually configure and adjust the salt-master. However, there are legitimate use cases to safely automate redundant or predictable actions.
+The ``wheel`` modules have a small set of options, and are highly focused on self management of the ``salt-master``.
+Generally, it is best practice to manually configure and adjust the ``salt-master``.
+However, there are legitimate use cases to safely automate redundant or predictable actions.
 
-For example, a good use-case in closed LAN infrastructure is to define a reactor to automatically accept a new minion’s key.
+For example, a good use case in closed LAN infrastructure is to define a reactor to automatically accept a new minion’s key.
 
 .. code-block:: jinja
     :caption: /srv/reactor/accept-key.sls
@@ -243,21 +258,22 @@ Debugging the reactor
 The best window into the reactor is to run the master in the foreground with logging set to ``debug``.
 
 The output will include:
-When the master sees the event
-What the master does in response to that event
-The rendered sls file or any errors from rendering the sls file
+
+* When the master sees the event
+* What the master does in response to that event
+* The rendered SLS file or any errors from rendering the SLS file
 
 Stop the master:
 
 .. code-block:: bash
 
-    $ systemctl stop salt-master
+    systemctl stop salt-master
 
 Start the master manually:
 
 .. code-block:: bash
 
-    $ salt-master -l debug
+    salt-master -l debug
 
 You will see information such as:
 
