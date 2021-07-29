@@ -30,7 +30,7 @@ The following diagram shows more detail in how Salt manages keys.
    :align: right
    :alt: Salt master minion model
 
-Salt Minion sends its public key to the Salt master.
+Salt minion sends its public key to the Salt master.
 
 * The minion public and private keys are stored on the minion by default as
 
@@ -86,11 +86,11 @@ The public key can be viewed using salt-key:
 
 .. code-block:: bash
 
-    $ salt-key -p db1
+    salt-key -p db1
 
 .. code-block:: bash
 
-    # salt-key -p db1 command output
+    salt-key -p db1 command output
 
     -----BEGIN PUBLIC KEY-----
     MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAgEAtG1wZunomT4oPGiLDXeUqJkjqLJLk9P
@@ -109,11 +109,11 @@ Similarly all minion public keys can be printed with the ``-P`` flag:
 
 .. code-block:: bash
 
-    $ salt-key -P
+    salt-key -P
 
 .. code-block:: bash
 
-    # salt-key -P command output
+    salt-key -P command output
 
     Unaccepted keys:
     Accepted keys:
@@ -131,22 +131,22 @@ Key signatures can be printed out with the -F finger flag for all minions or ``-
 
 .. code-block:: bash
 
-    $ salt-key -f db1
+    salt-key -f db1
 
 .. code-block:: bash
 
-    # salt-key -f db1 command output
+    salt-key -f db1 command output
     Signature for db1 public key: c1:2d:2b:11:73:d5:e5:63:93:df:a8:d7:e2:a2:eb:6b
 
 Get the public signature for your local master:
 
 .. code-block:: bash
 
-    $ salt-key -f master
+    salt-key -f master
 
 .. code-block:: bash
 
-    # salt-key -f master command output
+    salt-key -f master command output
 
     Signature for master public key: bc:9d:a8:89:f7:b6:fa:fe:50:c3:35:65:c1:1e:db:9b
 
@@ -221,7 +221,7 @@ ____________________
 Publisher ACLs
 ==============
 
-The salt publisher ACL system is a means to allow system users other than root to have access to execute select salt commands on minions from the master. The publisher ACL system allows for a command white list in the master configuration file via the ``publisher_acl`` configuration option. The ``publisher_acl_blacklist`` option operates by allowing all functions except those that are blacklisted. Users listed under this option are given access to run specific modules on specific minions using regular expressions.
+The salt publisher ACL system is a means to allow system users other than root to have access to execute select salt commands on minions from the master. The publisher ACL system allows for a command whitelist in the master configuration file via the ``publisher_acl`` configuration option. The ``publisher_acl_blacklist`` option operates by allowing all functions except those that are blacklisted. Users listed under this option are given access to run specific modules on specific minions using regular expressions.
 
 .. Note::
 
@@ -247,23 +247,23 @@ After logging in as user admin on the server running the Salt master:
 
 .. code-block:: bash
 
-    $ su admin
+    su admin
 
 .. code-block:: bash
 
-    $ salt \* test.ping minion1: True minion2: True
+    salt \* test.ping minion1: True minion2: True
 
 .. code-block:: bash
 
-    $ salt \* network.ip_addrs {'minion1': ['10.1.45.172']} {'minion2': ['192.168.122.1', '10.1.45.39', '10.1.45.21']}
+    salt \* network.ip_addrs {'minion1': ['192.0.2.172']} {'minion2': ['198.51.100.1', '192.0.2.39', '192.0.2.21']}
 
 .. code-block:: bash
 
-    $ salt \* pkg.install bind
+    salt \* pkg.install bind
 
 .. code-block:: bash
 
-    # salt \* pkg.install bind command output
+    salt \* pkg.install bind command output
 
     'Failed to authenticate, is this user permitted to execute commands?'
 
@@ -385,16 +385,16 @@ Once enabled, external authentication can be used passing
 
 .. code-block:: bash
 
-    $ salt -a auto ns01.example.com network.ipaddrs eth0
+    salt -a auto ns01.example.com network.ipaddrs eth0
 
 .. code-block:: bash
 
-    # salt -a auto ns01.example.com network.ipaddrs eth0 command output
+    salt -a auto ns01.example.com network.ipaddrs eth0 command output
 
     username: admin
     password: *****
     ns01.example.com:
-      - 172.31.6.20
+      - 203.0.113.1
 
 Hardening Salt
 ==============
