@@ -1,7 +1,7 @@
 .. _salt-overview:
 
 =======================
-Salt Overview
+Salt overview
 =======================
 
 Features of Salt
@@ -54,11 +54,11 @@ which is known as orchestration.
 Salt management concepts
 ========================
 
-A basic Salt implementation consists of a Salt Master managing one or more Salt Minions.
+A basic Salt implementation consists of a Salt master managing one or more Salt minions.
 
-* A Salt Master is a server running the ``salt-master`` service that provides
+* A Salt master is a server running the ``salt-master`` service that provides
   management to many systems.
-* A Salt Minion is any system/device managed by Salt. A Salt Minion can
+* A Salt minion is any system/device managed by Salt. A Salt minion can
   run the ``salt-minion`` service or can be agentless using ``salt-ssh``
   or ``salt-proxy``.
 * A Salt Proxy process can behave as a salt-minion, which in turn connects
@@ -75,20 +75,19 @@ A basic Salt implementation consists of a Salt Master managing one or more Salt 
 Salt master
 -----------
 
-A server running the ``salt-master`` service is a Salt Master. The Salt Master
+A server running the ``salt-master`` service is a Salt master. The Salt master
 provides a cohesive platform for orchestration and automation between managed systems.
 
 Salt minion
 -----------
 
-A system under control of the master is considered a Salt Minion.
+A system under control of the Salt master is considered a Salt minion.
 However, minions do not require a master to be managed but can run in a stand-alone
 mode.
 
 * The ``salt-minion`` service runs as a management agent on a system.
 * The ``salt-minion`` service can run pretty much anywhere you can have a
   Python interpreter.
-
 
 Salt proxy
 ----------
@@ -104,7 +103,7 @@ Salt SSH
 The Salt SSH system was added to Salt as an alternative means to communicate
 with minions. The Salt SSH system can be used in tandem with or as an alternative
 to the standard Salt system. The Salt SSH system does not require that a Salt
-Minion be present on the target system. Only SSH needs to be running and port
+minion be present on the target system. Only SSH needs to be running and port
 22 open. We introduce this capability of Salt so you can appreciate the full
 capability of Salt but will not be using it in this class.
 
@@ -145,8 +144,8 @@ to provide the fastest communication possible.
 Open event system
 -----------------
 
-The event system is used for inter-process communication between the Salt Master
-and Salt Minions:
+The event system is used for inter-process communication between the Salt master
+and Salt minions:
 
 * Events are seen by both the master and minions.
 * Events can be monitored and evaluated by both.
