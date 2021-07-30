@@ -17,17 +17,17 @@ Salt commands can be executed in different ways:
    :align: right
    :alt: Illustration
 
-Each command is just a wrapper around an API client interface. The command to run determines where you are executing the command (master or minion) and where you want the command to run (master or minion).
+Each command is just a wrapper around an API client interface. The command to run determines where you are executing the command (Salt master or minion) and where you want the command to run (Salt master or minion).
 
 Calling modules locally on a minion
 ===================================
 
-Salt modules can be called locally on the minion, bypassing the master's initial publish of the command on the event bus using the ``salt-call`` command.
+Salt modules can be called locally on the minion, bypassing the Salt master's initial publish of the command on the event bus using the ``salt-call`` command.
 
 * The salt ``module.functions`` make up a rich API for system management.
 * These ``module.functions`` are all available for execution directly on the minion.
 
-Salt-call is an effective tool for both accessing the Salt functions without needing to *initially* run through the master, but to also debug operations on a minion. Some complex operations, like configuration management can be more easily debugged if run locally with ``salt-call``.
+Salt-call is an effective tool for both accessing the Salt functions without needing to *initially* run through the Salt master, but to also debug operations on a minion. Some complex operations, like configuration management can be more easily debugged if run locally with ``salt-call``.
 
 Using salt-call
 _______________
@@ -38,19 +38,19 @@ To view network interfaces using ``salt-call``:
 
 .. code-block:: bash
 
-    $ salt-call network.interfaces
+    salt-call network.interfaces
 
 The documentation is also available using ``salt-call``:
 
 .. code-block:: bash
 
-    $ salt-call sys.doc pkg.install
+    salt-call sys.doc pkg.install
 
 A ``module.function`` alias exists for viewing documentation using ``salt-call``:
 
 .. code-block:: bash
 
-    $ salt-call -d service
+    salt-call -d service
 
 Viewing local grains
 ____________________
@@ -59,19 +59,19 @@ Grains data can be viewed locally on the minion using ``salt-call`` in two diffe
 
 .. code-block:: bash
 
-    $ salt-call grains.items
+    salt-call grains.items
 
 Alternatively:
 
 .. code-block:: bash
 
-    $ salt-call -g
+    salt-call -g
 
 You may also view specific grain items the same way:
 
 .. code-block:: bash
 
-    $ salt-call grains.get os_familiy
+    salt-call grains.get os_familiy
 
 The Salt command line execution
 ===============================
@@ -82,7 +82,7 @@ If a command times out or if your shell gets disconnected, the command still run
 
 When a job takes longer than the default 5 seconds or a specific time, the **LocalClient** will publish another request that goes through the same process to check on the job.
 
-In other words, this is the amount of time before the master will check active jobs on the minions or give up and report a time-out for the missing minion return data. As long as the minion responds to the *check job status* request, the time will reset for another duration.
+In other words, this is the amount of time before the Salt master will check active jobs on the minions or give up and report a time-out for the missing minion return data. As long as the minion responds to the *check job status* request, the time will reset for another duration.
 
 Command line execution options
 ______________________________
@@ -91,11 +91,11 @@ Salt can execute jobs asynchronously using the ``--async`` command line option:
 
 .. code-block:: bash
 
-    $ salt -G 'os_family:RedHat' pkg.upgrade --async
+    salt -G 'os_family:RedHat' pkg.upgrade --async
 
 .. code-block:: bash
 
-    # salt -G 'os_family:RedHat' pkg.upgrade --async command output
+    salt -G 'os_family:RedHat' pkg.upgrade --async command output
 
     Executed command with job ID: 20190220150112550868
 
@@ -105,11 +105,11 @@ In addition to running jobs asynchronously, a job may be submitted synchronously
 
 .. code-block:: bash
 
-    $ salt -G 'os_family:RedHat' pkg.upgrade -v
+    salt -G 'os_family:RedHat' pkg.upgrade -v
 
 .. code-block:: bash
 
-    # salt -G 'os_family:RedHat' pkg.upgrade -v command output
+    salt -G 'os_family:RedHat' pkg.upgrade -v command output
 
     Executed command with job ID: 20190220170719865801
     --------------------------------------------------
@@ -120,11 +120,11 @@ All Salt commands (``salt``, ``salt-call``, and ``salt-run``) can be issued with
 
 .. code-block:: bash
 
-    $ salt -l debug \*ubuntu status.meminfo
+    salt -l debug \*ubuntu status.meminfo
 
 .. code-block::
 
-    # salt -l debug \*ubuntu status.meminfo command output
+    salt -l debug \*ubuntu status.meminfo command output
 
     [DEBUG   ] Reading configuration from /etc/salt/master
     [DEBUG   ] Including configuration from '/etc/salt/master.d/reactor.conf'
@@ -159,7 +159,7 @@ _______
 
 Every Salt job is assigned a unique Job ID. The Job ID is used to track the individual executions.
 
-Job IDs are represented as a **jid** and are created on the master for each job and sent down with the command.
+Job IDs are represented as a **jid** and are created on the Salt master for each job and sent down with the command.
 
 The Job IDs are timestamps of when the jobs are started.
 
@@ -192,9 +192,9 @@ The job cache is the storage system for all executed jobs.
 
     File: /var/cache/salt/master/jobs
 
-* This directory is cleaned by the master on a regular basis.
+* This directory is cleaned by the Salt master on a regular basis.
 
-The number of hours that old jobs are kept defaults to 24, but it is configured via the ``keep_jobs`` option in the master configuration file.
+The number of hours that old jobs are kept defaults to 24, but it is configured via the ``keep_jobs`` option in the Salt master configuration file.
 
 .. code-block::
 
@@ -206,10 +206,10 @@ It is recommended to store job data in an **external job cache** (discussed in a
 * Number of minions being targeted
 * Master resources (disk space)
 
-Running jobs on the master and managing jobs
-============================================
+Running jobs on the Salt master and managing jobs
+=================================================
 
-The ``salt`` command is typed on the master, but Salt sends jobs for remote execution on minions. The ``salt-run`` command sends jobs to Salt to run on the master. Jobs that are to be run on the salt master by ``salt-run`` are called *runners*.
+The ``salt`` command is typed on the Salt master, but Salt sends jobs for remote execution on minions. The ``salt-run`` command sends jobs to Salt to run on the Salt master. Jobs that are to be run on the Salt master by ``salt-run`` are called *runners*.
 
 Runners are a specific type of Salt module intended to execute in the environment of the Salt master. Runners will be discussed in greater detail later in the course, but for now, we will discuss job management which employs the Salt Runner module: **jobs**. The **jobs** runner module allows for viewing the Salt master’s job cache.
 
@@ -220,11 +220,11 @@ Currently running jobs can be viewed via the ``jobs.active`` runner ``module.fun
 
 .. code-block:: bash
 
-    $ salt-run jobs.active
+    salt-run jobs.active
 
 .. code-block:: bash
 
-    # salt-run jobs.active command output
+    salt-run jobs.active command output
 
     20190220150112550868:
     ----------
@@ -261,11 +261,11 @@ Jobs that have been executed in the past ``keep_jobs`` window can be easily look
 
 .. code-block:: bash
 
-    $ salt-run jobs.list_jobs
+    salt-run jobs.list_jobs
 
 .. code-block:: bash
 
-    # salt-run jobs.list_jobs command output
+    salt-run jobs.list_jobs command output
 
     '20190220104253056848':
 	Arguments: []
@@ -285,17 +285,17 @@ With this data, the details of a specific job can be pulled up using the Job ID:
 
 .. code-block:: bash
 
-    $ salt-run jobs.lookup_jid 20190220104253056848
+    salt-run jobs.lookup_jid 20190220104253056848
 
 To see the status of a currently active job, add the **display_progress=True** option:
 
 .. code-block:: bash
 
-    $ salt-run jobs.lookup_jid 20190220150112550868 display_progress=True
+    salt-run jobs.lookup_jid 20190220150112550868 display_progress=True
 
 .. code-block:: bash
 
-     # salt-run jobs.lookup_jid 20190220150112550868 display_progress=True command output
+    salt-run jobs.lookup_jid 20190220150112550868 display_progress=True command output
 
     event:
     ----------
@@ -318,22 +318,22 @@ The **saltutil** execution module contains Salt functions to terminate Salt jobs
 
 .. code-block:: bash
 
-    $ salt 201190218-sosf-redhat saltutil.term)job 20190220150112550868
+    salt 201190218-sosf-redhat saltutil.term)job 20190220150112550868
 
 ``saltutil.kill_job`` will send a kill signal to a job (SIGKILL 9)
 
 .. code-block:: bash
 
-    $ salt 20190218-sosf-redhat saltutil.kill_job 20190220150112550868
+    salt 20190218-sosf-redhat saltutil.kill_job 20190220150112550868
 
 The event system
 ================
 
 Salt maintains an event system that fires local publications on a local UNIX socket.
 
-* Events are fired for a number of situations on the Master.
-* The event system is made available on the minion and master.
-* The same system user that the minion or master is running as can fire events using the salt event API.
+* Events are fired for a number of situations on the Salt master.
+* The event system is made available on the Salt master and minion.
+* The same system user that the Salt master or minion is running as can fire events using the Salt event API.
 
 Types of Salt events
 ____________________
@@ -363,11 +363,11 @@ One of the best ways to see exactly what events are fired and what data is avail
 
 .. code-block:: bash
 
-    $ salt-run state.event pretty=True
+    salt-run state.event pretty=True
 
 .. code-block:: bash
 
-    # salt-run state.event pretty=True command output
+    salt-run state.event pretty=True command output
 
     salt/job/20190220181913504496/new {
     "_stamp": "2019-02-20T18:19:13.506890",
@@ -402,21 +402,21 @@ One of the best ways to see exactly what events are fired and what data is avail
     }
     ...
 
-Minions firing events to master
-_______________________________
+Minions firing events to Salt master
+____________________________________
 
-The minions can fire off events on the master via the **event** execution module.
+The minions can fire off events on the Salt master via the **event** execution module.
 An event can be sent to the Salt master by using the **event.send** function:
 
 .. code-block:: bash
 
-    $ salt-call event.send 'mycustom/app/tag' '{"app": "mycustom", "build_num": "3.1", "result": "true"}' with_grains=True
+    salt-call event.send 'mycustom/app/tag' '{"app": "mycustom", "build_num": "3.1", "result": "true"}' with_grains=True
 
 The function ``event.fire_master`` can be used to send events to master as well (without the ability to append grains data):
 
 .. code-block:: bash
 
-    $ salt-call event.fire_master '{"app": "mycustom", "build_num": "3.1", "result": "true"}' 'mycustom/app/tag'
+    salt-call event.fire_master '{"app": "mycustom", "build_num": "3.1", "result": "true"}' 'mycustom/app/tag'
 
 Here is some sample output from ``state.event`` of an event using ``event.send`` and ``with_grains=True`` from the Salt minion:
 
