@@ -42,7 +42,7 @@ declarations with the same name will be ignored.
    <https://docs.saltproject.io/en/latest/topics/best_practices.html>`_
    recommend always using a unique, descriptive value for the state ID
 
-One ID to Many Names
+One ID to many names
 --------------------
 The ``names`` argument allows for one ID to become many names.
 
@@ -172,7 +172,7 @@ states defined in the SLS file.
 
 Referencing state declarations
 ------------------------------
-Requisites can match either the ID Declaration or the name parameter.
+Requisites can match either the ID declaration or the name parameter.
 A requisite references another part of a state file (SLS) in the form of:
 ``state_module: [id | name]``
 
@@ -200,7 +200,7 @@ A reference to the package installation would be:
 A reference to the service running would be:
 ``service: dns_service`` (by ID) or ``service: named`` (by name)
 
-It is recommended as Salt Best Practice to **always** refer to the State ID
+It is recommended as a Salt best practice to **always** refer to the state ID
 when adding requisites.
 
 State failure behavior
@@ -280,7 +280,7 @@ The foundation of the requisite system is the require requisite declaration.
        - require:
          - pkg: dns_install
 
-In the previous example, we use a require to make sure the bind package is
+In the previous example, we use a ``require`` to make sure the ``bind`` package is
 successfully installed before attempting to copy the configuration file to the
 minion. We'll deal with the service when we describe the ``watch`` requisite.
 
@@ -335,7 +335,7 @@ that reacts to the changes in the watched states:
        - require:
          - pkg: dns_install
 
-Running the previous State File execution will produce the following output if
+Running the previous state file execution will produce the following output if
 the ``/etc/named.conf`` is updated:
 
 .. code-block:: shell
@@ -438,7 +438,7 @@ declared:
        - require:
          - pkg: dns_install
 
-It is important to understand the flow of the State File execution.
+It is important to understand the flow of the state file execution.
 
 The onfail declaration
 ----------------------
@@ -466,7 +466,7 @@ failure. The ``onfail`` requisite is applied in the same way as require as watch
 The onchanges declaration
 -------------------------
 The ``onchanges`` requisite makes a state only apply if the required states
-generate changes, and if the watched state's result is True.
+generate changes, and if the watched state's result is ``True``.
 
 Unlike ``watch``, the ``onchange`` requisite does not execute if there are no
 detected changes, where a ``watch`` does. For example, in a ``watch``:
@@ -543,9 +543,9 @@ defaults. A simple example of the ``use`` declaration:
        - enabled: True
        - type: eth
        - proto: static
-       - ipaddr: 10.1.0.7
+       - ipaddr: 192.0.2.7
        - netmask: 255.255.255.0
-       - gateway: 10.1.0.1
+       - gateway: 192.0.2.1
        - enable_ipv6: true
        - ipv6proto: static
        - ipv6ipaddrs:
@@ -554,14 +554,14 @@ defaults. A simple example of the ``use`` declaration:
        - ipv6gateway: 2001:db8:dead:beef::1
        - ipv6netmask: 64
        - dns:
-         - 8.8.8.8
-         - 8.8.4.4
+         - 198.51.100.8
+         - 203.0.113.4
 
    manage_eth1:
      network.managed:
        - name: eth1
-       - ipaddr: 192.168.0.120
-       - gateway: 192.168.0.1
+       - ipaddr: 203.0.113.120
+       - gateway: 203.0.113.1
        - ipv6ipaddr: 2001:db8:dead:c0::3
        - ipv6gateway: 2001:db8:dead:c0::1
        - use:
@@ -600,7 +600,7 @@ practical example:
        - name: /opt/site_code
        - source: salt://site/code
 
-When the apache service should be shut down because underlying code is going
+When the ``apache`` service should be shut down because underlying code is going
 to change, the service should be off-line while the update occurs. In this
 example, ``gracefulRestart`` is the pre-requiring state and ``siteCode`` is the
 pre-required state.
@@ -633,11 +633,11 @@ This example includes all core states for the infrastructure:
      - edit.emacs
      - ntp
 
-Included State Files are relative to the file_roots.
+Included state files are relative to the ``file_roots``.
 
 Including for requisites
 ------------------------
-Require kvm before starting libvirt. Here is the basic kvm state file:
+Require ``kvm`` before starting ``libvirt``. Here is the basic ``kvm`` state file:
 
 .. code-block:: yaml
    :caption: /srv/salt/kvm/init.sls
@@ -650,7 +650,7 @@ Require kvm before starting libvirt. Here is the basic kvm state file:
      kmod.present:
        - name: kvm_intel
 
-Here is the libvirt state file including the kvm state requiring it:
+Here is the ``libvirt`` state file including the ``kvm`` state requiring it:
 
 .. code-block:: yaml
    :caption: /srv/salt/libvirt/init.sls
@@ -705,7 +705,7 @@ Using the following Salt State file as a starting point:
        - name: /etc/ssh/sshd_config
        - source: salt://ssh/files/sshd_config
 
-We can use the ssh state file as a base, and then build upon it to suit
+We can use the ``ssh`` state file as a base, and then build upon it to suit
 specific needs:
 
 .. code-block:: yaml
@@ -776,7 +776,7 @@ Things to remember when extending states:
    overwritten
 *  ``extend`` is a "top level declaration". Like the state ID, it cannot be
    declared more than once in a single SLS
-*  Many state ID's can be extended using the ``extend`` declaration
+*  Many state IDs can be extended using the ``extend`` declaration
 
 The requisite _in declarations
 ==============================
@@ -841,9 +841,9 @@ further:
        - enabled: True
        - type: eth
        - proto: static
-       - ipaddr: 10.1.0.7
+       - ipaddr: 192.0.2.7
        - netmask: 255.255.255.0
-       - gateway: 10.1.0.1
+       - gateway: 192.0.2.1
        - enable_ipv6: true
        - ipv6proto: static
        - ipv6ipaddrs:
@@ -852,8 +852,8 @@ further:
        - ipv6gateway: 2001:db8:dead:beef::1
        - ipv6netmask: 64
        - dns:
-         - 8.8.8.8
-         - 8.8.4.4
+         - 198.51.100.8
+         - 203.0.113.4
        - use_in:
          - network: manage_eth1
          - network: manage_eth2
@@ -861,16 +861,16 @@ further:
    manage_eth1:
      network.managed:
        - name: eth1
-       - ipaddr: 192.168.0.120
-       - gateway: 192.168.0.1
+       - ipaddr: 203.0.113.120
+       - gateway: 203.0.113.1
        - ipv6ipaddr: 2001:db8:dead:c0::3
        - ipv6gateway: 2001:db8:dead:c0::1
 
    manage_eth2:
      network.managed:
        - name: eth2
-       - ipaddr: 192.168.0.121
-       - gateway: 192.168.0.1
+       - ipaddr: 203.0.113.121
+       - gateway: 203.0.113.1
        - ipv6ipaddr: 2001:db8:dead:c0::4
        - ipv6gateway: 2001:db8:dead:c0::1
 
