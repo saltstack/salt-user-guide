@@ -14,7 +14,7 @@ Salt commands can be executed in different ways:
 * Local execution - using ``salt-call`` initiated on the Salt minion
 
 .. image:: ../_static/img/salt-execution-types.jpg
-   :align: right
+   :align: center
    :alt: Illustration
 
 Each command is just a wrapper around an API client interface. The command to run determines where you are executing the command (Salt master or minion) and where you want the command to run (Salt master or minion).
