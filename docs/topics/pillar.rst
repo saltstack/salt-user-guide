@@ -189,7 +189,7 @@ The separate pillar SLS files all merge down into a single dictionary of ``key:v
     bind: bind9
 
 .. code-block:: yaml
-   :caption: /srv/salt/pillar/packages.sls
+   :caption: /srv/salt/pillar/services.sls
 
     bind: named
 
