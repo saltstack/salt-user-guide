@@ -7,7 +7,7 @@ Runners and orchestration
 Salt runners
 ============
 
-Salt runners are convenience applications executed with the salt-run command.
+Salt runners are convenience applications executed with the ``salt-run`` command.
 Salt runners work similarly to Salt execution modules however they execute on the Salt master instead of the Salt minions.
 
 A Salt runner can be a simple client call or a complex application.
@@ -28,7 +28,7 @@ Check the status of all known minion:
 
 .. code-block:: shell
 
-    $ salt-run manage.status
+    salt-run manage.status
 
 .. code-block:: yaml
 
@@ -45,19 +45,19 @@ Runners are available to create clean lists of minions:
 
 .. code-block:: shell
 
-    $ salt-run manage.down removekeys=True
+    salt-run manage.down removekeys=True
 
-The previous command will print a list of all unresponsive minions and remove their keys. This will for targeting '*****' without worrying about minion timeouts due to down minions.
+The previous command will print a list of all unresponsive minions and remove their keys. This will work for targeting '*****' without worrying about minion timeouts due to down minions.
 
 Bootstrap minions with salt-bootstrap script
 
 .. code-block:: shell
 
     # Use salt-bootstrap.sh
-    $ salt-run manage.bootstrap hosts='host1,host2'
+    salt-run manage.bootstrap hosts='host1,host2'
 
     # Use PsExec to bootstrap Windows minions
-    $ salt-run manage.bootstrap_psexec hosts='host1,host2'
+    salt-run manage.bootstrap_psexec hosts='host1,host2'
 
     installer_url='https://example.com/salt-installer.exe'
 
@@ -66,13 +66,13 @@ Jobs runner
 -----------
 Since Salt executes jobs running on many systems, Salt needs to be able to manage jobs running on many systems.
 
-The Job management system is used to interact with active jobs, query active jobs, lookup executed jobs and kill running jobs.
+The job management system is used to interact with active jobs, query active jobs, lookup executed jobs and kill running jobs.
 
-Print a specific job’s detail given by it’s jid, including the return data.
+Print a specific job’s detail given by its jid, including the return data.
 
 .. code-block:: shell
 
-    $ salt-run jobs.print_job 20190502190314793312
+    salt-run jobs.print_job 20190502190314793312
 
 
 Salt orchestration
@@ -80,43 +80,44 @@ Salt orchestration
 Salt provides the ability to orchestrate system administrative tasks throughout the enterprise.
 
 *  Orchestration can be configured across physical and cloud environments.
-*  Salt fulfills these tasks through orchestration states defined in SLS files that have a different structure than Salt State Files.
+*  Salt fulfills these tasks through orchestration states defined in SLS files that have a different structure than Salt state files.
 
 The scope of defining the relationship of administrative tasks to orchestrate expansion from a single host to multiple systems.
 
 The orchestration state runner
 ------------------------------
-The Orchestration Runner offers the following advantages:
+The orchestration runner offers the following advantages:
 
-*  Orchestration States can use the full suite of requisites
-*  Call execution modules and pass arguments as necessary
-*  Run states and highstates as well as using Salt Environments
-*  Execute other Salt Runner modules
-*  Execute Salt States/Functions using **salt-ssh**
+*  Orchestration states can use the full suite of requisites.
+*  Call execution modules and pass arguments as necessary.
+*  Run states and highstates as well as using Salt Environments.
+*  Execute other Salt runner modules.
+*  Execute Salt states/functions using **salt-ssh**.
 
 Executing Salt orchestration states
 -----------------------------------
 
-*  Orchestration states execute on the master using the state runner module.
-*  Assuming a default master configuration, the following commands are equivalent:
+*  Orchestration states execute on the Salt master using the state runner module.
+*  Assuming a default Salt master configuration, the following commands are equivalent:
 
 .. code-block:: shell
 
-    $ salt-run state.orchestrate orch.deploy-webapps
+    salt-run state.orchestrate orch.deploy-webapps
     - or use the alias to orchestrate -
-    $ salt-run state.orch orch.deploy-webapps
+    salt-run state.orch orch.deploy-webapps
 
-The previous example assumes there is a subdirectory in the **file_roots** named orch and contains an Orchestration State file: deploy-webapps.sls
+The previous example assumes there is a subdirectory in the **file_roots** named ``orch`` and contains an orchestration state file: ``deploy-webapps.sls``
 
 Orchestration state syntax
 --------------------------
 
-*  Orchestration SLS files have a slightly different structure compared to state SLS files:
-*  *  Orchestration states use mapped command interfaces:
-*  *  salt.function: Calls remote execution modules on minions
-*  *  salt.state: Call states/highstates directly salt.runner: Call
-*  *  Salt runner modules on master
-*  *  salt.wheel: Call the Salt wheel interface for Salt Minion Key administration
+Orchestration SLS files have a slightly different structure compared to state SLS files:
+
+*  Orchestration states use mapped command interfaces:
+*  *  salt.function: Calls remote execution modules on minions.
+*  *  salt.state: Call states/highstates directly.
+*  *  salt.runner: Call Salt runner modules on the Salt master.
+*  *  salt.wheel: Call the Salt wheel interface for Salt minion key administration.
 
 Orchestration states can call any combination of the above command interfaces. This means that an execution can be called, followed by a runner, and then apply highstate.
 
@@ -185,11 +186,11 @@ A more complex example. Consider the following individual cli commands:
 
 .. code-block:: shell
 
-    $ salt '*' state.apply core
-    $ salt -E '^(web|app).*' state.highstate
-    $ salt -G 'role:firewall' junos.ping
-    $ salt -G 'role:firewall' state.apply firewall.web_rules pillar='{"rule_group":"web_app"}'
-    $ salt-run http.query 'https://example.com/update/web_app' method=POST data='<xml>somedata</xml>'
+    salt \* state.apply core
+    salt -E '^(web|app).*' state.highstate
+    salt -G 'role:firewall' junos.ping
+    salt -G 'role:firewall' state.apply firewall.web_rules pillar='{"rule_group":"web_app"}'
+    salt-run http.query 'https://example.com/update/web_app' method=POST data='<xml>somedata</xml>'
 
 A Salt orchestration state file could be defined to run these commands:
 
@@ -244,12 +245,12 @@ To execute the orchestration state:
 
 .. code-block:: shell
 
-    $ salt-run state.orch orch.deploy_web pillar='{"rule_group":"web_app"}'
+    salt-run state.orch orch.deploy_web pillar='{"rule_group":"web_app"}'
 
 .. Note::
     Notice we can also pass in Pillar data via the command line in order to pass along to executions as well as utilize the full set of requisites.
 
-Another example to allow new minions to join to the Salt Master and initiate a highstate:
+Another example to allow new minions to join to the Salt master and initiate a highstate:
 
 .. code-block:: sls
    :caption: /srv/salt/orch/new_minion.sls
