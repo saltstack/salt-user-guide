@@ -12,11 +12,11 @@ The Salt SSH system can be used in tandem with or as an alternative to the stand
 
 The Salt SSH system does not supersede the standard Salt communication systems. It simply offers an SSH-based alternative that does not require a remote agent.
 
-Be aware that since all communication with Salt SSH is executed via the SSH protocol, it is substantially slower than the standard Salt Master-Minion model.
+Be aware that since all communication with Salt SSH is executed via the SSH protocol, it is substantially slower than the standard Salt master-minion model.
 
 .. image:: ../_static/img/ssh-master-minion.png
    :align: right
-   :alt: Salt master minion model
+   :alt: Salt master-minion model
 
 Salt SSH concepts
 _________________
@@ -37,7 +37,7 @@ Salt SSH is installed on the Salt Master as a Linux package:
 
 .. code-block:: bash
 
-   $ salt-call pkg.install salt-ssh
+   salt-call pkg.install salt-ssh
 
 No installation is necessary on the managed system. It just needs to have SSH enabled.
 
@@ -49,7 +49,7 @@ Configuring Salt SSH to access remote systems requires a Salt SSH roster file.
 Roster file
 ___________
 
-Each system to manage Salt SSH must have an entry defined in the Salt SSH Roster file. The roster is defined as a regular Salt configuration file. The default location for the roster file is :file:`/etc/salt/roster`.
+Each system to manage Salt SSH must have an entry defined in the Salt SSH roster file. The roster is defined as a regular Salt configuration file. The default location for the roster file is :file:`/etc/salt/roster`.
 
 The file is rendered using the Salt render system and can therefore be written in YAML, JSON, Python, etc. as well as contain Jinja templating.
 Roster file format:
@@ -101,12 +101,12 @@ Example roster:
 .. code-block:: sls
     :caption: /etc/salt/roster
 
-    web1: 10.0.0.1    # Use the roster_defaults (or current user) info
+    web1: 192.0.2.1    # Use the roster_defaults (or current user) info
 
     web2:
       user: dave
       passwd: Salt4Me!
-      host: 10.0.0.2
+      host: 192.0.2.2
       port: 2222
       sudo: True
       minion_opts:
@@ -116,10 +116,10 @@ Example roster:
           - /mnt/other/salt/modules
 
     web3:
-      host: 10.4.0.103
+      host: 198.51.100.103
       priv: /etc/salt/trusted-admin.pem
     web4:
-      host: 10.4.0.104
+      host: 198.51.100.104
       priv: /etc/salt/trusted-admin.pem
 
 Deploying a Salt SSH key
@@ -131,7 +131,7 @@ You can use ``ssh-copy-id``, (the OpenSSH key deployment tool) to deploy keys to
 
 .. code-block:: bash
 
-    $ ssh-copy-id -i /etc/salt/pki/master/salt-ssh.rsa.pub tom@srv1.domain.com
+    ssh-copy-id -i /etc/salt/pki/master/salt-ssh.rsa.pub tom@srv1.domain.com
 
 Calling salt-ssh
 ================
@@ -145,25 +145,25 @@ A simple example using ``test.ping`` for all Salt SSH minions:
 
 .. code-block:: bash
 
-    $ salt-ssh \* test.ping
+    salt-ssh \* test.ping
 
 The ``-i`` option approves the host key on the remote system(s) and prevents manual acceptance of each key:
 
 .. code-block:: bash
 
-    $ salt-ssh -i web* network.interfaces
+    salt-ssh -i 'web*' network.interfaces
 
 The ``salt-ssh`` command line can use alternate targeting (RegEx):
 
 .. code-block:: bash
 
-    $ salt-ssh -E 'web[1-5]' status.uptime
+    salt-ssh -E 'web[1-5]' status.uptime
 
 Apply Salt States using ``salt-ssh``:
 
 .. code-block:: bash
 
-    $ salt-ssh 'web*' state.sls httpd
+    salt-ssh 'web*' state.sls httpd
 
 Run raw shell commands using ``salt-ssh``:
 
@@ -184,8 +184,8 @@ Then ``salt-ssh`` will attempt to execute the given routine on all found systems
 
 .. code-block:: bash
 
-    $ salt-ssh --roster scan 10.4.0.104 test.ping
+    salt-ssh --roster scan 198.51.100.104 test.ping
 
 .. code-block:: bash
 
-    $ salt-ssh --roster scan 10.0.0.0/24 test.ping
+    salt-ssh --roster scan 192.0.2.0/24 test.ping
