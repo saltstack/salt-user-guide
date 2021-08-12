@@ -20,15 +20,15 @@ Types of execution
 
 Salt commands execute in different ways. The three types of execution are:
 
-* Remote execution of jobs from the master to minions
-* Execution of jobs directly on the master
-* Local execution of jobs on the minion
+* Remote execution of jobs from the Salt master to Salt minions
+* Execution of jobs directly on the Salt master
+* Local execution of jobs on the Salt minion
 
 .. image:: ../_static/img/salt-execution-types.jpg
    :align: right
    :alt: Salt execution types
 
-Each command is just a wrapper around an API client interface. The command to run determines where you are (master or minions) and where you want the command to run (master or minion).
+Each command is just a wrapper around an API client interface. The command to run determines where you are (Salt master or minions) and where you want the command to run (Salt master or minion).
 
 Salt components
 ===============
@@ -39,28 +39,28 @@ The components of the Salt topology are:
 * The Salt client: the ``salt`` command
 * The Salt agent: ``salt-minion`` service
 
-The ``salt`` client can only be run on the master. It is the remote execution utility to interface with the master-minion architecture.
+The ``salt`` client can only be run on the Salt master. It is the remote execution utility to interface with the Salt master-minion architecture.
 
 Calling modules locally on a minion
 ===================================
 
-Salt modules to be called locally on the minion bypassing the master by using the ``salt-call`` command.
+Salt modules to be called locally on the Salt minion bypassing the master by using the ``salt-call`` command.
 
 * The Salt functions make up a rich API for system management.
 * These functions are all available for execution directly on the minion.
 
-Salt Call is an effective tool for both accessing the Salt functions without needing to run through the master, but to also debug operation on a minion. Some complex operations, like configuration management can be more easily debugged if run locally with ``salt-call``.
+Salt Call is an effective tool for both accessing the Salt functions without needing to run through the Salt master, but to also debug operation on a minion. Some complex operations, like configuration management can be more easily debugged if run locally with ``salt-call``.
 
 .. code-block:: bash
 
     salt-call pkg.install httpd
 
-Bypassing the master completely
--------------------------------
+Bypassing the Salt master completely
+------------------------------------
 
-Some functions reference calls to the master.
+Some functions reference calls to the Salt master.
 
-To run salt-call locally, as if there was no master running.
+To run salt-call locally, as if there was no Salt master running.
 
 .. code-block:: bash
 
@@ -310,17 +310,17 @@ One of the main concepts to understand about Salt is that it is asynchronous in 
 
 That is the foundation on which it knows when to give up, reply, and when to display information.
 
-The following diagram shows the basic execution path through the components of Salt. In this example the command ``salt '*' test.ping`` is executed on the Salt master.
+The following diagram shows the basic execution path through the components of Salt. In this example the command ``salt \* test.ping`` is executed on the Salt master.
 
 .. image:: ../_static/img/execution-architecture.png
    :align: right
    :alt: Execution architecture
 
-Looking at an example of salt command execution path we see the following:
+Looking at an example of Salt command execution path we see the following:
 
-#. The salt creates the command and waits 5 seconds unless otherwise specified.
+#. The ``salt`` command creates the command and waits 5 seconds unless otherwise specified.
 
-   #. The salt command is a wrapper to the LocalClient API interface that is a component used for the Salt remote execution architecture.
+   #. The ``salt`` command is a wrapper to the LocalClient API interface that is a component used for the Salt remote execution architecture.
    #. The initial interrogation of the command is performed.
    #. The request is first sent to the Salt master’s request server on port 4506.
    #. The salt-master ReqServer sees the request and passes it to an available MWorker over workers.ipc.
@@ -339,7 +339,7 @@ Looking at an example of salt command execution path we see the following:
 
 #. All minions receive the published command because each is listening to port 4505 on the master, but only minions that match the targeting criteria process the request.
 
-   When a salt minion starts up, it attempts to connect to the Publisher(4505) and the ReqServer(4506) on the salt master. It then attempts to authenticate, and once the minion has successfully authenticated, it listens for jobs.
+   When a Salt minion starts up, it attempts to connect to the Publisher(4505) and the ReqServer(4506) on the Salt master. It then attempts to authenticate, and once the minion has successfully authenticated, it listens for jobs.
 
    This is a self-selecting evaluation by the minion to determine if it should act.
 
@@ -402,4 +402,4 @@ This option immediately puts the job in the background since a full system upgra
 
 .. code-block:: bash
 
-    salt --async '*' pkg.upgrade
+    salt --async \* pkg.upgrade
