@@ -6,9 +6,9 @@ State requisites and declarations
 
 ID vs. name
 ===========
-Technically speaking, the component of the High Data that determines the name
-argument that is passed to the state function is not called name in the High
-Data, it is called "ID".
+Technically speaking, the component of the high data that determines the name
+argument that is passed to the state function is not called name in the high
+data, it is called "ID".
 
 The ID is copied into the name argument unless the name argument is explicitly
 declared by specifying name (or names) value(s).
@@ -77,7 +77,7 @@ order of execution as high data is processed and compiled into low data.
 
 Tools exist in Salt to modify state ordering. These tools consist of requisite
 declarations and order options. When Salt States are executed, they are first
-ordered in a list (called Low Data), and then the list is iterated over.
+ordered in a list (called low data), and then the list is iterated over.
 
 *  This differs from other configuration management tools which execute
    everything within an event loop or execute raw code.
