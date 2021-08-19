@@ -1,0 +1,19 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: 'Merge pull request #12 from ggiesen/fix_colons_headings...'
+      sha: 9d31bf781694a3f2fbd0e1cc4d93dd61d1e3c447
+      tags:
+      - v0.3.3
+    path: Google
+  - git:
+      commitTitle: Update comment in vale.ini
+      sha: af0c281efb141c9e258709527dc975b95a685cb7
+    path: Salt
+  - git:
+      commitTitle: Update comment in vale.ini
+      sha: af0c281efb141c9e258709527dc975b95a685cb7
+    path: vocab/Salt
+  path: .vale/styles
+kind: LockConfig

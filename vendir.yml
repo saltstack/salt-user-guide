@@ -1,0 +1,29 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: .vale/styles
+  contents:
+  - path: Google
+    git:
+      url: https://github.com/errata-ai/Google
+      ref: v0.3.3
+    includePaths:
+    - Google/*
+    legalPaths: []
+    newRootPath: Google
+  - path: Salt
+    git:
+      url: https://gitlab.com/ggiesen/salt-branding-guide
+      ref: origin/vale_style_guide
+    includePaths:
+    - style-guide/vale/styles/Salt/*
+    legalPaths: []
+    newRootPath: style-guide/vale/styles/Salt
+  - path: vocab/Salt
+    git:
+      url: https://gitlab.com/ggiesen/salt-branding-guide
+      ref: origin/vale_style_guide
+    includePaths:
+    - style-guide/vale/styles/vocab/Salt/*
+    legalPaths: []
+    newRootPath: style-guide/vale/styles/vocab/Salt
