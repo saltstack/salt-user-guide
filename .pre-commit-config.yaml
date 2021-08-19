@@ -56,6 +56,14 @@ repos:
         description: Run black on python code blocks in documentation files.
         files: ^(index|docs/.*|docs/_includes/.*)\.rst$
         additional_dependencies: [black==21.4b2]
+  - repo: local
+    hooks:
+    -   id: vale
+        name: vale
+        description: Checks style of reStructuredText/rst.
+        entry: vale
+        language: system
+        files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
   - repo: https://github.com/saltstack/mirrors-nox
     rev: v2020.8.22
     hooks:
