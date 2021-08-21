@@ -1,2 +1,3 @@
+docutils
 nox>=2020.12.31
 pre-commit>=2.11.1
