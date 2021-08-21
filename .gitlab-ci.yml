@@ -19,7 +19,8 @@ pre-commit:
   script:
     - pip install -U pip setuptools wheel
     - pip install -r requirements-dev.txt
-    - brew install vale
+    - wget https://github.com/errata-ai/vale/releases/download/v2.10.4/vale_2.10.4_Linux_64-bit.tar.gz
+    - tar xvzf vale_2.10.4_Linux_64-bit.tar.gz
     - pre-commit install
     - pre-commit run -a -v --color always
 
