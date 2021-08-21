@@ -19,6 +19,7 @@ pre-commit:
   script:
     - pip install -U pip setuptools wheel
     - pip install -r requirements-dev.txt
+    - brew install vale
     - pre-commit install
     - pre-commit run -a -v --color always
 
