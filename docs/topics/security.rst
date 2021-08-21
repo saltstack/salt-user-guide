@@ -302,7 +302,7 @@ Set chmod 777 on:
 External authentication system
 ==============================
 
-The new external authentication system allows for Salt to pass through authentication to any authentication system to determine if a user has permission to execute a Salt command. The Unix PAM system and LDAP are the first supported systems with more to come! The external authentication system allows for specific users to be granted access to execute specific functions on specific minions.
+The new external authentication system allows for Salt to pass through authentication to any authentication system to determine if a user has permission to execute a Salt command. The Unix PAM system and LDAP are the first supported systems with more to follow. The external authentication system allows for specific users to be granted access to execute specific functions on specific minions.
 
 Defining external authentication
 ________________________________
@@ -425,5 +425,5 @@ ___________________
 * Make use of Salt’s event system and reactor to allow minions to signal the Salt master without requiring direct access.
 * Run the salt-master daemon as non-root.
 * Disable which modules are loaded onto minions with the disable_modules setting. (for example, disable the cmd module if it makes sense in your environment.)
-* Look through the fully-commented sample master and minion config files. There are many options for securing an installation.
+* Look through the fully commented sample master and minion config files. There are many options for securing an installation.
 * Run masterless-mode minions on particularly sensitive minions. There is also Salt SSH or the modules.sudo if you need to further restrict a minion.

@@ -27,7 +27,7 @@ Salt SSH requires a few things to be setup on the remote system in order for Sal
 * The SSH service must be running on the remote system
 * Network/Firewall must be available/open to remote system
 
-Salt SSH creates a tar-ball containing a system referred to internally to Salt as "Salt Thin".
+Salt SSH creates a tar-ball containing a system referred to internally to Salt as **Salt Thin**.
 Salt SSH keeps track of the deployed version of Salt Thin on target systems and will update minions dynamically.
 
 Install Salt SSH

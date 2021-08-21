@@ -40,9 +40,9 @@ The render time is when the renderer engines are used. The top file and SLS file
 High state
 __________
 
-Calling SLS directly logically assigns what states should be executed from the context of the calling minion. The Highstate layer is used to allow for full contextual assignment of what is to be executed tied to minion(s) from the master.
+Calling SLS directly logically assigns what states should be executed from the context of the calling minion. The Highstate layer is used to allow for full contextual assignment of what is to be executed tied to one or more minions from the master.
 
-This means that the environment of a minion, and all associated execution data pertinent to said minion, can be assigned from the master without needing to execute or configure anything on the target minion.This also means that the minion can independently retrieve information about its complete configuration from the master.
+This means that the environment of a minion, and all associated execution data pertinent to said minion, can be assigned from the master without needing to execute or configure anything on the target minion. This also means that the minion can independently retrieve information about its complete configuration from the master.
 
 The top file
 ____________
@@ -270,7 +270,7 @@ The following image shows state compiler routines
 
 .. image:: ../_static/img/state-compiler-routines.png
    :align: right
-   :alt: The state compiler routines where the high data output by the render is processed. There is a reconciliation that is processed in the following order: _in, use, prereq, extend, name(s), and lastly the low state compiler.
+   :alt: The state compiler routines where the high data output by the render is processed. There is a reconciliation that is processed in the following order: _in, use, prereq, extend, name or names, and lastly the low state compiler.
 
 Reconciliation
 ______________

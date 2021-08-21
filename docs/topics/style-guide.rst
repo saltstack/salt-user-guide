@@ -8,7 +8,7 @@ Version 1.0 - last updated February 2021
 
 Introduction
 ============
-Welcome to the Salt Project style guide! This style guide is intended for use by
+Welcome to the Salt Project style guide. This style guide is intended for use by
 project contributors, not necessarily end-users. It provides general guidance to
 anyone who contributes to the Salt project's documentation about:
 

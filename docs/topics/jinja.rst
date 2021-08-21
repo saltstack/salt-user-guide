@@ -126,9 +126,9 @@ These dictionaries are available through Jinja.
 
 The most commonly used dictionaries are:
 
-*  ``grains``: – all grains for the minion
-*  ``pillar``: – all pillar data available to the minion
-*  ``salt``: – all available execution modules and functions
+*  ``grains``: all grains for the minion
+*  ``pillar``: all pillar data available to the minion
+*  ``salt``: all available execution modules and functions
 
 Accessing grains with Jinja
 ---------------------------

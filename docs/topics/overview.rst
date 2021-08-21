@@ -62,7 +62,7 @@ A basic Salt implementation consists of a Salt master managing one or more Salt 
   run the ``salt-minion`` service or can be agentless using ``salt-ssh``
   or ``salt-proxy``.
 * A Salt Proxy process can behave as a salt-minion, which in turn connects
-  to an underlying device to execute commands or states.  Salt Proxy
+  to an underlying device to execute commands or states. Salt Proxy
   connections are typically achieved via SSH or RESTful API calls.
 * Systems managed via SSH with the ``salt-ssh`` model are also considered
   agentless minions under the managed systems model.
@@ -93,7 +93,7 @@ Salt proxy
 ----------
 
 Proxy minions are a feature that enables controlling devices that,
-for whatever reason, cannot run a standard salt-minion.  A proxy minion process
+for whatever reason, cannot run a standard salt-minion. A proxy minion process
 is used to establish a connection to an underlying device, using methods native
 to that device (SSH, Rest, etc).
 
@@ -137,7 +137,7 @@ Salt topology
 =============
 
 Salt has two ports used by default for the minions to communicate with their
-master(s). These ports work in concert to receive and deliver data to the *Message
+Salt master/masters. These ports work in concert to receive and deliver data to the *Message
 Bus*. Salt’s message bus is ZeroMQ, which creates an asynchronous network topology
 to provide the fastest communication possible.
 

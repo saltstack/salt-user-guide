@@ -21,7 +21,7 @@ Map files allow Jinja logic to be isolated from the Salt states, keeping the Sal
 Static lookup data
 ==================
 
-Instead of adding data dictionaries as Jinja in the Salt states, you can separate the data that a state uses from the state itself. This increases the flexibility and reusability of a state.  Some examples are:
+Instead of adding data dictionaries as Jinja in the Salt states, you can separate the data that a state uses from the state itself. This increases the flexibility and reusability of a state. Some examples are:
 
 * Platform-specific package names and file system paths
 * Defaults for an application
