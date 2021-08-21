@@ -93,6 +93,13 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
+      - id: test5
+        name: test5
+        description: Diagnostic output
+        entry: vale ls-config
+        language: system
+        always_run: true
+        pass_filenames: false
       - id: vale
         name: vale
         description: Checks style of reStructuredText/rst.
