@@ -22,7 +22,9 @@ pre-commit:
     - wget https://github.com/errata-ai/vale/releases/download/v2.10.4/vale_2.10.4_Linux_64-bit.tar.gz
     - tar xvzf vale_2.10.4_Linux_64-bit.tar.gz
     - mv vale /usr/local/bin/vale
-    - wget -O /usr/local/bin/vendir https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.22.0/vendir-linux-amd64
+    - wget https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.22.0/vendir-linux-amd64
+    - mv vendir-linux-amd64 /usr/local/bin/vendir
+    - chmod 0755 /usr/local/bin/vendir
     - pre-commit install
     - pre-commit run -a -v --color always
 
