@@ -98,8 +98,6 @@ The ``roster_defaults`` can be defined in the master config to set the default l
 
 Example roster:
 
-.. vale off
-
 .. code-block:: sls
     :caption: /etc/salt/roster
 
@@ -123,8 +121,6 @@ Example roster:
     web4:
       host: 198.51.100.104
       priv: /etc/salt/trusted-admin.pem
-
-.. vale on
 
 Deploying a Salt SSH key
 ________________________
