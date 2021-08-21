@@ -24,6 +24,6 @@ directories:
       url: https://gitlab.com/ggiesen/salt-branding-guide
       ref: origin/vale_style_guide
     includePaths:
-    - style-guide/vale/styles/vocab/Salt/*
+    - style-guide/vale/styles/Vocab/Salt/*
     legalPaths: []
-    newRootPath: style-guide/vale/styles/vocab/Salt
+    newRootPath: style-guide/vale/styles/Vocab/Salt
