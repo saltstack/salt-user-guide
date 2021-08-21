@@ -19,7 +19,7 @@ directories:
     - style-guide/vale/styles/Salt/*
     legalPaths: []
     newRootPath: style-guide/vale/styles/Salt
-  - path: vocab/Salt
+  - path: Vocab/Salt
     git:
       url: https://gitlab.com/ggiesen/salt-branding-guide
       ref: origin/vale_style_guide
