@@ -144,3 +144,6 @@ cython_debug/
 #### ADDED CUSTOM IGNORES ####
 .vscode
 _build
+
+# vendir lock file
+vendir.lock.yml
