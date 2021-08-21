@@ -77,6 +77,8 @@ For local development, the following prerequisites are needed:
 * `git <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>`__
 * `Python 3.6+ <https://realpython.com/installing-python/>`__
 * `Ability to create python venv <https://realpython.com/python-virtual-environments-a-primer/>`__
+* `vale <https://docs.errata.ai/vale/install>`__
+* `vendir <https://carvel.dev/#install>`__
 
 Windows 10 users
 ----------------
@@ -184,14 +186,17 @@ From within your local copy of the forked repo:
     # Setup pre-commit
     pre-commit install
 
+    # Run vendir to download vale styles
+    vendir sync
+
 All required files should now be in place.
 
-``pre-commit`` and ``nox`` Setup
---------------------------------
+``pre-commit``, ``nox``, and ``vale`` Setup
+-------------------------------------------
 
-Here at Salt we use `pre-commit <https://pre-commit.com/>`__ and
-`nox <https://nox.thea.codes/en/stable/>`__ to make it easier for
-contributors to get quick feedback, for quality control, and to increase
+Here at Salt we use `pre-commit <https://pre-commit.com/>`__,
+`nox <https://nox.thea.codes/en/stable/>`__, and `vale <https://docs.errata.ai/vale/about>`__
+to make it easier for contributors to get quick feedback, for quality control, and to increase
 the chance that your merge request will get reviewed and merged.
 
 ``nox`` handles Sphinx requirements and plugins for you, always ensuring your
@@ -221,6 +226,28 @@ point you to where an issue may exist.
     The details around this issue are included here:
     https://github.com/saltstack/salt/issues/56642.
     Please ensure you export ``SKIP=pip-tools-compile`` to skip pip-tools-compile.
+
+
+What is vale?
+-------------------
+
+``vale`` is a tool that will automatically run from ``pre-commit`` to enforce the
+`Salt Style Guide <docs/topics/style-guide.rst>`__ and suggest general writing guidelines
+when you attempt to make a git commit.
+
+Vale can check your writing in real-time (or near-realtime) in a wide variety of editors,
+including plugins for:
+
+* `Atom <https://atom.io/packages/atomic-vale>`__
+* `Vim <https://github.com/lgalke/vim-compiler-vale>`__
+* `Sublime Text <https://packagecontrol.io/packages/SublimeLinter-contrib-vale>`__
+* `Visual Studio Code <https://github.com/errata-ai/vale-vscode>`__
+
+This permits you to view errors immediately rather than having to wait until
+pre-commit is run when your changes are checked in. While the command-line version
+of vale won't automatically make corrections for you, there is also a reasonably priced
+commercial version called `Vale Server <https://errata.ai/vale-server/>`__ which does
+permit auto-correction (along with other features).
 
 
 Sync local master branch with upstream master
