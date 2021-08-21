@@ -232,7 +232,7 @@ What is vale?
 -------------------
 
 ``vale`` is a tool that will automatically run from ``pre-commit`` to enforce the
-`Salt Style Guide <docs/topics/style-guide.rst>`__ and suggest general writing guidelines
+:ref:`style-guide` and suggest general writing guidelines
 when you attempt to make a git commit.
 
 Vale can check your writing in real-time (or near-realtime) in a wide variety of editors,
