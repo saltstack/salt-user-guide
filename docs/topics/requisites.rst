@@ -360,7 +360,7 @@ the ``/etc/named.conf`` is updated:
                      +       type master;
                      +       file "master/master.my.domain";
                      +       // enable slaves only
-                     +       allow-transfer {192.168.23.1;192.168.23.2;);
+                     +       allow-transfer {192.0.2.1;192.0.2.2;);
                      +};
    ----------
              ID: start_dns

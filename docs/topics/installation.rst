@@ -142,7 +142,7 @@ This example overrides the default settings:
     :caption: /etc/salt/master.d/network.conf
 
     # The network interface to bind to
-    interface: 192.168.42.20
+    interface: 192.0.2.20
 
     # The Request/Reply port
     ret_port: 4506
@@ -187,7 +187,7 @@ An example that overrides the hostname default setting:
 .. code-block:: yaml
     :caption: /etc/salt/minion.d/master.config
 
-    master: 192.168.42.20
+    master: 192.0.2.20
 
 Declaring the minion ID
 -----------------------
