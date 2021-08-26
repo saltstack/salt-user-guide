@@ -492,8 +492,8 @@ Managing schedules in states
 
 Scheduled jobs can be managed in Salt states with the schedule state module.
 
-This example schedules the command ``state.sls bind`` at 5pm on Monday, Wednesday, and Friday,
-and at 3pm on Tuesday and Thursday.
+This example schedules the command ``state.sls bind`` at 5:00 PM on Monday, Wednesday, and Friday,
+and at 3:00 PM on Tuesday and Thursday.
 
 .. Note::
 

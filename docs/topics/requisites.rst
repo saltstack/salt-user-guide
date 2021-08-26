@@ -8,10 +8,10 @@ ID vs. name
 ===========
 Technically speaking, the component of the high data that determines the name
 argument that is passed to the state function is not called name in the high
-data, it is called "ID".
+data, it is called ``ID``.
 
 The ID is copied into the name argument unless the name argument is explicitly
-declared by specifying name (or names) value(s).
+declared by specifying a ``name`` value (or ``names`` values).
 The following example shows the declaration of both an ID and name:
 
 .. code-block:: yaml
@@ -257,7 +257,7 @@ can be evaluated to see if they have executed correctly.
 
 The foundation of the requisite system is the require requisite declaration.
 
-*  The require requisite ensures that the required state(s) are executed before
+*  The require requisite ensures that the required states are executed before
    the state declaring the require
 *  The state declaring the require will only be executed if the required state
    returns True
@@ -306,11 +306,11 @@ The ``watch`` requisite is more advanced than the ``require`` requisite. The
 ``watch`` requisite executes the same logic as ``require``:
 
 *  If a state is being watched, it does not need to also be required. This
-   logic is built into ``watch`` to evaluate the watched state(s) as True
-*  The ``watch`` requisite also checks if the watched state(s) have returned
+   logic is built into ``watch`` to evaluate the watched states as True
+*  The ``watch`` requisite also checks if the watched states have returned
    any changes
 
-If the watched state(s) returned changes, and the watched state(s) execute
+If the watched states returned changes, and the watched states execute
 successfully, then the state declaring the ``watch`` will execute a function
 that reacts to the changes in the watched states:
 
@@ -360,7 +360,7 @@ the ``/etc/named.conf`` is updated:
                      +       type master;
                      +       file "master/master.my.domain";
                      +       // enable slaves only
-                     +       allow-transfer {192.168.23.1;192.168.23.2;);
+                     +       allow-transfer {192.0.2.1;192.0.2.2;);
                      +};
    ----------
              ID: start_dns
@@ -738,7 +738,7 @@ watch the banner file in addition to anything it is already watching.
 
 Extend rules and regulation
 ---------------------------
-The ``extend`` declaration is a "top level declaration". This means that
+The ``extend`` declaration is a **top-level declaration**. This means that
 ``extend`` can only be called once in an SLS file. If it is declared more
 than once, then only the second ``extend`` block will be used.
 
@@ -770,11 +770,11 @@ The following example is **wrong**:
 
 Things to remember when extending states:
 
-*  Always include the SLS file(s) being extended with an ``include``
+*  Always include the SLS files being extended with an ``include``
    declaration
 *  Requisites ``watch`` and ``require`` are appended to, everything else is
    overwritten
-*  ``extend`` is a "top level declaration". Like the state ID, it cannot be
+*  ``extend`` is a **top level declaration**. Like the state ID, it cannot be
    declared more than once in a single SLS
 *  Many state IDs can be extended using the ``extend`` declaration
 

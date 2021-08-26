@@ -11,10 +11,10 @@ Salt runners are convenience applications executed with the ``salt-run`` command
 Salt runners work similarly to Salt execution modules however they execute on the Salt master instead of the Salt minions.
 
 A Salt runner can be a simple client call or a complex application.
-Figure 11.1 shows how a runner can be used to communicate with 3rd party applications and allow for passing data received from minions
+Figure 11.1 shows how a runner can be used to communicate with third-party applications and allow for passing data received from minions
 
 .. image:: ../_static/img/runners.png
-   :alt: A runner can be used to communicate with 3rd party applications and allow for passing data received from minions
+   :alt: A runner can be used to communicate with third-party applications and allow for passing data received from minions
 
 
 Runners for reporting

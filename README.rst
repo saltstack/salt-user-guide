@@ -17,7 +17,7 @@ Salt User Guide
 .. image:: https://img.shields.io/badge/stackoverflow-saltstack-orange.svg
    :target: https://stackoverflow.com/questions/tagged/salt-stack+or+salt-cloud+or+salt-creation+or+salt-contrib?sort=Newest
 
-If you're looking to learn about Salt, you've come to the right place!
+If you're looking to learn about Salt, you've come to the right place.
 
 - `View the Sphinx-built documentation here <https://saltstack.gitlab.io/open/docs/salt-user-guide>`__
 - `View the source repo here <https://gitlab.com/saltstack/open/docs/salt-user-guide>`__

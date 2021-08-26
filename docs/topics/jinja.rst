@@ -126,9 +126,9 @@ These dictionaries are available through Jinja.
 
 The most commonly used dictionaries are:
 
-*  ``grains``: – all grains for the minion
-*  ``pillar``: – all pillar data available to the minion
-*  ``salt``: – all available execution modules and functions
+*  ``grains``: all grains for the minion
+*  ``pillar``: all pillar data available to the minion
+*  ``salt``: all available execution modules and functions
 
 Accessing grains with Jinja
 ---------------------------
@@ -349,7 +349,7 @@ Iterations can be used with more complex dictionaries to directly extract ``key/
 
     {% set servers = {
       'proxy': {
-        'host': '10.27.20.18',
+        'host': '203.0.113.18',
         'chassis': {
           'name': 'fx2-1',
           'management_mode': '2'

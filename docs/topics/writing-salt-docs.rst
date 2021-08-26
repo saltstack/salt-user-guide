@@ -8,7 +8,7 @@ Version 1.0 - last updated April 2021
 
 Introduction
 ============
-Welcome to the Salt documentation guide!
+Welcome to the Salt documentation guide.
 All of the Salt Project documentation is written in reStructured Text (rST), a flavor of Markdown that is specifically designed to work with Python-based projects.
 This guide will explain how to format your rST in the Salt Project documentation.
 
@@ -109,7 +109,7 @@ This renders as:
 
    autosign_grains_dir: /etc/salt/autosign_grains
 
-If your code block contains an executed command, remove any command prompts such as "$".
+If your code block contains an executed command, remove any command prompts such as ``$``.
 
 
 Admonitions (tips, note boxes, warnings)
