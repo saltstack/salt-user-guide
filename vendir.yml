@@ -13,16 +13,16 @@ directories:
     newRootPath: Google
   - path: Salt
     git:
-      url: https://gitlab.com/ggiesen/salt-branding-guide
-      ref: origin/vale_style_guide
+      url: https://gitlab.com/saltstack/open/salt-branding-guide
+      ref: origin/master
     includePaths:
     - style-guide/vale/styles/Salt/*
     legalPaths: []
     newRootPath: style-guide/vale/styles/Salt
   - path: Vocab/Salt
     git:
-      url: https://gitlab.com/ggiesen/salt-branding-guide
-      ref: origin/vale_style_guide
+      url: https://gitlab.com/saltstack/open/salt-branding-guide
+      ref: origin/master
     includePaths:
     - style-guide/vale/styles/Vocab/Salt/*
     legalPaths: []

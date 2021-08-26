@@ -229,7 +229,7 @@ point you to where an issue may exist.
 
 
 What is vale?
--------------------
+-------------
 
 ``vale`` is a tool that will automatically run from ``pre-commit`` to enforce the
 :ref:`style-guide` and suggest general writing guidelines
