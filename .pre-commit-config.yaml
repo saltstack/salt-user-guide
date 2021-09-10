@@ -2,7 +2,7 @@
 minimum_pre_commit_version: 2.9.3
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
       - id: check-merge-conflict
         description: Check for files that contain merge conflict strings.
@@ -29,13 +29,13 @@ repos:
           You must provide list of target files as input in your .pre-commit-config.yaml file.
         files: ^(.*requirements.*\.txt|\.brokignore|sitevars.rst)$
   - repo: https://github.com/timothycrosley/isort
-    rev: "5.6.4"
+    rev: "5.9.3"
     hooks:
       - id: isort
         description: isort is a Python utility / library to sort imports automatically.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/psf/black
-    rev: 21.4b2
+    rev: 21.8b0
     hooks:
       - id: black
         description: Forces best practice formatting of Python code files.
@@ -50,12 +50,12 @@ repos:
         files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
         exclude: docs/topics/pillar.rst
   - repo: https://github.com/asottile/blacken-docs
-    rev: v1.9.1
+    rev: v1.10.0
     hooks:
       - id: blacken-docs
         description: Run black on python code blocks in documentation files.
         files: ^(index|docs/.*|docs/_includes/.*)\.rst$
-        additional_dependencies: [black==21.4b2]
+        additional_dependencies: [black==21.8b0]
   - repo: local
     hooks:
       - id: vendir
@@ -72,7 +72,7 @@ repos:
         language: system
         files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
   - repo: https://github.com/saltstack/mirrors-nox
-    rev: v2020.8.22
+    rev: v2021.6.12
     hooks:
       - id: nox
         alias: Generate Sphinx docs
