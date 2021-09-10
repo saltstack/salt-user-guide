@@ -1,21 +1,20 @@
 ---
 stages:
-  - test
+  - pre-commit
   - build
-  - publish
+  - publish-docs-gitlab
 
-url-tester:
-  stage: test
-  image: debian:buster-slim
-  script:
-    - apt-get update && apt-get install wget libtinfo5 -y
-    - wget https://github.com/smallhadroncollider/brok/releases/download/1.1.0/brok-1.1.0_x86-64-linux.deb
-    - dpkg -i brok-1.1.0_x86-64-linux.deb
-    - brok --ignore $(cat .brokignore) $(find . -type f -name "*.rst") $(find . -type f -name "*.py") $(find . -type f -name "*.y*ml")
+include:
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/url-tester-brok.yml
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/build-docs-html-nox.yml
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/publish-docs-gitlab.yml
 
 pre-commit:
-  stage: test
-  image: python:3.8-buster
+  stage: pre-commit
+  image: python:3.8-bullseye
   script:
     - pip install -U pip setuptools wheel
     - pip install -r requirements-dev.txt
@@ -23,29 +22,3 @@ pre-commit:
     - wget https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.22.0/vendir-linux-amd64 -O /usr/local/bin/vendir && chmod 0755 /usr/local/bin/vendir
     - pre-commit install
     - pre-commit run -a -v --color always
-
-build-site:
-  stage: build
-  image: python:3.8
-  script:
-    - pip install -U pip setuptools wheel
-    - pip install -r requirements-dev.txt
-    - wget -O docs/_static/img/SaltProject_altlogo_teal.png https://gitlab.com/saltstack/open/salt-branding-guide/-/raw/master/logos/SaltProject_altlogo_teal.png?inline=false
-    - wget -O docs/_static/img/SaltProject_Logomark_teal.png https://gitlab.com/saltstack/open/salt-branding-guide/-/raw/master/logos/SaltProject_Logomark_teal.png?inline=false
-    - nox -e 'docs-html(clean=False)'
-    - mv docs/_build/html html
-  artifacts:
-    paths:
-      - html
-    expire_in: 30 days
-
-pages:
-  stage: publish
-  image: alpine:3.12
-  script:
-    - mv html public
-    - 'echo "Gitlab Pages available at: ${CI_PAGES_URL}"'
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
