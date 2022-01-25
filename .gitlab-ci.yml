@@ -1,16 +1,9 @@
 ---
 stages:
   - pre-commit
-  - build
-  - publish-docs-gitlab
-
-include:
-  - project: saltstack/pop/cicd/ci-templates
-    file: /docswork/url-tester-brok.yml
-  - project: saltstack/pop/cicd/ci-templates
-    file: /docswork/build-docs-html-nox.yml
-  - project: saltstack/pop/cicd/ci-templates
-    file: /docswork/publish-docs-gitlab.yml
+  - build-docs
+  - publish-docs
+  - trigger-upload
 
 pre-commit:
   stage: pre-commit
@@ -22,3 +15,40 @@ pre-commit:
     - wget https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.22.0/vendir-linux-amd64 -O /usr/local/bin/vendir && chmod 0755 /usr/local/bin/vendir
     - pre-commit install
     - pre-commit run -a -v --color always
+
+build-docs-html:
+  stage: build-docs
+  image: python:3.8
+  script:
+    - apt update && apt install python3-enchant -y
+    - pip install -U pip setuptools wheel nox
+    - nox -e 'docs-html(clean=True)'
+    - mv docs/_build/html html
+  artifacts:
+    paths:
+      - html
+    expire_in: 30 days
+
+pages:
+  stage: publish-docs
+  image: debian:bullseye-slim
+  script:
+    - mv html public
+    - 'echo "Gitlab Pages available at: ${CI_PAGES_URL}"'
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+
+trigger-upload:
+  stage: trigger-upload
+  rules:
+    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_PROJECT_PATH == $CICD_UPSTREAM_PATH'
+  variables:
+    ARTIFACT_PIPELINE_ID: $CI_PIPELINE_ID
+    GITLAB_PROJECT_PATH: "saltstack%2Fopen%2Fdocs%2Fsalt-user-guide"
+    DOCS_PATH: "docs.saltproject.io/salt/user-guide/en/latest"
+    RCLONE_OPTIONS: "sync -c -v"
+  trigger:
+    project: saltstack/open/docs/docs-upload
+    strategy: depend
