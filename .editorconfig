@@ -1,0 +1,16 @@
+# For more info on EditorConfig, see: http://EditorConfig.org
+
+root = true
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+[*.rst]
+charset = utf-8
+max_line_length = 80
+trim_trailing_whitespace = true
