@@ -1,16 +1,17 @@
 .. _style-guide:
 
-================
-Salt style guide
-================
+======================================
+Salt Project documentation style guide
+======================================
 
-Version 1.0 - last updated February 2021
+Version 1.1 - last updated February 2022
 
 Introduction
 ============
-Welcome to the Salt Project style guide. This style guide is intended for use by
-project contributors, not necessarily end-users. It provides general guidance to
-anyone who contributes to the Salt project's documentation about:
+Welcome to the Salt Project documentation style guide. This style guide is
+intended for use by project contributors, not necessarily end-users. It provides
+general guidance to anyone who contributes to the Salt project's documentation
+about:
 
 * How to use and refer to Salt Project terms and other aspects of word choice.
 * Grammar and formatting conventions such as capitalization, person, voice,
@@ -20,8 +21,8 @@ For additional help, see:
 
 * :ref:`writing-salt-docs` - For information about the conventions we want you
   to use when formatting reStructured Text (rST).
-* :ref:`contributing` - For more information about contributing to this
-  repository specifically, including setting up your environment.
+* :ref:`contributing` - For more information about contributing to the Salt User
+  Guide repository specifically, including setting up your environment.
 
 
 .. Note::
@@ -33,6 +34,7 @@ For additional help, see:
     If we discover Salt documentation that is not following these rules as we
     are made aware of it. If you notice a style guide inconsistency, you are
     always welcome and encouraged to open a new issue explaining the problem.
+    Better yet: open a merge or pull request and fix the issue yourself!
 
 
 Intended audience and scope
@@ -43,8 +45,24 @@ can help project contributors to communicate clearly and consistently in the
 Salt documentation.
 
 
-Our preferred style guide: Google
-=================================
+Our preferred style guides: Google
+==================================
+We have adopted the Google's style guides as our preferred style guides for both
+documentation and for formatting docstrings in Python.
+
+
+Google style Python docstrings
+------------------------------
+We use the `Google Python Style Guide <https://google.github.io/styleguide/pyguide.html>`_
+for formatting docstrings in our module documentation.
+
+For the specific docstrings guidelines, see `Comments and docstrings <https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings>`_.
+
+See also the `Sphinx Docs - Example Google style Python docstrings <https://www.sphinx-doc.org/en/master/usage/extensions/example_google.html>`_.
+
+
+Google developer documentation style
+------------------------------------
 We have adopted the `Google developer documentation style guide
 <https://developers.google.com/style>`_ for Salt documentation. When writing
 documentation for our project, align with the Google style guide's voice and
@@ -53,6 +71,7 @@ tone.
 For a quick summary, see the `Google style guide highlights
 <https://developers.google.com/style/highlights>`_. The rest of this document
 describes our project-specific customizations to Google's guide.
+
 
 
 Highlights from Google developer docs style guide

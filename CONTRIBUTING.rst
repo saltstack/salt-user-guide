@@ -1,12 +1,11 @@
 .. _contributing:
 
-==================
-Contributing guide
-==================
+==================================
+Contributing to Salt documentation
+==================================
 
 Ways to contribute
 ==================
-
 Here at the Salt Project, we value all contributions, not just contributions to
 the code. In addition to contributing to the code, you can help the Salt Project
 by:
@@ -47,9 +46,8 @@ This repository uses the following tools:
   for the project.
 
 
-Overview of how to contribute to this repository
-================================================
-
+Overview of how to contribute to the Salt User Guide repository
+===============================================================
 To contribute to this repository, you first need to set up your own local repository:
 
 * `Fork, clone, and branch the repo`_
@@ -68,7 +66,6 @@ At any time, you can ask a member of the documentation team for assistance.
 
 Prerequisites
 =============
-
 Contributing to Salt requires an account on `GitLab.com <https://about.gitlab.com/>`__.
 If you do not already have one, create a free account on the `GitLab sign-up page <https://gitlab.com/users/sign_up/>`__.
 
@@ -80,9 +77,9 @@ For local development, the following prerequisites are needed:
 * `vale <https://docs.errata.ai/vale/install>`__
 * `vendir <https://carvel.dev/#install>`__
 
-Windows 10 users
-----------------
 
+Windows users
+-------------
 For the best experience, when contributing from a Windows OS to projects using
 Python-based tools like ``pre-commit``, we recommend setting up `Windows Subsystem
 for Linux (WSL) <https://docs.microsoft.com/en-us/windows/wsl/>`__, with the
@@ -93,16 +90,30 @@ contributors:
 
 * `Official Microsoft docs on installing WSL <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`__
 
+* Alternatively, you can download and install it from the Microsoft store, which
+  you can access by typing ``store`` in the Start menu search.
+
+Some additional helpful resources:
+
+* Some Windows users enjoy using Windows Terminal to access the WSL command
+  line. See `Windows Terminal installation <https://docs.microsoft.com/en-us/windows/terminal/install>`_.
+
+* If you're using Windows Terminal and Ubuntu, see `How to add Ubuntu Tab to Windows 10’s New Terminal <https://rkstrdee.medium.com/how-to-add-ubuntu-tab-to-windows-10s-new-terminal-271eb6dfd8ee>`_.
+
+* You might also want to install the Magic Monty Git Bash Prompt utility, which
+  provides some nice Git highlighting features for quality of life. See
+  `Installing Git Bash Prompt via a Git clone <https://github.com/magicmonty/bash-git-prompt#via-git-clone>`_.
+
 * A list of PowerShell commands in a gist to `Enable WSL and Install Ubuntu 20.04
-  <https://gist.github.com/ScriptAutomate/f94cd44dacd0f420fae65414e717212d>`__
+  <https://gist.github.com/ScriptAutomate/f94cd44dacd0f420fae65414e717212d>`__.
 
-  * Ensure you also read the comment thread below the main content for
-    additional guidance about using Python on the WSL instance.
+* Ensure you also read the comment thread below the main content for additional
+  guidance about using Python on the WSL instance.
 
-We recommend `Installing Chocolatey on Windows 10 via PowerShell w/ Some Starter Packages
-<https://gist.github.com/ScriptAutomate/02e0cf33786f869740ee963ed6a913c1>`__.
-This installs ``git``, ``microsoft-windows-terminal``, and other helpful tools via
-the awesome Windows package management tool, `Chocolatey <https://chocolatey.org/why-chocolatey>`__.
+We recommend `Installing Chocolatey on Windows 10 via PowerShell w/ Some Starter
+Packages <https://gist.github.com/ScriptAutomate/02e0cf33786f869740ee963ed6a913c1>`__.
+This installs ``git``, ``microsoft-windows-terminal``, and other helpful tools
+via the awesome Windows package management tool, `Chocolatey <https://chocolatey.org/why-chocolatey>`__.
 
 ``choco install git`` easily installs ``git`` for a good Windows-dev experience.
 From the ``git`` package page on Chocolatey:
@@ -111,9 +122,9 @@ From the ``git`` package page on Chocolatey:
 * Git GUI
 * Shell Integration
 
+
 Fork, clone, and branch the repo
 ================================
-
 The Salt Project uses the fork and branch Git workflow. For an overview of this method,
 see
 `Using the Fork-and-Branch Git Workflow <https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/>`__.
@@ -135,8 +146,9 @@ Then, clone the forked repo to your local machine:
 .. note::
 
     Before cloning your forked repo, you need to create an SSH
-    key so that your local Git repository can authenticate to the GitLab remote server.
-    See `GitLab and SSH keys <https://docs.gitlab.com/ee/ssh/README.html>`__ for instructions.
+    key so that your local Git repository can authenticate to the GitLab remote
+    server. See `GitLab and SSH keys <https://docs.gitlab.com/ee/ssh/README.html>`__
+    for instructions.
 
 Configure the remotes for your main upstream repository:
 
@@ -157,9 +169,9 @@ Create new branch for changes to submit:
 
     git checkout -b my-new-feature
 
+
 Set up your local preview environment
 =====================================
-
 If you are not on a Linux machine, you need to set up a virtual environment to
 preview your local changes and ensure the `prerequisites`_ are met for a Python
 virtual environment.
@@ -186,18 +198,16 @@ From within your local copy of the forked repo:
     # Setup pre-commit
     pre-commit install
 
-    # Run vendir to download vale styles
-    vendir sync
 
 All required files should now be in place.
 
-``pre-commit``, ``nox``, and ``vale`` Setup
--------------------------------------------
 
+``pre-commit``, ``nox``, and ``vale`` setup
+-------------------------------------------
 Here at Salt we use `pre-commit <https://pre-commit.com/>`__,
 `nox <https://nox.thea.codes/en/stable/>`__, and `vale <https://docs.errata.ai/vale/about>`__
-to make it easier for contributors to get quick feedback, for quality control, and to increase
-the chance that your merge request will get reviewed and merged.
+to make it easier for contributors to get quick feedback, for quality control,
+and to increase the chance that your merge request will get reviewed and merged.
 
 ``nox`` handles Sphinx requirements and plugins for you, always ensuring your
 local packages are the needed versions when building docs. You can think of it
@@ -206,7 +216,6 @@ as Make with superpowers.
 
 What is pre-commit?
 -------------------
-
 ``pre-commit`` is a tool that will automatically run
 local tests when you attempt to make a git commit. To view what tests are run,
 you can view the ``.pre-commit-config.yaml`` file at the root of the
@@ -222,21 +231,20 @@ point you to where an issue may exist.
 
 .. warning::
 
-    Currently there is an issue with the pip-tools-compile pre-commit hook on Windows.
-    The details around this issue are included here:
+    Currently there is an issue with the pip-tools-compile pre-commit hook on
+    Windows. The details around this issue are included here:
     https://github.com/saltstack/salt/issues/56642.
     Please ensure you export ``SKIP=pip-tools-compile`` to skip pip-tools-compile.
 
 
-What is vale?
+What is Vale?
 -------------
-
 ``vale`` is a tool that will automatically run from ``pre-commit`` to enforce the
 :ref:`style-guide` and suggest general writing guidelines
 when you attempt to make a git commit.
 
-Vale can check your writing in real-time (or near-realtime) in a wide variety of editors,
-including plugins for:
+Vale can check your writing in real-time (or near-realtime) in a wide variety of
+editors, including plugins for:
 
 * `Atom <https://atom.io/packages/atomic-vale>`__
 * `Vim <https://github.com/lgalke/vim-compiler-vale>`__
@@ -252,7 +260,6 @@ permit auto-correction (along with other features).
 
 Sync local master branch with upstream master
 =============================================
-
 If needing to sync feature branch with changes from upstream master, do the
 following:
 
@@ -273,12 +280,12 @@ following:
 
 Preview HTML changes locally
 ============================
-
 To ensure that the changes you are implementing are formatted correctly, you
 should preview a local build of your changes first.
 
-For simplified workflow, a live-reload version of the documentation can run in the background while writing docs.
-To build and serve the Sphinx HTML documentation, with live-reloading on all file changes (for every save):
+For simplified workflow, a live-reload version of the documentation can run in
+the background while writing docs. To build and serve the Sphinx HTML
+documentation, with live-reloading on all file changes (for every save):
 
 .. code-block:: bash
 
@@ -317,9 +324,8 @@ The above two approaches view the same docs output, just one is live-reloading.
     `Set up your local preview environment`_.
 
 
-Preview changes in Gitlab Pages
+Preview changes in GitLab Pages
 ===============================
-
 After you submit a merge request to this repo, the documentation generated by
 Sphinx in this repository is published via GitLab Pages. This feature allows
 you to share a preview of your changes with the merge approvers.
@@ -348,7 +354,6 @@ Notice that ``https://gitlab.io/<username>`` changed to
 
 Single-branch deployment warning
 --------------------------------
-
 **GitLab Pages** will always deploy the **latest branch** of a repository. Keep
 this in mind when it comes to forks or the upstream repo, as the latest branch
 to be pushed to the repository will be what GitLab Pages deploys. It is not
