@@ -44,6 +44,9 @@ This repository uses the following tools:
 * GitLab handles the
   `CI/CD pipeline <https://gitlab.com/saltstack/open/docs/salt-user-guide/-/pipelines>`__
   for the project.
+* `EditorConfig <https://editorconfig.org/>`__ is an optional tool you can use
+  with your preferred editor to ensure that you follow the Salt Project coding
+  guidelines.
 
 
 Overview of how to contribute to the Salt User Guide repository
@@ -168,6 +171,17 @@ Create new branch for changes to submit:
 .. code-block:: bash
 
     git checkout -b my-new-feature
+
+
+Configure your editor (optional)
+================================
+`EditorConfig <https://editorconfig.org/>`__ is an optional tool you can use
+with your preferred code/text editor to ensure that you follow the Salt Project
+coding and style guidelines. To enable EditorConfig, check the compatibility
+and configuration settings for your preferred code/text editor.
+
+Using EditorConfig is optional for contributing to this repository, but
+recommended.
 
 
 Set up your local preview environment
