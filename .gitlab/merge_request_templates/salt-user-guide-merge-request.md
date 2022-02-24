@@ -1,7 +1,7 @@
 
 ## What does this MR do?
 
-Describe merge request here.
+Describe the purpose of the merge request here.
 
 
 ## What issues does this PR fix or reference?
@@ -14,8 +14,16 @@ OR
 after merging.)
 
 
-### Merge requirements satisfied?
+## GitLab Pages preview
 
+Include a link to preview the changes you're making on your fork, replacing the
+placeholder text with your GitLab username:
+https://your-GitLab-username.gitlab.io/salt-user-guide/
+
+
+### Merge requirements satisfied? (FOR REVIEWER USE ONLY)
+
+- [ ] Verify the pipeline is passing
 - [ ] Check rendered output to ensure formatting is correct for any special
       directives such as notes, tables, lists, and images
 - [ ] Review new or modified topics to ensure they follow the [style
