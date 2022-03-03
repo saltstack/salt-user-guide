@@ -240,8 +240,12 @@ to files that have been updated. This includes Python formatting best
 practices, proper file line-endings (which can be a problem with repository
 contributors using differing operating systems), and more.
 
-If an error is found that cannot be automatically fixed, error output will help
-point you to where an issue may exist.
+If pre-commit fails, try running it a second time. Sometimes on the first
+pass, pre-commit automatically fixes any errors (such as line ending
+characters that are weirdly added by Windows operating systems). If you
+run pre-commit a second time, it should pass. If it doesn't pass again,
+that means you have a genuine error that you need to fix. Use the error
+codes and messages to troubleshoot.
 
 .. warning::
 
