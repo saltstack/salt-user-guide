@@ -332,4 +332,28 @@ The syntax for images is as follows::
 Always assign an alternate image name to improve accessibility.
 
 
-Tabs
+Footnotes
+=========
+Sphinx provides the ability to add footnotes to a section of text.
+
+In the body of your text where you want the footnote to appear, use this syntax::
+
+  Text preceding first footnote. [#f1]_
+  Text preceding second footnote. [#f2]_
+
+Then place this reference in the text where you want the footnote reference to
+appear::
+
+  .. [#f1] Text of the first footnote.
+
+  .. [#f2] Text of the second footnote.
+
+These footnotes render as:
+
+Text preceding first footnote. [#f1]_
+
+Text preceding second footnote. [#f2]_
+
+.. [#f1] Text of the first footnote.
+
+.. [#f2] Text of the second footnote.
