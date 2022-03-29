@@ -35,7 +35,7 @@ repos:
         description: isort is a Python utility / library to sort imports automatically.
         files: ^((noxfile|conf)|docs/_includes/python/.*)\.py$
   - repo: https://github.com/psf/black
-    rev: 21.8b0
+    rev: 22.3.0
     hooks:
       - id: black
         description: Forces best practice formatting of Python code files.
