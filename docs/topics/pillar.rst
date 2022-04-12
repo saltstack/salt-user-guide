@@ -157,7 +157,7 @@ Salt will load any external pillar modules in the specified ``extension_modules`
 
 With the directory set and code loaded for external pillar, the final step for implementation is to configure the master.
 
-Set ``ext_pillar` in ``/etc/salt/master.d/ext_pillar.conf``:
+Set ``ext_pillar`` in ``/etc/salt/master.d/ext_pillar.conf``:
 
 .. code-block:: yaml
 
