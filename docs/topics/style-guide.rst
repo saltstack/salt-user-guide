@@ -31,10 +31,9 @@ For additional help, see:
     not as a direct promise to perfectly comply with this guide in all Salt
     documentation.
 
-    If we discover Salt documentation that is not following these rules as we
-    are made aware of it. If you notice a style guide inconsistency, you are
-    always welcome and encouraged to open a new issue explaining the problem.
-    Better yet: open a merge or pull request and fix the issue yourself!
+    If you notice a style guide inconsistency, you are always welcome and
+    encouraged to open a new issue explaining the problem. Better yet: we
+    empower you to fix the issue yourself and open a merge or pull request.
 
 
 Intended audience and scope
