@@ -75,10 +75,37 @@ If you do not already have one, create a free account on the `GitLab sign-up pag
 For local development, the following prerequisites are needed:
 
 * `git <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>`__
-* `Python 3.6+ <https://realpython.com/installing-python/>`__
+* `Python 3.7+ <https://realpython.com/installing-python/>`__
 * `Ability to create python venv <https://realpython.com/python-virtual-environments-a-primer/>`__
 * `vale <https://docs.errata.ai/vale/install>`__
 * `vendir <https://carvel.dev/#install>`__
+
+
+Linux/macOS users
+-----------------
+We recommend installing `Homebrew <https://brew.sh/>`__, as it allows easy installation of
+`vale <https://docs.errata.ai/vale/install>`__ and `vendir <https://carvel.dev/#install>`__.
+
+To install Homebrew:
+
+.. code-block:: bash
+
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+You can then proceed with installing prerequisites:
+
+.. code-block:: bash
+
+   # Update Homebrew
+   brew update
+
+   # vale
+   brew install vale
+
+   # vendir
+   brew tap vmware-tanzu/carvel
+   brew install vendir
 
 
 Windows users
@@ -124,6 +151,18 @@ From the ``git`` package page on Chocolatey:
 * Git BASH
 * Git GUI
 * Shell Integration
+
+If you're using WSL, proceed with installing requirements from `Linux/macOS users`_ above.
+
+Otherwise, you can then proceed with installing prerequisites:
+
+.. code-block:: bash
+
+   # vale
+   choco install vale
+
+   # vendir
+   choco install vendir
 
 
 Fork, clone, and branch the repo
@@ -196,7 +235,7 @@ From within your local copy of the forked repo:
 
     # Setup venv
     python3 -m venv .venv
-    # If Python 3.6+ is in path as 'python', use the following instead:
+    # If Python 3.7+ is in path as 'python', use the following instead:
     # python -m venv .venv
 
     # Activate venv
@@ -211,6 +250,10 @@ From within your local copy of the forked repo:
 
     # Setup pre-commit
     pre-commit install
+
+    # If you want to use Vale's in-editor style checking immediately
+    # (Will be pulled down automatically at first commit)
+    pre-commit run vendir
 
 
 All required files should now be in place.
