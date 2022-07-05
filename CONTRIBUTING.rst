@@ -37,7 +37,7 @@ This repository uses the following tools:
   a static site generator that converts the rST into HTML for publication on the
   web.
 * Sphinx applies the
-  `SaltStack Material Theme for Sphinx <https://gitlab.com/saltstack/open/docs/sphinx-material-saltstack>`__
+  `Furo Theme for Sphinx <https://github.com/pradyunsg/furo>`__
   to render the site.
 * The guide is hosted directly on GitLab using the
   `GitLab pages <https://docs.gitlab.com/ee/user/project/pages/>`__ feature.
@@ -47,6 +47,7 @@ This repository uses the following tools:
 * `EditorConfig <https://editorconfig.org/>`__ is an optional tool you can use
   with your preferred editor to ensure that you follow the Salt Project coding
   guidelines.
+* Successful pipelines on the ``master`` branch get published to the ``docs.saltproject.io`` domain
 
 
 Overview of how to contribute to the Salt User Guide repository
