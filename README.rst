@@ -19,7 +19,7 @@ Salt User Guide
 
 If you're looking to learn about Salt, you've come to the right place.
 
-- `View the Sphinx-built documentation here <https://saltstack.gitlab.io/open/docs/salt-user-guide>`__
+- `View the Sphinx-built documentation here <https://docs.saltproject.io/salt/user-guide/en/latest/index.html>`__
 - `View the source repo here <https://gitlab.com/saltstack/open/docs/salt-user-guide>`__
 
 About the Salt User Guide
@@ -40,18 +40,18 @@ Related links
 =============
 Check out the following links related to the Salt User Guide:
 
-* `Salt Project <https://github.com/saltstack/salt>`__ - The repository for the
+* `Salt Project <https://github.com/saltstack/salt>`__: The repository for the
   Salt Project.
-* `Salt Project Home Page <https://saltproject.io/>`_ - The web portal for
+* `Salt Project Home Page <https://saltproject.io/>`__: The web portal for
   Salt community events and resources.
-* `Contributing Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/contributing.html>`_ -
+* `Contributing Guide <https://docs.saltproject.io/salt/user-guide/en/latest/topics/contributing.html>`__:
   For information about contributing to the Salt User Guide and other Salt
   documentation projects, including how to set up your environment and other
   policies around submitting merge requests or issues.
-* `Salt Style Guide <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/style-guide.html>`__ -
+* `Salt Style Guide <https://docs.saltproject.io/salt/user-guide/en/latest/topics/style-guide.html>`__:
   For general guidance about using Salt Project terms and other style or
   formatting conventions.
-* `Writing Salt documentation (rST guide) <https://saltstack.gitlab.io/open/docs/salt-user-guide/topics/writing-salt-docs.html>`_ -
+* `Writing Salt documentation (rST guide) <https://docs.saltproject.io/salt/user-guide/en/latest/topics/writing-salt-docs.html>`__:
   For conventions and guidelines about formatting reStructured Text (rST) in
   Salt documentation.
 
@@ -61,6 +61,10 @@ Other Salt documentation
 ------------------------
 The following documentation is part of the Salt Project documentation:
 
+* `Salt Install Guide <https://docs.saltproject.io/salt/install-guide/en/latest/>`__:
+  This guide provides instructions for installing Salt on Salt supported operating
+  systems. It also explains how to configure Salt, start Salt services, and verify
+  your installation.
 * `Salt Project documentation <https://docs.saltproject.io/en/latest/contents.html>`__:
   Includes the full documentation for the Salt Project.
 * `Module documentation <https://docs.saltproject.io/en/latest/py-modindex.html>`__:
@@ -79,10 +83,11 @@ This repository uses the following tools:
   a static site generator that converts the rST into HTML for publication on the
   web.
 * Sphinx applies the
-  `SaltStack Material Theme for Sphinx <https://gitlab.com/saltstack/open/docs/sphinx-material-saltstack>`__
+  `Furo Theme for Sphinx <https://github.com/pradyunsg/furo>`__
   to render the site.
-* The guide is hosted directly on GitLab using the
+* The guide is also accessible directly on GitLab using the
   `GitLab pages <https://docs.gitlab.com/ee/user/project/pages/>`__ feature.
 * GitLab handles the
   `CI/CD pipeline <https://gitlab.com/saltstack/open/docs/salt-user-guide/-/pipelines>`__
   for the project.
+* Successful pipelines on the ``master`` branch get published to the ``docs.saltproject.io`` domain
