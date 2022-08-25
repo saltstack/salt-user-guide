@@ -10,7 +10,6 @@ The Salt system is a Python-based, open-source remote execution framework for
 configuration management, automation, provisioning, and orchestration.
 
 .. image:: ../_static/img/features-of-salt.png
-   :align: right
    :alt: Features of Salt
 
 Salt delivers a dynamic communication bus for infrastructure to leverage in:
@@ -97,7 +96,6 @@ employees and teams while securing your system and guarding the environment
 from the misuse of powerful tools.
 
 .. image:: ../_static/img/saltstack-config-architecture.png
-   :align: right
    :alt: SaltStack Config architecture
 
 SaltStack Config features include:
@@ -113,7 +111,6 @@ SaltStack Config features include:
 * An enterprise API (eAPI)
 
 .. image:: ../_static/img/salt-architecture.png
-   :align: right
    :alt: Salt architecture
 
 Salt topology
@@ -135,7 +132,6 @@ and minions:
 * The event bus lays the groundwork for orchestration and real-time monitoring.
 
 .. image:: ../_static/img/open-event-system.png
-   :align: right
    :alt: Open event system
 
 Salt event system execution architecture

@@ -42,7 +42,6 @@ The following are some key concepts about grains:
    the right systems.
 
 .. image:: ../_static/img/master-minion-communication.jpg
-   :align: right
    :alt: Salt grains
 
 

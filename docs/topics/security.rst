@@ -27,7 +27,6 @@ ____________________________
 The following diagram shows more detail in how Salt manages keys.
 
 .. image:: ../_static/img/key-management.png
-   :align: right
    :alt: Salt master minion model
 
 Salt minion sends its public key to the Salt master.

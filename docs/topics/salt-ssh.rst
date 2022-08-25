@@ -15,7 +15,6 @@ The Salt SSH system does not supersede the standard Salt communication systems. 
 Be aware that since all communication with Salt SSH is executed via the SSH protocol, it is substantially slower than the standard Salt master-minion model.
 
 .. image:: ../_static/img/ssh-master-minion.png
-   :align: right
    :alt: Salt master-minion model
 
 Salt SSH concepts

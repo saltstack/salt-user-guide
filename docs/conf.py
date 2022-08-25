@@ -80,7 +80,7 @@ else:
 
 # -- Project information -----------------------------------------------------
 
-project = "Salt User Guide"
+project = "Salt user guide"
 copyright = f"{copyright_year}, VMware, Inc."
 author = "VMware, Inc."
 
@@ -104,10 +104,12 @@ version = release
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx-prompt",
     "sphinx_copybutton",
-    "sphinx_substitution_extensions",
-    "sphinx_tabs.tabs"
+    "sphinx_design",
+    "sphinx.ext.todo",
+    "sphinx-prompt", # Required by sphinx_substitution_extensions
+    "sphinx_inline_tabs",
+    "sphinx_substitution_extensions"
 ]
 
 source_suffix = ".rst"
@@ -141,6 +143,13 @@ html_title = project
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+# These paths are either relative to html_static_path
+# or fully qualified paths (eg. https://example.com)
+html_css_files = [
+    'css/import-all-salt-docs.css',
+    'css/local-testing.css'
+]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
