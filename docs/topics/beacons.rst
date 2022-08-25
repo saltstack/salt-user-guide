@@ -10,7 +10,6 @@ Beacons are a monitoring tool that is set up on the salt-minion process to expan
 Beacons can reduce the need for user-triggered configuration and management because they enable autonomous monitoring and event publishing that are triggered by designated system processes.
 
 .. image:: ../_static/img/beacons.png
-   :align: right
    :alt: Beacons
 
 

@@ -58,7 +58,6 @@ Salt State files are rendered on the ``salt-minion`` in a decentralized computat
 This removes possible bottlenecks when rendering and executing modules on the ``salt-master``.
 
 .. image:: ../_static/img/states.png
-   :align: right
    :alt: Illustration of a state file on a master which stores them. Minions communicate with the master such that the master sends state to the minions which the minions - or state system - process and return the results to the master.
 
 For more information, see the list of `Renderer Modules <https://docs.saltproject.io/en/latest/ref/renderers/all/index.html#all-salt-renderers>`__.

@@ -18,7 +18,6 @@ Looking into the processing of Salt state files we see that:
 The stages and data layers of the Salt state system are shown in the following image:
 
 .. image:: ../_static/img/state-stages-data-layers.png
-   :align: right
    :alt: The stages and data layers of the Salt state system. The top file and SLS files are passed through rendering which is output as high data. This is then passed to a compile state which outputs low data. This is then passed to a runtime stage which outputs low chunk which is then evaulted and executed. Ultimately, the results are returned.
 
 Stages of Salt state execution
@@ -85,7 +84,6 @@ ____________________________
 The following image shows where rendering happens in the state execution process:
 
 .. image:: ../_static/img/state-execution-rendering.png
-   :align: right
    :alt: The state execution rendering pipeline in the state execution process. The file and sls files are passed the Jinja renderer which converts this into YAML which then is passed to the YAML renderer
 
 Rendering pipeline in the stages of state execution. This example shows the data conversion of a state when rendered and templated.
@@ -269,7 +267,6 @@ Now that the state has been rendered it is ready to compile. The Salt state comp
 The following image shows state compiler routines
 
 .. image:: ../_static/img/state-compiler-routines.png
-   :align: right
    :alt: The state compiler routines where the high data output by the render is processed. There is a reconciliation that is processed in the following order: _in, use, prereq, extend, name or names, and lastly the low state compiler.
 
 Reconciliation
@@ -363,7 +360,6 @@ The state runtime consists of:
 The following image shows the state runtime stage:
 
 .. image:: ../_static/img/state-runtime-stage.png
-   :align: right
    :alt: The low data from the compile stage is passed to the runtime stage where it's ordered and evaluated, producing low chunk, which is then executed.
 
 The runtime is a staged recursive algorithm that uses linear graph traversal to evaluate all requisites. This means:
@@ -500,5 +496,4 @@ Summarizing the state processing routines
 The Salt state system provides a reliable process of evaluating state files so that they evaluate accurately and consistently:
 
 .. image:: ../_static/img/render-compile-runtime.png
-   :align: right
    :alt: Illustration of the render of state stage moving into the compile of state stage moving into the runtime of state stage. Initial grouping of bullet points where 1. high state called 2. top file red matches dictionary created 3. sls files rendered 4. unrefined high data created 5. evalution of includes 6. Inject with sub bullets of order, __sls__, __env__. A second set of bullet points where 1. reconciliation with sub bullets of 1. conversion of _in declarations to counterparts 2. evaluate use declarations 3. handle prereq declarations 4. reconcile extend statements 5. handle name references 6. evaluation of extends and a second main bullet of compile low state. A third and final list of bullet points of 1. order 2. eval chunk and 3. execution with a sub bullet of 1. function calls.

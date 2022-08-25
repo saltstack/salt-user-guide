@@ -35,10 +35,10 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contributing
+   :hidden:
+   :caption: Contribute
 
-   topics/contributing
-   topics/writing-salt-docs
-   topics/style-guide
    topics/list-of-images
-   GitLab Repository <https://gitlab.com/saltstack/open/docs/salt-user-guide>
+   See a problem? Open an issue! <https://gitlab.com/saltstack/open/docs/salt-user-guide/-/issues>
+   Salt docs contributing guide <https://saltstack.gitlab.io/open/docs/docs-hub/topics/contributing.html>
+   GitLab repository <https://gitlab.com/saltstack/open/docs/salt-user-guide>

@@ -25,7 +25,6 @@ Salt commands execute in different ways. The three types of execution are:
 * Local execution of jobs on the Salt minion
 
 .. image:: ../_static/img/salt-execution-types.jpg
-   :align: right
    :alt: Salt execution types
 
 Each command is just a wrapper around an API client interface. The command to run determines where you are (Salt master or minions) and where you want the command to run (Salt master or minion).
@@ -313,7 +312,6 @@ That is the foundation on which it knows when to give up, reply, and when to dis
 The following diagram shows the basic execution path through the components of Salt. In this example the command ``salt \* test.ping`` is executed on the Salt master.
 
 .. image:: ../_static/img/execution-architecture.png
-   :align: right
    :alt: Execution architecture
 
 Looking at an example of Salt command execution path we see the following:

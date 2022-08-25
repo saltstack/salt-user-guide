@@ -11,7 +11,6 @@ The reactor system leverages the ``salt-master`` event bus to trigger Salt state
 Reactors expand Salt’s utility with automated responses using pre-written remediation states.
 
 .. image:: ../_static/img/reactors.jpg
-   :align: right
    :alt: Illustration of a salt master sending commands to minions which produces returns data to the event bus, as well as internal events on the salt master. The event bus outputs these events to a reactor which then outputs a reactor state back to the salt master.
 
 Reactors can be applied in a variety of scenarios:
@@ -66,7 +65,6 @@ Events are fired on the master for a number of situations:
       - Fired as a runner begins (``new``) execution or returns (``ret``).
 
 .. image:: ../_static/img/reactor-process.jpg
-   :align: right
    :alt: Illustration of the event bus from an event firing which ends with an SLS file and reactor state back to the event bus.
 
 In addition to these events, custom event tags can be created from beacons.
