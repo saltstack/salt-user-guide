@@ -139,6 +139,13 @@ html_show_sourcelink = True  # False on private repos; True on public repos
 html_theme = 'furo'
 html_title = project
 
+html_theme_options = {
+    "dark_css_variables": {
+        "color-brand-primary": "#66CCF4",
+        "color-brand-content": "#66CCF4",
+    },
+}
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
