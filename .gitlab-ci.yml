@@ -2,12 +2,32 @@
 stages:
   - pre-commit
   - build-docs
-  - publish-docs
+  - publish
   - trigger-upload
+
+include:
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/url-tester-brok.yml
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/publish-docs-gitlab.yml
+  - project: saltstack/pop/cicd/ci-templates
+    file: /docswork/salt-publish-docs-release.yml
+
+variables:
+  CICD_UPSTREAM_PATH: "saltstack/open/docs/salt-user-guide"
+
+url-tester-brok:
+  stage: pre-commit
 
 pre-commit:
   stage: pre-commit
   image: python:3.8-bullseye
+  variables:
+    PRE_COMMIT_HOME: "${CI_PROJECT_DIR}/pre-commit-cache"
+  cache:
+    key: pre-commit-cache
+    paths:
+      - pre-commit-cache/
   script:
     - pip install -U pip setuptools wheel
     - pip install -r requirements-dev.txt
@@ -30,25 +50,13 @@ build-docs-html:
     expire_in: 30 days
 
 pages:
-  stage: publish-docs
-  image: debian:bullseye-slim
-  script:
-    - mv html public
-    - 'echo "Gitlab Pages available at: ${CI_PAGES_URL}"'
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
-
-trigger-upload:
-  stage: trigger-upload
-  rules:
-    - if: '$CI_COMMIT_REF_PROTECTED == "true" && $CI_PROJECT_PATH == $CICD_UPSTREAM_PATH'
+  stage: publish
   variables:
-    ARTIFACT_PIPELINE_ID: $CI_PIPELINE_ID
-    GITLAB_PROJECT_PATH: "saltstack%2Fopen%2Fdocs%2Fsalt-user-guide"
-    DOCS_PATH: "docs.saltproject.io/salt/user-guide/en/latest"
-    RCLONE_OPTIONS: "sync -c -v"
-  trigger:
-    project: saltstack/open/docs/docs-upload
-    strategy: depend
+    CICD_DOCS_VERSION_LATEST: latest
+
+publish-docs:
+  stage: trigger-upload
+  variables:
+    CICD_S3_DEST_PATH: "docs.saltproject.io/salt/user-guide/"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_PROJECT_PATH == $CICD_UPSTREAM_PATH'

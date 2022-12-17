@@ -44,14 +44,14 @@ Check out the following links related to the Salt User Guide:
   Salt Project.
 * `Salt Project Home Page <https://saltproject.io/>`__: The web portal for
   Salt community events and resources.
-* `Contributing Guide <https://docs.saltproject.io/salt/user-guide/en/latest/topics/contributing.html>`__:
+* `Contributing Guide <https://saltstack.gitlab.io/open/docs/docs-hub/topics/contributing.html>`__:
   For information about contributing to the Salt User Guide and other Salt
   documentation projects, including how to set up your environment and other
   policies around submitting merge requests or issues.
-* `Salt Style Guide <https://docs.saltproject.io/salt/user-guide/en/latest/topics/style-guide.html>`__:
+* `Salt Style Guide <https://saltstack.gitlab.io/open/docs/docs-hub/topics/style-guide.html>`__:
   For general guidance about using Salt Project terms and other style or
   formatting conventions.
-* `Writing Salt documentation (rST guide) <https://docs.saltproject.io/salt/user-guide/en/latest/topics/writing-salt-docs.html>`__:
+* `Writing Salt documentation (rST guide) <https://saltstack.gitlab.io/open/docs/docs-hub/topics/rst-guide.html>`__:
   For conventions and guidelines about formatting reStructured Text (rST) in
   Salt documentation.
 
