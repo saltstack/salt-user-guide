@@ -29,7 +29,7 @@ repos:
           You must provide list of target files as input in your .pre-commit-config.yaml file.
         files: ^(.*requirements.*\.txt|\.brokignore|sitevars.rst)$
   - repo: https://github.com/timothycrosley/isort
-    rev: "5.9.3"
+    rev: "5.11.5"
     hooks:
       - id: isort
         description: isort is a Python utility / library to sort imports automatically.
@@ -72,11 +72,12 @@ repos:
 #        language: system
 #        files: ^(index|docs/.*|docs/_includes/.*|README|CONTRIBUTING)\.rst$
   - repo: https://github.com/saltstack/mirrors-nox
-    rev: v2021.6.12
+    rev: v2022.8.7
     hooks:
       - id: nox
         alias: Generate Sphinx docs
         description: Generate Sphinx docs, ensure they build
+        pass_filenames: false
         args:
           - -e
           - 'docs-html(clean=True)'
