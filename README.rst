@@ -2,8 +2,8 @@
 Salt User Guide
 ===============
 
-.. image:: https://img.shields.io/badge/slack-@saltstackcommunity-blue.svg?logo=slack
-   :target: https://join.slack.com/t/saltstackcommunity/shared_invite/zt-3av8jjyf-oBQ2M0vhXOhJpNpRkPWBvg
+.. image:: https://img.shields.io/badge/slack-SaltProject-blue.svg?logo=slack
+   :target: https://via.vmw.com/salt-slack
 
 .. image:: https://img.shields.io/twitch/status/saltprojectoss
    :target: https://www.twitch.tv/saltprojectoss
