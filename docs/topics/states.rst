@@ -107,7 +107,7 @@ However, doing the same with a Salt state requires no check state, since the ins
     install_tree_now:
       pkg.installed:
         - pkgs:
-        - tree
+            - tree
 
 .. code-block:: bash
 
@@ -240,21 +240,21 @@ The contents and layout of the files are intended to be as simple as possible, w
     :caption: /srv/salt/top.sls
 
     base:
-    '*':
-      - core
-    '^(app|web).(qa|prod).loc$':
-      - match: pcre
-      - httpd
-      - nagios.web
-    'os:Ubuntu':
-      - match: grain
-      - repos.ubuntu
-    'os_family:RedHat':
-      - match: grain
-      - repos.epel
-    'nagios* or G@role:monitoring':
-      - match: compound
-      - nagios.server
+      '*':
+        - core
+      '^(app|web).(qa|prod).loc$':
+        - match: pcre
+        - httpd
+        - nagios.web
+      'os:Ubuntu':
+        - match: grain
+        - repos.ubuntu
+      'os_family:RedHat':
+        - match: grain
+        - repos.epel
+      'nagios* or G@role:monitoring':
+        - match: compound
+        - nagios.server
 
 * ``base`` is the default environment to use as the ``file_roots``.
 * Targeting parameter is defined next.

@@ -312,15 +312,15 @@ Salt’s External Authentication System (eAuth) allows for Salt to pass through 
 
     # examples of external authentication definitions
     external_auth:
-    auth_module:	            # the authentication system
-      some_user_or_group%:	    # a user or group given access
-        'some_host':	        # a minion matching expressing
-          - exec_mod.function   # access a specific function
-          - exec_mod.*	        # access to all module functions
-          - exec_mod.*	        # all access a specific function
-          - '@wheel'	        # access to all wheel modules
-          - '@runner'	        # access to all runner modules
-          - '@jobs'             # access to the jobs runner and/or wheel module
+      auth_module:	            # the authentication system
+        some_user_or_group%:	    # a user or group given access
+          'some_host':	        # a minion matching expressing
+            - exec_mod.function   # access a specific function
+            - exec_mod.*	        # access to all module functions
+            - exec_mod.*	        # all access a specific function
+            - '@wheel'	        # access to all wheel modules
+            - '@runner'	        # access to all runner modules
+            - '@jobs'             # access to the jobs runner and/or wheel module
 
 
 LDAP external authentication
