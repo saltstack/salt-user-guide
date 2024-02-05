@@ -137,13 +137,13 @@ to do this, set ``order: last``
 
     update_status:
       module.function:
-       - name: http.query
-       - args:
-         - 'https://example.org/update-status'
-       - kwargs:
-         - method: POST
-       - params: 'keyA=valA&keyB=valB'
-       - order: last
+        - name: http.query
+        - args:
+          - 'https://example.org/update-status'
+        - kwargs:
+          - method: POST
+        - params: 'keyA=valA&keyB=valB'
+        - order: last
 
     install_app:
       pkg.installed:
