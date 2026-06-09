@@ -39,6 +39,6 @@ Table of Contents
    :caption: Contribute
 
    topics/list-of-images
-   See a problem? Open an issue! <https://gitlab.com/saltstack/open/docs/salt-user-guide/-/issues>
+   See a problem? Open an issue! <https://github.com/saltstack/salt-user-guide/issues>
    Salt docs contributing guide <https://saltstack.gitlab.io/open/docs/docs-hub/topics/contributing.html>
    GitLab repository <https://gitlab.com/saltstack/open/docs/salt-user-guide>

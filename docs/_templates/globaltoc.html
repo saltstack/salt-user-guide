@@ -1,0 +1,104 @@
+<h3><a href="{{ pathto(root_doc)|e }}">{{ project|title }}</a></h3>
+<div id="salt-globaltoc">
+{{ toctree(includehidden=True, collapse=False, maxdepth=1) }}
+</div>
+
+<style>
+#salt-globaltoc {
+    font-size: 0.875rem;
+}
+
+#salt-globaltoc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.25rem 0;
+}
+
+#salt-globaltoc p.caption {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pst-color-text-muted, #6c757d);
+    padding: 0.35rem 0.25rem 0.35rem 0;
+    margin: 0.75rem 0 0 0;
+    user-select: none;
+}
+
+#salt-globaltoc p.caption:hover {
+    color: var(--pst-color-text-base, inherit);
+}
+
+/* Triangle arrow indicator */
+#salt-globaltoc p.caption::before {
+    content: "";
+    display: inline-block;
+    flex-shrink: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 0 4px 6px;
+    border-color: transparent transparent transparent currentColor;
+    transition: transform 0.15s ease;
+}
+
+#salt-globaltoc p.caption.expanded::before {
+    transform: rotate(90deg);
+}
+
+#salt-globaltoc .toctree-l1 > a {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    color: var(--pst-color-text-base, inherit);
+    text-decoration: none;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+#salt-globaltoc .toctree-l1 > a:hover {
+    background-color: var(--pst-color-surface, rgba(0, 0, 0, 0.06));
+}
+
+#salt-globaltoc .toctree-l1.current > a,
+#salt-globaltoc .toctree-l1.current > a:hover {
+    font-weight: 600;
+    background-color: var(--pst-color-surface, rgba(0, 0, 0, 0.06));
+    color: var(--pst-color-primary, #0099cd);
+}
+</style>
+
+<script>
+(function () {
+    function initCollapsible() {
+        var container = document.getElementById("salt-globaltoc");
+        if (!container) return;
+
+        container.querySelectorAll("p.caption").forEach(function (caption) {
+            var ul = caption.nextElementSibling;
+            if (!ul || ul.tagName !== "UL") return;
+
+            if (ul.querySelector("li.current")) {
+                caption.classList.add("expanded");
+            } else {
+                ul.style.display = "none";
+            }
+
+            caption.addEventListener("click", function () {
+                var isCollapsed = ul.style.display === "none";
+                ul.style.display = isCollapsed ? "" : "none";
+                caption.classList.toggle("expanded", isCollapsed);
+            });
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initCollapsible);
+    } else {
+        initCollapsible();
+    }
+})();
+</script>
