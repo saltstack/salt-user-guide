@@ -106,8 +106,8 @@ However, doing the same with a Salt state requires no check state, since the ins
 
     install_tree_now:
       pkg.installed:
-        - pkgs:
-            - tree
+        pkgs:
+          - tree
 
 .. code-block:: bash
 
@@ -155,6 +155,19 @@ A state definition in a state file will have the following components:
 **Requisites** and **Declarations** are discussed in :ref:`requisites`.
 
 An example of a single state layout in YAML, using the names of the high data components:
+
+.. code-block:: sls
+    :caption: /srv/salt/example.sls
+
+    identifier:
+      module.function:
+        name: name_value
+        function_arg: arg_value
+        function_arg: arg_value
+        function_arg: arg_value
+
+The name and arguments for the state definition can also be specified in the traditional format
+as yaml list of individual single key value dictionaries but the newer dictionary format above is preferred.
 
 .. code-block:: sls
     :caption: /srv/salt/example.sls
@@ -486,8 +499,8 @@ The Disable USB Storage State in the ``base`` environment will look like:
 
     disable_usb:
       file.managed:
-        - name: /etc/modprobe.d/blacklist-usbstorage
-        - contents: |
+        name: /etc/modprobe.d/blacklist-usbstorage
+        contents: |
             # Blacklist USB storage
             blacklist usb-storage
 
@@ -500,22 +513,22 @@ The SSH State file will look like:
 
     install_openssh:
       pkg.installed:
-        - name: openssh
+        name: openssh
 
     push_ssh_conf:
       file.managed:
-        - name: /etc/ssh/ssh_config
-        - source: salt://ssh/ssh_config
+        name: /etc/ssh/ssh_config
+        source: salt://ssh/ssh_config
 
     push_sshd_conf:
       file.managed:
-        - name: /etc/ssh/sshd_config
-        - source: salt://ssh/sshd_config
+        name: /etc/ssh/sshd_config
+        source: salt://ssh/sshd_config
 
     start_sshd:
       service.running:
-        - name: sshd
-        - enable: True
+        name: sshd
+        enable: True
 
 Create the Apache state
 _______________________
@@ -527,17 +540,17 @@ The Apache State file will look like:
 
     implement_httpd:
       pkg.installed:
-        - name: httpd
+        name: httpd
 
     http_conf:
       file.managed:
-        - name: /etc/httpd/conf/httpd.conf
-        - source: salt://apache/httpd.conf
+        name: /etc/httpd/conf/httpd.conf
+        source: salt://apache/httpd.conf
 
     start_httpd:
       service.running:
-        - name: httpd
-        - enable: True
+        name: httpd
+        enable: True
 
 Create a ``firewalld`` state
 ____________________________
@@ -547,15 +560,15 @@ ____________________________
 
     install_firewalld:
       pkg.installed:
-          - name: firewalld
+        name: firewalld
 
     firewalld_open_web:
       firewalld.present:
-          - name: public
-          - masquerade: False
-          - ports:
-              - 80/tcp
-              - 443/tcp
+        name: public
+        masquerade: False
+        ports:
+          - 80/tcp
+          - 443/tcp
 
 Production build-out
 ____________________
