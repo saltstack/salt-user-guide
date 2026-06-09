@@ -122,9 +122,8 @@ exclude_patterns = [
 # a list of builtin themes.
 #
 
-# Base Material Theme requirements
 html_show_sourcelink = True  # False on private repos; True on public repos
-html_theme = 'furo'
+html_theme = 'pydata_sphinx_theme'
 html_title = project
 html_baseurl = 'https://docs.saltproject.io/salt/user-guide/'
 
@@ -136,12 +135,19 @@ sitemap_excludes = [
     "genindex.html",
 ]
 
+html_logo = None
 html_theme_options = {
-    "dark_css_variables": {
-        "color-brand-primary": "#66CCF4",
-        "color-brand-content": "#66CCF4",
+    "logo": {
+        "image_light": "_static/img/SaltProject_altlogo_teal.png",
+        "image_dark": "_static/img/SaltProject_altlogo_teal.png",
     },
+    "navbar_start": ["navbar-logo"],
+    "navbar_center": ["navbar-nav", "header-links"],
+    "navbar_end": ["theme-switcher", "navbar-icon-links"],
+    "navigation_depth": 4,
 }
+
+html_sidebars = {"**": ["globaltoc.html"]}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -154,10 +160,6 @@ html_css_files = [
     'css/import-all-salt-docs.css',
     'css/local-testing.css'
 ]
-
-# The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
-html_logo = "_static/img/SaltProject_altlogo_teal.png"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32

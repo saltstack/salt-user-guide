@@ -20,7 +20,7 @@ Salt User Guide
 If you're looking to learn about Salt, you've come to the right place.
 
 - `View the Sphinx-built documentation here <https://docs.saltproject.io/salt/user-guide/en/latest/index.html>`__
-- `View the source repo here <https://gitlab.com/saltstack/open/docs/salt-user-guide>`__
+- `View the source repo here <https://github.com/saltstack/salt-user-guide>`__
 
 About the Salt User Guide
 =========================
