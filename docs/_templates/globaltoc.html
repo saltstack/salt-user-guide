@@ -1,6 +1,6 @@
 <h3><a href="{{ pathto(root_doc)|e }}">{{ project|title }}</a></h3>
 <div id="salt-globaltoc">
-{{ toctree(includehidden=True, collapse=False, maxdepth=1) }}
+{{ toctree(includehidden=True, collapse=False, maxdepth=2) }}
 </div>
 
 <style>
@@ -12,6 +12,13 @@
     list-style: none;
     padding: 0;
     margin: 0 0 0.25rem 0;
+}
+
+/* Indent nested levels */
+#salt-globaltoc ul ul {
+    padding-left: 0.75rem;
+    margin: 0;
+    width: 100%;
 }
 
 #salt-globaltoc p.caption {
@@ -33,7 +40,7 @@
     color: var(--pst-color-text-base, inherit);
 }
 
-/* Triangle arrow indicator */
+/* Triangle arrow indicator on captions */
 #salt-globaltoc p.caption::before {
     content: "";
     display: inline-block;
@@ -50,7 +57,56 @@
     transform: rotate(90deg);
 }
 
-#salt-globaltoc .toctree-l1 > a {
+/* Flex layout for li items that have children, so link + toggle button sit on one row */
+#salt-globaltoc li.has-children {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#salt-globaltoc li.has-children > a {
+    flex: 1;
+    min-width: 0;
+}
+
+#salt-globaltoc li.has-children > ul {
+    width: 100%;
+}
+
+/* Toggle button injected next to links that have children */
+#salt-globaltoc .toc-toggle {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem 0.35rem;
+    color: var(--pst-color-text-muted, #6c757d);
+    line-height: 1;
+    border-radius: 4px;
+}
+
+#salt-globaltoc .toc-toggle:hover {
+    color: var(--pst-color-text-base, inherit);
+    background-color: var(--pst-color-surface, rgba(0, 0, 0, 0.06));
+}
+
+#salt-globaltoc .toc-toggle::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 0 4px 6px;
+    border-color: transparent transparent transparent currentColor;
+    transition: transform 0.15s ease;
+}
+
+#salt-globaltoc .toc-toggle.expanded::before {
+    transform: rotate(90deg);
+}
+
+/* Link styles for all toctree levels */
+#salt-globaltoc li > a {
     display: block;
     padding: 0.25rem 0.5rem;
     color: var(--pst-color-text-base, inherit);
@@ -59,38 +115,94 @@
     line-height: 1.4;
 }
 
-#salt-globaltoc .toctree-l1 > a:hover {
+#salt-globaltoc li > a:hover {
     background-color: var(--pst-color-surface, rgba(0, 0, 0, 0.06));
 }
 
-#salt-globaltoc .toctree-l1.current > a,
-#salt-globaltoc .toctree-l1.current > a:hover {
+#salt-globaltoc li.current > a,
+#salt-globaltoc li.current > a:hover {
     font-weight: 600;
     background-color: var(--pst-color-surface, rgba(0, 0, 0, 0.06));
     color: var(--pst-color-primary, #0099cd);
+}
+
+/* Slightly smaller text for deeper levels */
+#salt-globaltoc .toctree-l2 > a,
+#salt-globaltoc .toctree-l3 > a,
+#salt-globaltoc .toctree-l4 > a {
+    font-size: 0.85rem;
+    padding: 0.18rem 0.5rem;
 }
 </style>
 
 <script>
 (function () {
+    function hasCurrentDescendant(ul) {
+        return !!ul.querySelector("li.current");
+    }
+
     function initCollapsible() {
         var container = document.getElementById("salt-globaltoc");
         if (!container) return;
 
+        // Caption-level collapsing (start expanded by default)
         container.querySelectorAll("p.caption").forEach(function (caption) {
             var ul = caption.nextElementSibling;
             if (!ul || ul.tagName !== "UL") return;
 
-            if (ul.querySelector("li.current")) {
-                caption.classList.add("expanded");
-            } else {
-                ul.style.display = "none";
-            }
+            caption.classList.add("expanded");
 
             caption.addEventListener("click", function () {
                 var isCollapsed = ul.style.display === "none";
                 ul.style.display = isCollapsed ? "" : "none";
                 caption.classList.toggle("expanded", isCollapsed);
+            });
+        });
+
+        // Nested li collapsing: any li that directly contains a ul
+        container.querySelectorAll("li").forEach(function (li) {
+            var childUl = li.querySelector(":scope > ul");
+            if (!childUl) return;
+
+            var link = li.querySelector(":scope > a");
+            if (!link) return;
+
+            // Distinguish sub-pages (no # in href) from intra-page section headers (# in href)
+            var childLinks = childUl.querySelectorAll(":scope > li > a");
+            var hasSubPages = false;
+            childLinks.forEach(function (childLink) {
+                var href = childLink.getAttribute("href") || "";
+                if (href.indexOf("#") === -1) {
+                    hasSubPages = true;
+                }
+            });
+
+            if (!hasSubPages) {
+                // Children are section headers of this page — hide them entirely
+                childUl.style.display = "none";
+                return;
+            }
+
+            li.classList.add("has-children");
+
+            var btn = document.createElement("button");
+            btn.className = "toc-toggle";
+            btn.setAttribute("aria-label", "Toggle section");
+
+            var expanded = li.classList.contains("current") || hasCurrentDescendant(childUl);
+            if (expanded) {
+                btn.classList.add("expanded");
+            } else {
+                childUl.style.display = "none";
+            }
+
+            link.insertAdjacentElement("afterend", btn);
+
+            btn.addEventListener("click", function (e) {
+                e.stopPropagation();
+                var isCollapsed = childUl.style.display === "none";
+                childUl.style.display = isCollapsed ? "" : "none";
+                btn.classList.toggle("expanded", isCollapsed);
             });
         });
     }
