@@ -135,11 +135,10 @@ sitemap_excludes = [
     "genindex.html",
 ]
 
-html_logo = None
+html_logo = "_static/img/SaltProject_altlogo_teal.png"
 html_theme_options = {
     "logo": {
-        "image_light": "_static/img/SaltProject_altlogo_teal.png",
-        "image_dark": "_static/img/SaltProject_altlogo_teal.png",
+        "link": "https://saltproject.io",
     },
     "navbar_start": ["navbar-logo"],
     "navbar_center": ["navbar-nav", "header-links"],

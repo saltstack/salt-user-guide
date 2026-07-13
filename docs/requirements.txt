@@ -1,5 +1,5 @@
 Sphinx-Substitution-Extensions>=2022.2.16
-pydata-sphinx-theme
+pydata-sphinx-theme==0.20.0
 sphinx-copybutton>=0.5.1
 sphinx-design>=0.3.0
 sphinx-inline-tabs>=2022.1.2b11
