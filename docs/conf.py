@@ -157,7 +157,7 @@ html_static_path = ["_static"]
 # or fully qualified paths (eg. https://example.com)
 html_css_files = [
     'css/import-all-salt-docs.css',
-    'css/local-testing.css'
+    'css/local-testing.css',
 ]
 
 # The name of an image file (within the static path) to use as favicon of the
