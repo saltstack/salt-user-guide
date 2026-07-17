@@ -135,16 +135,35 @@ sitemap_excludes = [
     "genindex.html",
 ]
 
-html_logo = None
+html_logo = "_static/img/SaltProject_altlogo_teal.png"
 html_theme_options = {
     "logo": {
-        "image_light": "_static/img/SaltProject_altlogo_teal.png",
-        "image_dark": "_static/img/SaltProject_altlogo_teal.png",
+        "link": "https://saltproject.io",
     },
     "navbar_start": ["navbar-logo"],
     "navbar_center": ["navbar-nav", "header-links"],
     "navbar_end": ["theme-switcher", "navbar-icon-links"],
     "navigation_depth": 4,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/saltstack/salt-user-guide",
+            "icon": "fa-brands fa-github",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Discord",
+            "url": "https://discord.gg/J7b7EscrAs",
+            "icon": "fa-brands fa-discord",
+            "type": "fontawesome",
+        },
+        {
+            "name": "RSS Feed",
+            "url": "https://saltproject.io/community/rss-feeds/",
+            "icon": "fa-solid fa-rss",
+            "type": "fontawesome",
+        },
+    ],
 }
 
 html_sidebars = {"**": ["globaltoc.html"]}
@@ -158,7 +177,7 @@ html_static_path = ["_static"]
 # or fully qualified paths (eg. https://example.com)
 html_css_files = [
     'css/import-all-salt-docs.css',
-    'css/local-testing.css'
+    'css/local-testing.css',
 ]
 
 # The name of an image file (within the static path) to use as favicon of the

@@ -1,1 +1,29 @@
 @import url("https://saltstack.gitlab.io/open/docs/docs-hub/_static/css/all-salt-docs.css");
+
+/* Custom Sidebar Title Styling */
+h3.salt-nav-title {
+    font-size: 1.125rem !important; /* Adjusts size to match saltproject.io */
+    font-weight: 600 !important;    /* Gives it a slightly bold, clean weight */
+    margin-bottom: 1rem;
+    padding-left: 0;
+}
+
+h3.salt-nav-title a {
+    color: #333333 !important;      /* Dark gray text matching the main site */
+    text-decoration: none !important; /* Removes the underline */
+    box-shadow: none !important;    /* Removes any border-bottom shadows applied by the theme */
+}
+
+h3.salt-nav-title a:hover {
+    color: #00e1cc !important;      /* Salt Project's signature teal on hover */
+    text-decoration: none !important;
+}
+
+/* Custom Sidebar Title Styling - Dark Mode Override */
+html[data-theme="dark"] h3.salt-nav-title a {
+    color: #f8f9fa !important;        /* Light text for dark mode visibility */
+}
+
+html[data-theme="dark"] h3.salt-nav-title a:hover {
+    color: #00e1cc !important;        /* Keeps the teal hover in dark mode */
+}
