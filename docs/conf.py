@@ -144,6 +144,26 @@ html_theme_options = {
     "navbar_center": ["navbar-nav", "header-links"],
     "navbar_end": ["theme-switcher", "navbar-icon-links"],
     "navigation_depth": 4,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/saltstack/salt-user-guide",
+            "icon": "fa-brands fa-github",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Discord",
+            "url": "https://discord.gg/J7b7EscrAs",
+            "icon": "fa-brands fa-discord",
+            "type": "fontawesome",
+        },
+        {
+            "name": "RSS Feed",
+            "url": "https://saltproject.io/community/rss-feeds/",
+            "icon": "fa-solid fa-rss",
+            "type": "fontawesome",
+        },
+    ],
 }
 
 html_sidebars = {"**": ["globaltoc.html"]}
