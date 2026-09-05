@@ -125,10 +125,10 @@ exclude_patterns = [
 html_show_sourcelink = True  # False on private repos; True on public repos
 html_theme = 'pydata_sphinx_theme'
 html_title = project
-html_baseurl = 'https://docs.saltproject.io/salt/user-guide/'
-
-# Extends baseurl, in combination with version value
-sitemap_locales = ['en']
+html_baseurl = 'https://docs.saltproject.io/salt/user-guide/en/latest/'
+sitemap_url_scheme = "{link}"   # lang/version now live in html_baseurl, so canonical is correct too
+sitemap_locales = [None]        # single-language site: drop redundant self-referential xhtml:link alternates
+sitemap_show_lastmod = True     # git commit time of each source .rst
 # Pages we don't care to include in generated sitemap file
 sitemap_excludes = [
     "search.html",
